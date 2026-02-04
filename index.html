@@ -3073,8 +3073,10 @@
             </div>
             <img id="productDetailImage" class="product-detail-image" src="" alt="Фото товара">
             <div class="product-detail-content">
-                <div id="productDetailPrice" class="product-detail-price"></div>
-                <div id="productDetailSpecialPrice" class="product-detail-price" style="background: #FCD34D; color: #000000; font-weight: 600; display: none; margin-top: 8px;"></div>
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px;">
+                    <div id="productDetailPrice" class="product-detail-price" style="margin: 0;"></div>
+                    <div id="productDetailSpecialPrice" class="product-detail-price" style="background: #FCD34D; color: #000000; font-weight: 600; display: none; margin: 0;"></div>
+                </div>
                 <div id="productDetailDescription" class="product-detail-description"></div>
                 <div class="product-detail-buttons" style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
                     <button onclick="makePhoneCall(event)" class="product-detail-btn">
@@ -3896,29 +3898,7 @@
                             <div class="space-y-2 mb-4">
                 `;
 
-                if (navigation) {
-                    const breadcrumbs = ['СКИДКА СЕРВИС']; // Всегда начинаем с "СКИДКА СЕРВИС"
-                    
-                    if (navigation.section) {
-                        breadcrumbs.push(navigation.section.name);
-                    }
-                    
-                    if (navigation.category) {
-                        breadcrumbs.push(navigation.category.name);
-                    }
-                    
-                    if (navigation.model && navigation.model.name !== "Без модели") {
-                        breadcrumbs.push(navigation.model.name);
-                    }
-                    
-                    if (navigation.submodel && navigation.submodel.name !== "Без подмодели") {
-                        breadcrumbs.push(navigation.submodel.name);
-                    }
-
-                    if (breadcrumbs.length > 1) { // Изменяем условие, так как у нас всегда есть "СКИДКА СЕРВИС"
-                        html += `<p class="breadcrumb-text text-gray-400 text-xs text-contrast">${breadcrumbs.join(' → ')}</p>`;
-                    }
-                }
+                // Хлебные крошки удалены
 
                 html += `</div>`;
 
@@ -5957,56 +5937,8 @@
         }
 
         function renderProductBreadcrumbs(navigation) {
-            if (!navigation.section && !navigation.category && !navigation.model && !navigation.submodel) {
-                return '';
-            }
-
-            const breadcrumbs = [];
-            
-            if (navigation.section) {
-                breadcrumbs.push({
-                    name: navigation.section.name,
-                    action: `loadCategories('${navigation.section.id}', '${navigation.section.name.replace(/'/g, "\\'")}')`
-                });
-            }
-            
-            if (navigation.category) {
-                breadcrumbs.push({
-                    name: navigation.category.name,
-                    action: `loadModels('${navigation.section.id}', '${navigation.section.name.replace(/'/g, "\\'")}', '${navigation.category.id}', '${navigation.category.name.replace(/'/g, "\\'")}')`
-                });
-            }
-            
-            if (navigation.model && navigation.model.name !== "Без модели") {
-                breadcrumbs.push({
-                    name: navigation.model.name,
-                    action: `loadSubmodels('${navigation.section.id}', '${navigation.section.name.replace(/'/g, "\\'")}', '${navigation.category.id}', '${navigation.category.name.replace(/'/g, "\\'")}', '${navigation.model.id}', '${navigation.model.name.replace(/'/g, "\\'")}')`
-                });
-            }
-            
-            if (navigation.submodel && navigation.submodel.name !== "Без подмодели") {
-                breadcrumbs.push({
-                    name: navigation.submodel.name,
-                    action: `loadProducts('${navigation.section.id}', '${navigation.section.name.replace(/'/g, "\\'")}', '${navigation.category.id}', '${navigation.category.name.replace(/'/g, "\\'")}', '${navigation.model.id}', '${navigation.model.name.replace(/'/g, "\\'")}', '${navigation.submodel.id}', '${navigation.submodel.name.replace(/'/g, "\\'")}')`
-                });
-            }
-
-            if (breadcrumbs.length === 0) {
-                return '';
-            }
-
-            let html = '<div class="breadcrumb-container mb-4 p-3 bg-gray-50 rounded-lg">';
-            html += '<div class="flex items-center flex-wrap text-sm text-gray-600">';
-            
-            breadcrumbs.forEach((crumb, index) => {
-                if (index > 0) {
-                    html += '<span class="breadcrumb-separator">→</span>';
-                }
-                html += `<span class="breadcrumb-item" onclick="${crumb.action}">${escapeHtml(crumb.name)}</span>`;
-            });
-
-            html += '</div></div>';
-            return html;
+            // Хлебные крошки полностью удалены
+            return '';
         }
 
         function renderAllProducts() {
