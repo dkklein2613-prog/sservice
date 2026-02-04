@@ -2953,12 +2953,21 @@
             </div>
         </header>
 
-        <!-- Закрепленная кнопка поиска под хэдером -->
-        <div style="position: sticky; top: 0; z-index: 19; background: var(--bg-primary); padding: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-            <button onclick="toggleSearch()" style="width: 100%; padding: 12px; background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 12px; display: flex; align-items: center; justify-content: center; gap: 8px; color: var(--text-primary); font-weight: 500; cursor: pointer; transition: all 0.3s ease;">
+        <!-- Закрепленная кнопка/строка поиска под хэдером -->
+        <div id="stickySearchContainer" style="position: sticky; top: 0; z-index: 19; background: var(--bg-primary); padding: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+            <!-- Кнопка поиска -->
+            <button id="stickySearchBtn" onclick="showStickySearchInput()" style="width: 100%; padding: 12px; background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 12px; display: flex; align-items: center; justify-content: center; gap: 8px; color: var(--text-primary); font-weight: 500; cursor: pointer; transition: all 0.3s ease;">
                 <i data-feather="search" class="w-5 h-5"></i>
                 <span>Поиск товаров</span>
             </button>
+            <!-- Строка поиска -->
+            <div id="stickySearchInput" style="display: none; width: 100%; position: relative;">
+                <i data-feather="search" style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; color: var(--text-primary); pointer-events: none;"></i>
+                <input type="text" id="stickySearchField" placeholder="Поиск товаров..." style="width: 100%; padding: 12px 40px 12px 40px; background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 12px; color: var(--text-primary); font-size: 14px;" />
+                <button onclick="hideStickySearchInput()" style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); padding: 4px; background: transparent; border: none; cursor: pointer; color: var(--text-primary);">
+                    <i data-feather="x" style="width: 20px; height: 20px;"></i>
+                </button>
+            </div>
         </div>
 
         <!-- Строка поиска между хедером и контентом -->
@@ -3878,7 +3887,6 @@
                                         <span class="price-badge">${escapeHtml(price)}</span>
                                     ` : ''}
                                     ${showSpecialPrice ? `
-                                        <span style="color: #10b981; font-weight: 700; font-size: 18px;">+</span>
                                         <span class="price-badge" style="background: #FCD34D; color: #000000; font-weight: 600;">${escapeHtml(specialPrice)}</span>
                                     ` : ''}
                                 </div>
@@ -6618,6 +6626,46 @@
                 setTimeout(() => {
                     searchInput.focus();
                 }, 300); // Даём время на прокрутку
+            }
+        }
+
+        function showStickySearchInput() {
+            const btn = document.getElementById('stickySearchBtn');
+            const input = document.getElementById('stickySearchInput');
+            const field = document.getElementById('stickySearchField');
+            
+            btn.style.display = 'none';
+            input.style.display = 'block';
+            
+            if (typeof feather !== 'undefined') {
+                feather.replace();
+            }
+            
+            setTimeout(() => {
+                field.focus();
+            }, 100);
+            
+            // Подключаем поиск к этому полю
+            field.addEventListener('input', (e) => {
+                const query = e.target.value;
+                if (query.length >= 2) {
+                    clearTimeout(searchTimeout);
+                    searchTimeout = setTimeout(() => performSearch(query), 500);
+                }
+            });
+        }
+
+        function hideStickySearchInput() {
+            const btn = document.getElementById('stickySearchBtn');
+            const input = document.getElementById('stickySearchInput');
+            const field = document.getElementById('stickySearchField');
+            
+            field.value = '';
+            input.style.display = 'none';
+            btn.style.display = 'flex';
+            
+            if (typeof feather !== 'undefined') {
+                feather.replace();
             }
         }
 
