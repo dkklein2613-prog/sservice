@@ -2895,10 +2895,6 @@
                 <i data-feather="map-pin"></i>
                 <span>2GIS</span>
             </button>
-            <button class="desktop-action-btn" onclick="loadBrigades()">
-                <i data-feather="users"></i>
-                <span>Бригады</span>
-            </button>
             <button class="desktop-action-btn" onclick="callTaxi()">
                 <i data-feather="map"></i>
                 <span>Такси</span>
@@ -3025,12 +3021,8 @@
             <!-- Контент загружается динамически -->
         </main>
 
-        <!-- Мобильный блок кнопок Бригады и Такси теперь внизу -->
+        <!-- Мобильный блок кнопки Такси теперь внизу -->
         <div class="bottom-action-buttons" style="display: none; margin-top: 24px;" id="mobileBrigadeTaxi">
-            <button class="square-action-button" onclick="loadBrigades()">
-                <i data-feather="users" class="square-button-icon"></i>
-                Бригады
-            </button>
             <button class="square-action-button" onclick="callTaxi()">
                 <i data-feather="map" class="square-button-icon"></i>
                 Такси
@@ -3207,13 +3199,6 @@
                             <div>
                                 <div class="font-medium">2GIS</div>
                                 <div class="text-sm opacity-80">Наш адрес на карте</div>
-                            </div>
-                        </div>
-                        <div class="menu-item" onclick="loadBrigades(); closeSideMenu();">
-                            <i data-feather="users"></i>
-                            <div>
-                                <div class="font-medium">Бригады</div>
-                                <div class="text-sm opacity-80">Все бригады</div>
                             </div>
                         </div>
                         <div class="menu-item" onclick="callTaxi(); closeSideMenu();">
