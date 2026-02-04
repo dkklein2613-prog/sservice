@@ -1,0 +1,8012 @@
+<!-- Удалён ошибочный JS/HTML-фрагмент. Начало файла теперь полностью корректное. -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>СКИДКА СЕРВИС Каталог</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --tg-theme-bg-color: #ffffff;
+            --tg-theme-text-color: #000000;
+            --tg-theme-hint-color: #999999;
+            --tg-theme-secondary-bg-color: #f4f4f5;
+            --tg-theme-button-color: #3B82F6;
+            --tg-theme-button-text-color: #ffffff;
+        }
+        
+        /* Темная тема (по умолчанию) */
+        body {
+            --bg-primary: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            --bg-secondary: rgba(30, 41, 59, 0.95);
+            --bg-card: rgba(255, 255, 255, 0.03);
+            --border-color: rgba(255, 255, 255, 0.15);
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --text-hint: #999999;
+            --shadow-color: rgba(0, 0, 0, 0.2);
+            --hover-bg: rgba(255, 255, 255, 0.08);
+        }
+        
+        /* Светлая тема */
+        body.light-theme {
+            --bg-primary: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            --bg-secondary: rgba(248, 250, 252, 0.98);
+            --bg-card: rgba(255, 255, 255, 0.95);
+            --border-color: rgba(0, 0, 0, 0.1);
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-hint: #64748b;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --hover-bg: rgba(0, 0, 0, 0.05);
+        }
+        
+        body.light-theme h1,
+        body.light-theme h2,
+        body.light-theme h3 {
+            color: #0f172a !important;
+        }
+        
+        /* Дополнительные стили для светлой темы */
+        body.light-theme .chat-modal,
+        body.light-theme .product-detail-modal {
+            background: rgba(248, 250, 252, 0.98) !important;
+            color: #0f172a !important;
+        }
+        
+        /* info-modal всегда темное */
+        body.light-theme .info-modal {
+            background: rgba(0, 0, 0, 0.9) !important;
+            color: #ffffff !important;
+        }
+        
+        body.light-theme .menu-divider {
+            background: rgba(0, 0, 0, 0.1);
+        }
+        
+        body.light-theme .close-search-btn-inline,
+        body.light-theme .search-toggle-btn {
+            color: #0f172a !important;
+        }
+        
+        /* Общие стили и шрифты */
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        
+        h1, h2, h3 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        /* Базовый стиль для всех стеклянных кнопок */
+        .glass-btn, button:not(.no-glass) {
+            background: var(--bg-card) !important;
+            border: 1px solid var(--border-color) !important;
+            color: var(--text-primary) !important;
+            border-radius: 16px !important;
+            backdrop-filter: blur(40px) saturate(180%) !important;
+            -webkit-backdrop-filter: blur(40px) saturate(180%) !important;
+            transition: all 0.3s ease !important;
+            box-shadow: 0 8px 32px var(--shadow-color), inset 0 1px 0 var(--border-color) !important;
+            cursor: pointer !important;
+        }
+        
+        .glass-btn:hover, button:not(.no-glass):hover {
+            background: var(--hover-bg) !important;
+            border-color: var(--border-color) !important;
+            transform: translateY(-2px) !important;
+            box-shadow: 0 12px 40px var(--shadow-color), inset 0 1px 0 var(--border-color) !important;
+            color: var(--text-primary) !important;
+        }
+        
+        /* Светлая тема - дополнительные стили для кнопок */
+        body.light-theme .glass-btn,
+        body.light-theme button:not(.no-glass) {
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.5) !important;
+        }
+        
+        .tg-theme-button {
+            background: var(--bg-card) !important;
+            border: 1px solid var(--border-color) !important;
+            color: var(--text-primary) !important;
+            border-radius: 16px !important;
+            backdrop-filter: blur(40px) saturate(180%) !important;
+            -webkit-backdrop-filter: blur(40px) saturate(180%) !important;
+            transition: all 0.3s ease !important;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5) !important;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+            font-weight: 600 !important;
+        }
+        
+        .tg-theme-button:hover {
+            background: var(--hover-bg) !important;
+            border-color: var(--border-color) !important;
+            transform: translateY(-2px) !important;
+            box-shadow: 0 12px 40px var(--shadow-color), inset 0 1px 0 var(--border-color) !important;
+            color: var(--text-primary) !important;
+        }
+        
+        .tg-theme-text {
+            color: var(--tg-theme-text-color, #ffffff) !important;
+        }
+        
+        .tg-theme-hint {
+            color: var(--tg-theme-hint-color, #999999);
+        }
+        
+        .tg-theme-secondary-bg {
+            background-color: var(--tg-theme-secondary-bg-color, #f4f4f5);
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: contain;
+            background-color: #f3f4f6;
+        }
+        
+        /* Адаптивная высота изображений для сетки */
+        @media (min-width: 768px) {
+            .product-image {
+                height: 180px;
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .product-image {
+                height: 220px;
+            }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.3s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .external-link {
+            color: #3B82F6;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+        
+        .price-badge {
+            background-color: #10B981;
+            color: #ffffff;
+            padding: 4px 8px;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+        
+        .image-loading {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+        }
+        
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+        
+        .breadcrumb-item {
+            cursor: pointer !important;
+            color: var(--text-primary) !important;
+            padding: 6px 14px !important;
+            border-radius: 12px !important;
+            background: rgba(255, 255, 255, 0.03) !important;
+            border: 1px solid rgba(255, 255, 255, 0.15) !important;
+            backdrop-filter: blur(40px) saturate(180%) !important;
+            -webkit-backdrop-filter: blur(40px) saturate(180%) !important;
+            transition: all 0.3s ease !important;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5) !important;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+        }
+        
+        .breadcrumb-item:hover {
+            background: rgba(255, 255, 255, 0.08) !important;
+            border-color: rgba(255, 255, 255, 0.3) !important;
+            transform: translateY(-1px) !important;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
+            color: #000000 !important;
+        }
+        
+        .breadcrumb-separator {
+            margin: 0 8px;
+            color: #6B7280;
+        }
+        
+        .product-list {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+        
+        /* Адаптивная сетка для планшетов */
+        @media (min-width: 640px) {
+            .product-list {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        /* Адаптивная сетка для десктопа */
+        @media (min-width: 768px) {
+            .product-list {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 20px;
+            }
+        }
+        
+        /* Для широких экранов */
+        @media (min-width: 1280px) {
+            .product-list {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 24px;
+            }
+        }
+        
+        /* Для очень широких экранов */
+        @media (min-width: 1536px) {
+            .product-list {
+                grid-template-columns: repeat(5, 1fr);
+            }
+        }
+        
+        .product-card {
+            background: var(--bg-card);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px var(--shadow-color);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            color: var(--text-primary) !important;
+        }
+
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 48px var(--shadow-color);
+            border-color: var(--border-color);
+            background: var(--hover-bg);
+        }
+
+        .product-card * {
+            color: var(--text-primary) !important;
+        }
+        
+        .category-card {
+            background: var(--bg-card);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px var(--shadow-color);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            color: var(--text-primary) !important;
+        }
+
+        .category-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 60px var(--shadow-color);
+            border-color: var(--border-color);
+            background: var(--hover-bg);
+        }
+
+        .category-card * {
+            color: var(--text-primary) !important;
+        }
+        
+        /* Контейнер для категорий - адаптивная сетка */
+        .categories-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+        
+        /* Preview контейнер на всю ширину сетки */
+        .categories-grid #preview-container {
+            grid-column: 1 / -1;
+        }
+        
+        /* Адаптивная сетка категорий для планшетов */
+        @media (min-width: 640px) {
+            .categories-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        /* Адаптивная сетка категорий для десктопа */
+        @media (min-width: 1024px) {
+            .categories-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 16px;
+            }
+        }
+        
+        /* Для широких экранов */
+        @media (min-width: 1536px) {
+            .categories-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        
+        .retry-button {
+            background: rgba(255, 255, 255, 0.03) !important;
+            border: 1px solid rgba(255, 255, 255, 0.15) !important;
+            color: white !important;
+            padding: 12px 24px !important;
+            border-radius: 16px !important;
+            cursor: pointer !important;
+            font-weight: 600 !important;
+            backdrop-filter: blur(40px) saturate(180%) !important;
+            -webkit-backdrop-filter: blur(40px) saturate(180%) !important;
+            transition: all 0.3s ease !important;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5) !important;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+        }
+        
+        .retry-button:hover {
+            background: rgba(255, 255, 255, 0.08) !important;
+            border-color: rgba(255, 255, 255, 0.3) !important;
+            transform: translateY(-2px) !important;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+        }
+        
+        .action-button {
+            flex: 1;
+            padding: 14px 16px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.15) !important;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: #ffffff !important;
+            background: rgba(255, 255, 255, 0.03) !important;
+            backdrop-filter: blur(40px) saturate(180%) !important;
+            -webkit-backdrop-filter: blur(40px) saturate(180%) !important;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5) !important;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+        }
+        
+        .action-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.08) !important;
+            border-color: rgba(255, 255, 255, 0.3) !important;
+            color: #ffffff !important;
+        }
+        
+        .phone-button, .gis-button, .taxi-button {
+            background: rgba(255, 255, 255, 0.03) !important;
+            border: 1px solid rgba(255, 255, 255, 0.15) !important;
+            color: #ffffff !important;
+            border-radius: 16px !important;
+            backdrop-filter: blur(40px) saturate(180%) !important;
+            -webkit-backdrop-filter: blur(40px) saturate(180%) !important;
+            transition: all 0.3s ease !important;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5) !important;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+            font-weight: 600 !important;
+        }
+        
+        /* Эффект хаотичного разлетания элементов при неактивности */
+        .idle-scatter {
+            animation: scatterAway 2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+        
+        @keyframes scatterAway {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--scatter-x, 0), var(--scatter-y, 0)) rotate(var(--scatter-rotate, 0deg));
+                opacity: 0.3;
+            }
+        }
+        
+        .idle-return {
+            animation: returnToPlace 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+        
+        @keyframes returnToPlace {
+            0% {
+                transform: translate(var(--scatter-x, 0), var(--scatter-y, 0)) rotate(var(--scatter-rotate, 0deg));
+                opacity: 0.3;
+            }
+            100% {
+                transform: translate(0, 0) rotate(0deg);
+                opacity: 1;
+            }
+        }
+        
+        /* Фото при разлетании */
+        .photo-overlay {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            z-index: 10000;
+            opacity: 0;
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 90vw;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        
+        .photo-overlay.show {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+        
+        .photo-image {
+            width: 100%;
+            max-width: 750px;
+            height: auto;
+            max-height: 70vh;
+            object-fit: contain;
+            animation: photoPulse 2s ease-in-out infinite;
+            background: transparent;
+            border: none;
+            outline: none;
+            display: block;
+            margin: 0 auto;
+        }
+        
+        @keyframes photoPulse {
+            0%, 100% { 
+                transform: scale(1);
+            }
+            50% { 
+                transform: scale(1.03);
+            }
+        }
+        
+        .photo-message {
+            margin-top: 30px;
+            color: #ffffff;
+            padding: 0;
+            font-size: 18px;
+            font-weight: 700;
+            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.8), 0 2px 4px rgba(0, 0, 0, 0.6);
+            background: transparent;
+        }
+        
+        /* Кран */
+        .crane-overlay {
+            position: fixed;
+            top: 10px;
+            z-index: 10000;
+            pointer-events: none;
+            font-size: 48px;
+            transition: left 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            opacity: 0;
+        }
+        
+        .crane-overlay.show {
+            opacity: 1;
+        }
+        
+        .crane-hook {
+            position: absolute;
+            width: 2px;
+            background: linear-gradient(180deg, #666 0%, #333 100%);
+            transform-origin: top;
+            animation: hookSwing 2s ease-in-out infinite;
+        }
+        
+        @keyframes hookSwing {
+            0%, 100% { transform: rotate(-2deg); }
+            50% { transform: rotate(2deg); }
+        }
+        
+        /* Строитель с часами */
+        .builder-overlay {
+            position: absolute;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        
+        .builder-overlay.show {
+            opacity: 1;
+        }
+        
+        .builder-character {
+            font-size: 64px;
+            animation: builderBounce 1s ease-in-out infinite;
+        }
+        
+        .builder-character img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+        
+        @keyframes builderBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .builder-clock {
+            font-size: 48px;
+            animation: clockTap 0.8s ease-in-out infinite;
+            transform-origin: center;
+        }
+        
+        @keyframes clockTap {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+        
+        .builder-message {
+            background: rgba(0, 0, 0, 0.8);
+            color: #ffffff;
+            padding: 8px 16px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .phone-button:hover, .gis-button:hover, .taxi-button:hover {
+            background: rgba(255, 255, 255, 0.08) !important;
+            border-color: rgba(255, 255, 255, 0.3) !important;
+            transform: translateY(-2px) !important;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
+            color: #ffffff !important;
+        }
+
+        .back-button {
+            background: var(--bg-card) !important;
+            border: 1px solid var(--border-color) !important;
+            color: var(--text-primary) !important;
+            padding: 12px 20px !important;
+            border-radius: 16px !important;
+            cursor: pointer !important;
+            font-weight: 600 !important;
+            width: 100% !important;
+            margin-top: 16px !important;
+            backdrop-filter: blur(40px) saturate(180%) !important;
+            -webkit-backdrop-filter: blur(40px) saturate(180%) !important;
+            transition: all 0.3s ease !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            box-shadow: 0 8px 32px var(--shadow-color), inset 0 1px 0 var(--border-color) !important;
+        }
+        
+        .back-button:hover {
+            background: var(--hover-bg) !important;
+            border-color: var(--border-color) !important;
+            box-shadow: 0 12px 40px var(--shadow-color), inset 0 1px 0 var(--border-color) !important;
+        }
+
+        /* Кнопка поиска в хедере */
+        .search-toggle-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 12px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-card);
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .search-toggle-btn:hover {
+            background: var(--hover-bg);
+            border-color: var(--border-color);
+        }
+
+        .search-label {
+            font-size: 14px;
+            font-weight: 500;
+            display: none;
+        }
+        
+        .search-suggestions {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-top: none;
+            border-radius: 0 0 12px 12px;
+            max-height: 300px;
+            overflow-y: auto;
+            z-index: 1000;
+            box-shadow: 0 4px 12px var(--shadow-color);
+            margin-top: -1px;
+        }
+        
+        .search-suggestion-item {
+            padding: 12px 16px;
+            cursor: pointer;
+            transition: background 0.2s;
+            color: var(--text-primary);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .search-suggestion-item:last-child {
+            border-bottom: none;
+        }
+        
+        .search-suggestion-item:hover {
+            background: var(--hover-bg);
+        }
+        
+        .search-suggestion-icon {
+            width: 16px;
+            height: 16px;
+            color: var(--text-secondary);
+        }
+
+        /* Строка поиска между хедером и контентом */
+        .search-input-container-main {
+            position: sticky;
+            top: 0;
+            z-index: 19;
+            max-width: 100%;
+            padding: 12px 16px;
+            background: var(--bg-secondary);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .search-input-container-main:focus-within {
+            border-color: rgba(59, 130, 246, 0.5);
+        }
+
+        .search-icon-header {
+            position: absolute;
+            left: 28px;
+            width: 18px;
+            height: 18px;
+            color: var(--text-secondary);
+            pointer-events: none;
+        }
+
+        .search-input-header {
+            flex: 1;
+            padding: 10px 45px 10px 50px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 15px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .search-input-header:focus {
+            background: var(--hover-bg);
+            border-color: rgba(59, 130, 246, 0.5);
+        }
+
+        .search-input-header::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+        
+        body.light-theme .search-input-header::placeholder {
+            color: rgba(0, 0, 0, 0.4);
+        }
+        
+        .search-suggestions {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-top: none;
+            border-radius: 0 0 12px 12px;
+            max-height: 300px;
+            overflow-y: auto;
+            z-index: 1000;
+            box-shadow: 0 4px 12px var(--shadow-color);
+            margin-top: -1px;
+        }
+        
+        .search-suggestion-item {
+            padding: 12px 16px;
+            cursor: pointer;
+            transition: background 0.2s;
+            color: var(--text-primary);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .search-suggestion-item:last-child {
+            border-bottom: none;
+        }
+        
+        .search-suggestion-item:hover {
+            background: var(--hover-bg);
+        }
+        
+        .search-suggestion-icon {
+            width: 16px;
+            height: 16px;
+            color: var(--text-secondary);
+        }
+
+        .close-search-btn-inline {
+            position: absolute;
+            right: 24px;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .close-search-btn-inline:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.1);
+        }
+
+        .close-search-btn-inline i {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Для мобильных */
+        @media (max-width: 767px) {
+            .search-toggle-btn {
+                padding: 8px;
+            }
+
+            .search-label {
+                display: none;
+            }
+        }
+
+        .clickable-card {
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .clickable-card:hover {
+            background-color: #f8fafc;
+        }
+
+        body {
+            background: var(--bg-primary) !important;
+            min-height: 100vh;
+            color: var(--text-primary) !important;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+        }
+
+        header {
+            background: var(--bg-card) !important;
+            border-bottom: 1px solid var(--border-color) !important;
+            backdrop-filter: blur(20px) !important;
+            -webkit-backdrop-filter: blur(20px) !important;
+            color: var(--text-primary);
+            box-shadow: 0 4px 20px var(--shadow-color) !important;
+        }
+
+        header h1, header span, header .page-title {
+            color: var(--text-primary) !important;
+        }
+
+        h1, h2, h3, h4, h5, h6, p, span, div {
+            color: inherit;
+        }
+
+        /* Переопределение Tailwind классов */
+        .text-gray-400, .text-gray-500, .text-gray-600, .text-gray-700 {
+            color: var(--text-secondary) !important;
+        }
+
+        button {
+            color: inherit;
+        }
+
+        [data-feather] {
+            color: inherit;
+        }
+
+        .text-contrast {
+            color: #ffffff !important;
+        }
+
+        .bg-contrast {
+            background-color: #ffffff !important;
+        }
+
+        .menu-button {
+            background: var(--bg-card) !important;
+            border: 1px solid var(--border-color) !important;
+            color: var(--text-primary) !important;
+            border-radius: 16px !important;
+            padding: 12px 16px !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 8px !important;
+            font-weight: 600 !important;
+            text-shadow: none !important;
+            backdrop-filter: blur(20px) !important;
+            -webkit-backdrop-filter: blur(20px) !important;
+            transition: all 0.3s ease !important;
+            box-shadow: 0 4px 16px var(--shadow-color) !important;
+            cursor: pointer !important;
+        }
+
+        .menu-button:hover {
+            background: var(--hover-bg) !important;
+            border-color: var(--border-color) !important;
+            transform: translateY(-2px) !important;
+            box-shadow: 0 8px 32px var(--shadow-color) !important;
+            color: var(--text-primary) !important;
+        }
+
+        .install-button {
+            background: var(--bg-card) !important;
+            border: 1px solid var(--border-color) !important;
+            color: var(--text-primary) !important;
+            border-radius: 16px !important;
+            padding: 12px !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 8px !important;
+            font-weight: 600 !important;
+            text-shadow: none !important;
+            backdrop-filter: blur(20px) !important;
+            -webkit-backdrop-filter: blur(20px) !important;
+            transition: all 0.3s ease !important;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1) !important;
+            cursor: pointer !important;
+        }
+
+        .install-button:hover {
+            background: rgba(255, 255, 255, 0.15) !important;
+            border-color: rgba(255, 255, 255, 0.4) !important;
+            transform: translateY(-2px) !important;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2) !important;
+            color: #ffffff !important;
+        }
+        
+        .chat-button {
+            background: rgba(255, 255, 255, 0.08) !important;
+            border: 1px solid rgba(255, 255, 255, 0.2) !important;
+            color: #ffffff !important;
+            border-radius: 16px !important;
+            padding: 8px 12px !important;
+            font-size: 12px !important;
+            font-weight: 600 !important;
+            text-shadow: none !important;
+            backdrop-filter: blur(20px) !important;
+            -webkit-backdrop-filter: blur(20px) !important;
+            transition: all 0.3s ease !important;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1) !important;
+            cursor: pointer !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 6px !important;
+        }
+        
+        .chat-button:hover {
+            background: rgba(255, 255, 255, 0.15) !important;
+            border-color: rgba(255, 255, 255, 0.4) !important;
+            transform: translateY(-2px) !important;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2) !important;
+            color: #ffffff !important;
+        }
+        
+        .chat-button i {
+            width: 14px;
+            height: 14px;
+        }
+
+        .menu-item {
+            padding: 16px 20px !important;
+            border-radius: 16px !important;
+            transition: all 0.3s ease !important;
+            cursor: pointer !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 12px !important;
+            color: var(--text-primary) !important;
+            background: var(--bg-card) !important;
+            backdrop-filter: blur(20px) !important;
+            -webkit-backdrop-filter: blur(20px) !important;
+            border: 1px solid var(--border-color) !important;
+            margin-bottom: 8px !important;
+            box-shadow: 0 4px 16px var(--shadow-color) !important;
+        }
+
+        .menu-item:hover {
+            background: var(--hover-bg) !important;
+            transform: translateX(-4px) !important;
+            border-color: var(--border-color) !important;
+            box-shadow: 0 8px 32px var(--shadow-color) !important;
+        }
+
+        .menu-item i {
+            width: 18px;
+            height: 18px;
+        }
+
+        .menu-divider {
+            height: 1px;
+            background: rgba(255, 255, 255, 0.2);
+            margin: 12px 0;
+        }
+        
+        body.light-theme .menu-divider {
+            background: var(--border-color);
+        }
+        
+        /* Стили для бокового меню */
+        #sideMenu > div {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-left: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        body.light-theme #sideMenu {
+            background: rgba(0, 0, 0, 0.3);
+        }
+        
+        body.light-theme #sideMenu > div {
+            background: rgba(255, 255, 255, 0.98);
+            border-left: 1px solid var(--border-color);
+        }
+
+        /* Скрываем десктопные элементы на мобильных */
+        .desktop-bottom-bar {
+            display: none;
+        }
+
+        .desktop-main-wrapper {
+            display: contents;
+        }
+
+        /* Стили для десктопной версии */
+        @media (min-width: 1024px) {
+            #app {
+                max-width: none !important;
+                margin: 0 !important;
+                position: relative;
+                padding-bottom: 80px;
+            }
+
+            /* Скрываем хлебные крошки на десктопе */
+            .breadcrumb-item,
+            .breadcrumb-separator,
+            .breadcrumb-container,
+            .breadcrumb-text {
+                display: none !important;
+            }
+
+            /* Скрываем содержимое header на десктопе */
+            header > div:not(#userInfoHeader) {
+                display: none !important;
+            }
+            
+            /* Показываем только userInfoHeader на десктопе */
+            header {
+                background: transparent !important;
+                box-shadow: none !important;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                z-index: 1000;
+                padding: 20px;
+                display: flex !important;
+                justify-content: center;
+            }
+            
+            #userInfoHeader {
+                background: rgba(30, 41, 59, 0.75) !important;
+                backdrop-filter: blur(40px) !important;
+                -webkit-backdrop-filter: blur(40px) !important;
+                border-radius: 16px;
+                padding: 12px 20px;
+                min-width: 300px;
+                max-width: 500px;
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+                border: 1px solid rgba(255, 255, 255, 0.15);
+                margin-bottom: 0;
+                border-bottom: none;
+            }
+
+            .desktop-bottom-bar {
+                display: flex;
+                height: 70px;
+                width: 100%;
+                flex-direction: row;
+                justify-content: center;
+                align-items: flex-end;
+                gap: 8px;
+                padding: 0 8px;
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                z-index: 100;
+                background: transparent;
+            }
+
+            .desktop-action-btn {
+                flex: 1;
+                max-width: 120px;
+                height: 70px;
+                border-radius: 12px;
+                border: none !important;
+                border-top: 3px solid var(--border-color) !important;
+                background: var(--bg-secondary) !important;
+                backdrop-filter: blur(40px) !important;
+                -webkit-backdrop-filter: blur(40px) !important;
+                color: var(--text-primary) !important;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 4px;
+                font-size: 10px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                box-shadow: none;
+                user-select: none;
+                position: relative;
+            }
+
+            .desktop-action-btn:hover {
+                background: rgba(59, 130, 246, 0.4) !important;
+                border-top-color: rgba(59, 130, 246, 0.9) !important;
+                transform: translateY(-42px) scale(2);
+                box-shadow: 0 -12px 48px rgba(59, 130, 246, 0.5);
+                z-index: 10;
+            }
+
+            .desktop-action-btn svg,
+            .desktop-action-btn i {
+                width: 24px;
+                height: 24px;
+                margin-bottom: 2px;
+                transition: transform 0.3s ease;
+            }
+
+            .desktop-action-btn:hover svg,
+            .desktop-action-btn:hover i {
+                transform: scale(2);
+            }
+
+            .desktop-action-btn span {
+                transition: transform 0.3s ease;
+            }
+
+            .desktop-action-btn:hover span {
+                transform: scale(2);
+            }
+
+            .desktop-main-wrapper {
+                display: block;
+                margin: 0 120px;
+                max-width: 1200px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            /* Кнопка поиска в хедере для десктопа */
+            .search-toggle-btn .search-label {
+                display: inline;
+            }
+
+            /* Строка поиска для десктопа */
+            .search-input-container-main {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 16px 20px;
+            }
+
+            .search-input-header {
+                font-size: 16px;
+                padding: 12px 50px 12px 50px;
+            }
+
+            .search-icon-header {
+                width: 20px;
+                height: 20px;
+                left: 32px;
+            }
+
+            .close-search-btn-inline {
+                width: 32px;
+                height: 32px;
+                right: 28px;
+            }
+
+            .close-search-btn-inline i {
+                width: 18px;
+                height: 18px;
+            }
+
+            /* Кнопка "Назад" для десктопа */
+            .back-button {
+                position: fixed !important;
+                bottom: 70px !important;
+                left: 50% !important;
+                margin-left: -600px !important;
+                width: 1200px !important;
+                height: 35px !important;
+                padding: 0 20px !important;
+                border-radius: 0 !important;
+                z-index: 99 !important;
+                background: rgba(30, 41, 59, 0.55) !important;
+                backdrop-filter: blur(40px) !important;
+                -webkit-backdrop-filter: blur(40px) !important;
+                border: none !important;
+                border-top: 2px solid rgba(255, 255, 255, 0.1) !important;
+                box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3) !important;
+                transition: background 0.3s ease, border-top-color 0.3s ease !important;
+            }
+
+            .back-button:hover {
+                background: rgba(59, 130, 246, 0.4) !important;
+                border-top-color: rgba(59, 130, 246, 0.9) !important;
+            }
+            
+            /* Адаптация для узких экранов */
+            @media (max-width: 1240px) {
+                .back-button {
+                    left: 20px !important;
+                    right: 20px !important;
+                    width: calc(100% - 40px) !important;
+                    margin-left: 0 !important;
+                }
+            }
+        }
+        
+        .taxi-service-button {
+            flex: 1;
+            padding: 12px 16px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.2) !important;
+            font-weight: 600;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: white !important;
+            background: rgba(255, 255, 255, 0.08) !important;
+            backdrop-filter: blur(20px) !important;
+            -webkit-backdrop-filter: blur(20px) !important;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1) !important;
+        }
+        
+        .taxi-service-button:hover {
+            background: rgba(255, 255, 255, 0.15) !important;
+            border-color: rgba(255, 255, 255, 0.4) !important;
+            transform: translateY(-2px) !important;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2) !important;
+        }
+        
+        .yandex-taxi, .uber-taxi {
+            background: rgba(255, 255, 255, 0.08) !important;
+            backdrop-filter: blur(20px) !important;
+            -webkit-backdrop-filter: blur(20px) !important;
+            border: 1px solid rgba(255, 255, 255, 0.2) !important;
+        }
+        
+        .yandex-taxi:hover, .uber-taxi:hover {
+            background: rgba(255, 255, 255, 0.15) !important;
+            border-color: rgba(255, 255, 255, 0.4) !important;
+        }
+        
+        /* Стили для квадратных кнопок в стартовом меню */
+        .bottom-action-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 24px 16px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        
+        .square-action-button {
+            height: 100px;
+            border: 1px solid rgba(255, 255, 255, 0.2) !important;
+            border-radius: 20px !important;
+            font-weight: 600 !important;
+            font-size: 12px !important;
+            cursor: pointer !important;
+            transition: all 0.4s ease !important;
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 6px !important;
+            color: #ffffff !important;
+            text-align: center !important;
+            position: relative !important;
+            overflow: hidden !important;
+            background: rgba(255, 255, 255, 0.08) !important;
+            backdrop-filter: blur(20px) !important;
+            -webkit-backdrop-filter: blur(20px) !important;
+            text-shadow: none !important;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1) !important;
+        }
+        
+        .square-action-button:hover {
+            transform: translateY(-4px) !important;
+            box-shadow: 0 16px 40px rgba(0,0,0,0.2) !important;
+            background: rgba(255, 255, 255, 0.15) !important;
+            border-color: rgba(255, 255, 255, 0.4) !important;
+            color: #ffffff !important;
+        }
+        
+        .square-action-button:active {
+            transform: translateY(-2px);
+        }
+        
+        .square-button-icon {
+            font-size: 16px;
+            margin-bottom: 2px;
+        }
+
+        .square-action-button svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .header-title {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            margin: 0 16px;
+        }
+
+        .main-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+            color: var(--text-primary) !important;
+            letter-spacing: -0.02em;
+        }
+
+        .sub-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.875rem;
+            color: var(--text-primary) !important;
+            font-weight: 500;
+            line-height: 1;
+            margin-top: 4px;
+            letter-spacing: 0.05em;
+        }
+
+        .favorite-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            z-index: 10;
+            backdrop-filter: blur(10px);
+        }
+
+        .favorite-button i {
+            color: #ffffff;
+        }
+
+        .favorite-button:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+            transform: scale(1.1);
+        }
+        
+        body.light-theme .favorite-button {
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(0, 0, 0, 0.2);
+        }
+        
+        body.light-theme .favorite-button i {
+            color: #000000;
+        }
+        
+        body.light-theme .favorite-button:hover {
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .favorite-button.active {
+            background-color: #EF4444;
+            border-color: #EF4444;
+        }
+
+        .favorite-button.active i {
+            color: #ffffff;
+        }
+
+        .product-card .favorite-label {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: #000000 !important;
+            z-index: 10;
+        }
+
+        .large-button {
+            padding: 12px 16px;
+            border-radius: 8px;
+            border: none;
+            font-weight: 500;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            color: white !important;
+        }
+
+        .large-button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        /* Стили для бригад */
+        .brigade-group {
+            margin-bottom: 32px;
+        }
+
+        .brigade-group-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            padding: 0 8px;
+            color: #ffffff;
+            border-left: 4px solid #3B82F6;
+            padding-left: 12px;
+        }
+
+        .brigade-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        
+        /* Desktop версия - карточки на 30% уже и выше */
+        @media (min-width: 1024px) {
+            .brigade-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 20px;
+                max-width: 1200px;
+                margin: 0 auto;
+            }
+        }
+
+        .brigade-card {
+            background: var(--bg-card);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px var(--shadow-color);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            height: 140px;
+            display: flex;
+            flex-direction: column;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            color: var(--text-primary) !important;
+        }
+        
+        /* Desktop версия - карточки выше на 30% */
+        @media (min-width: 1024px) {
+            .brigade-card {
+                height: 182px;
+            }
+        }
+
+        .brigade-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 48px var(--shadow-color);
+            border-color: var(--border-color);
+            background: var(--hover-bg);
+        }
+
+        .brigade-card * {
+            color: var(--text-primary) !important;
+        }
+
+        .chat-object-btn {
+            width: 100%;
+            margin-top: 12px;
+            padding: 12px 16px;
+            background-color: #3B82F6;
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.2s;
+        }
+
+        .chat-object-btn:hover {
+            background-color: #2563EB;
+        }
+
+        .brigade-image-container {
+            position: relative;
+            width: 100%;
+            height: 80px;
+            overflow: hidden;
+        }
+
+        .brigade-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .brigade-image-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .brigade-content {
+            padding: 12px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .brigade-title {
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: var(--text-primary);
+            line-height: 1.2;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .brigade-description {
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            line-height: 1.2;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .object-count {
+            background-color: #3B82F6;
+            color: #ffffff;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            margin-top: 4px;
+            display: inline-block;
+        }
+
+        .object-card {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+            border: 1px solid rgba(255,255,255,0.25);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            margin-bottom: 16px;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            color: #ffffff !important;
+        }
+
+        .object-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 48px rgba(0,0,0,0.2);
+            border-color: rgba(255,255,255,0.4);
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        .object-card * {
+            color: #ffffff !important;
+        }
+
+        /* Исключение для кнопки информации - более высокая специфичность */
+        .object-card .object-card .info-button,
+        .object-card .info-button,
+        .object-card .info-button *,
+        button.info-button,
+        button.info-button * {
+            color: #000000 !important;
+            background: #ffffff !important;
+        }
+
+        .object-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #ffffff;
+        }
+
+        .object-description {
+            color: #e5e7eb;
+            line-height: 1.5;
+            font-size: 0.9rem;
+        }
+
+        /* НОВЫЕ СТИЛИ ДЛЯ ГАЛЕРЕИ ОБЪЕКТОВ */
+        .object-gallery-container {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+            border: 1px solid rgba(255,255,255,0.25);
+            overflow: hidden;
+            margin-bottom: 16px;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            color: #ffffff !important;
+        }
+
+        .object-gallery-container * {
+            color: #ffffff !important;
+        }
+
+        /* Исключение для кнопки информации - более высокая специфичность */
+        .object-gallery-container .object-gallery-container .info-button,
+        .object-gallery-container .info-button,
+        .object-gallery-container .info-button *,
+        .object-gallery-container button.info-button,
+        .object-gallery-container button.info-button * {
+            color: #000000 !important;
+            background: #ffffff !important;
+        }
+
+        .object-gallery-header {
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .object-gallery-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: #ffffff;
+        }
+
+        .object-gallery-description {
+            color: #e5e7eb;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .object-gallery-images {
+            padding: 16px;
+        }
+
+        .object-gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+        
+        @media (min-width: 768px) {
+            .object-gallery-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 16px;
+            }
+        }
+
+        .object-gallery-image-item {
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid #e5e7eb;
+            aspect-ratio: 3 / 4;
+        }
+
+        .object-gallery-image-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .object-gallery-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .object-gallery-image-placeholder {
+            width: 100%;
+            height: 100%;
+            background: #f3f4f6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6b7280;
+        }
+
+        /* Стили для полноэкранной галереи */
+        .gallery-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        body.light-theme .gallery-container {
+            background: rgba(255, 255, 255, 0.98);
+        }
+
+        .gallery-header {
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        body.light-theme .gallery-header {
+            background: rgba(255, 255, 255, 0.95);
+            color: var(--text-primary);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .gallery-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+        }
+
+        .gallery-status {
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .status-sold {
+            background-color: #EF4444;
+            color: white;
+        }
+
+        .status-sale {
+            background-color: #10B981;
+            color: white;
+        }
+
+        .status-building {
+            background-color: #F59E0B;
+            color: white;
+        }
+
+        .gallery-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gallery-image {
+            max-width: 100%;
+            max-height: 70vh;
+            object-fit: contain;
+        }
+
+        .gallery-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 1.5rem;
+        }
+
+        .gallery-nav:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .gallery-prev {
+            left: 20px;
+        }
+
+        .gallery-next {
+            right: 20px;
+        }
+
+        .gallery-footer {
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .gallery-description {
+            font-size: 1rem;
+            line-height: 1.5;
+            margin-bottom: 10px;
+        }
+
+        .gallery-object-info {
+            font-size: 0.9rem;
+            color: #9CA3AF;
+        }
+
+        .gallery-counter {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.875rem;
+        }
+
+        .back-to-brigades {
+            background-color: #6B7280;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            width: 100%;
+            margin-top: 16px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .back-to-brigades:hover {
+            background-color: #4B5563;
+            transform: translateY(-1px);
+        }
+
+        .image-error {
+            display: none;
+        }
+
+        .image-error.show {
+            display: flex;
+        }
+
+        /* Стили для улучшенной загрузки изображений */
+        .image-container {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .image-placeholder {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f3f4f6;
+            color: #6b7280;
+            width: 100%;
+            height: 100%;
+        }
+
+        .image-fallback {
+            display: none;
+        }
+
+        .image-loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Универсальные стили для изображений */
+        .universal-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .universal-image-container {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .universal-image-placeholder {
+            width: 100%;
+            height: 100%;
+            background: #f3f4f6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6b7280;
+        }
+
+        /* НОВЫЕ СТИЛИ ДЛЯ ОКНА ИНФОРМАЦИИ */
+        /* НОВЫЕ СТИЛИ ДЛЯ ОКНА ИНФОРМАЦИИ */
+        .info-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .info-modal-header {
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .info-modal-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+        
+        .info-modal-close {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: var(--text-primary);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .info-modal-close:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .info-modal-content {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            color: #ffffff !important;
+            font-size: 16px;
+            line-height: 1.5;
+            white-space: pre-line;
+            word-wrap: break-word;
+        }
+
+        /* МОДАЛЬНОЕ ОКНО ТОВАРА */
+        .product-detail-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 3000;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+        
+        body.light-theme .product-detail-modal {
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .product-detail-header {
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .product-detail-title {
+            color: white;
+            font-size: 1.25rem;
+            font-weight: 600;
+            flex: 1;
+        }
+
+        .product-detail-close {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .product-detail-close:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .product-detail-image {
+            width: 100%;
+            max-height: 70vh;
+            object-fit: contain;
+            background: #000;
+        }
+
+        .product-detail-content {
+            padding: 24px;
+            color: white;
+            background: linear-gradient(180deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.95) 100%);
+        }
+
+        .product-detail-price {
+            display: inline-block;
+            background: #10B981;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .product-detail-description {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #e5e7eb;
+            margin-bottom: 24px;
+            white-space: pre-line;
+        }
+
+        .product-detail-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .product-detail-btn {
+            flex: 1;
+            padding: 14px 20px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .product-detail-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Chat Modal Styles */
+        .chat-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        body.light-theme .chat-modal {
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .chat-modal.hidden {
+            display: none;
+        }
+
+        .chat-modal-header {
+            background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%);
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+        
+        body.light-theme .chat-modal-header {
+            background: linear-gradient(135deg, #e0e7ff 0%, #dbeafe 100%);
+            color: var(--text-primary);
+        }
+
+        .chat-modal-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin: 0;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        
+        .chat-modal-title:hover {
+            opacity: 0.8;
+        }
+        
+        .chat-modal-title-photo {
+            width: 96px;
+            height: 96px;
+            border-radius: 12px;
+            object-fit: cover;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            margin-right: 12px;
+            display: inline-block;
+            vertical-align: middle;
+            flex-shrink: 0;
+        }
+
+        .back-to-chat-btn {
+            display: inline-flex;
+            align-items: center;
+            background: #0088CC;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 8px rgba(0, 136, 204, 0.3);
+            transition: all 0.2s;
+        }
+        
+        .back-to-chat-btn:hover {
+            background: #006699;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 136, 204, 0.4);
+        }
+        
+        .back-to-chat-btn:active {
+            transform: translateY(0);
+        }
+
+        .chat-brigade-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: white;
+            transition: background 0.2s;
+            margin-right: 12px;
+        }
+
+        .chat-brigade-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .chat-modal-close {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: white;
+            transition: background 0.2s;
+        }
+
+        .chat-modal-close:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .chat-modal-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background: #f5f5f5;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .chat-message {
+            max-width: 70%;
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .chat-message-user {
+            align-self: flex-end;
+            background: #3B82F6;
+            color: #ffffff;
+            border-bottom-right-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .chat-message-brigade {
+            align-self: flex-start;
+            background: #ffffff;
+            color: #000000;
+            border-bottom-left-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .chat-message-system {
+            align-self: center;
+            background: #F3F4F6;
+            color: #6B7280;
+            font-size: 13px;
+            font-style: italic;
+            text-align: center;
+            max-width: 85%;
+        }
+
+        .chat-message-time {
+            font-size: 11px;
+            opacity: 0.7;
+            margin-top: 4px;
+        }
+
+        .chat-modal-input {
+            padding: 16px;
+            background: white;
+            border-top: 1px solid #e5e7eb;
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        
+        .chat-session-item {
+            padding: 16px;
+            margin-bottom: 12px;
+            background: rgba(255, 255, 255, 0.03) !important;
+            border: 1px solid rgba(255, 255, 255, 0.15) !important;
+            border-radius: 16px;
+            backdrop-filter: blur(40px) saturate(180%) !important;
+            -webkit-backdrop-filter: blur(40px) saturate(180%) !important;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            color: #ffffff !important;
+        }
+        
+        .chat-session-item:hover {
+            background: rgba(255, 255, 255, 0.08) !important;
+            border-color: rgba(255, 255, 255, 0.3) !important;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
+        }
+        
+        .chat-session-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .chat-session-item * {
+            color: #ffffff !important;
+        }
+        
+        .chat-session-item .text-sm {
+            color: rgba(255, 255, 255, 0.7) !important;
+        }
+        
+        .delete-chat-btn {
+            background: #ef4444;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 8px 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 36px;
+            min-height: 36px;
+            margin-left: 8px;
+        }
+        
+        .delete-chat-btn:hover {
+            background: #dc2626;
+            transform: scale(1.05);
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 1px solid #e5e7eb;
+            border-radius: 24px;
+            font-size: 14px;
+            outline: none;
+            color: #000000;
+            background-color: #ffffff;
+        }
+
+        .chat-input:focus {
+            border-color: #3B82F6;
+        }
+
+        .chat-send-btn {
+            width: 44px;
+            height: 44px;
+            background: #0088CC !important;
+            border: none;
+            border-radius: 50%;
+            color: white !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 4px 12px rgba(0, 136, 204, 0.4) !important;
+        }
+
+        .chat-send-btn:hover {
+            background: #006699 !important;
+            transform: scale(1.05);
+            box-shadow: 0 6px 16px rgba(0, 136, 204, 0.5) !important;
+        }
+        
+        .info-button {
+            background: #ffffff;
+            color: #000000 !important;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 12px 20px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 16px;
+            width: 100%;
+        }
+        
+        .info-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            background: #f8f9fa;
+        }
+
+        .info-button * {
+            color: #000000 !important;
+        }
+        
+        /* СТИЛИ ДЛЯ ПРЕВЬЮ ИЗОБРАЖЕНИЙ */
+        .preview-image-container {
+            background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%);
+            padding: 16px;
+            border-radius: 12px;
+            margin-bottom: 16px;
+        }
+        
+        .preview-image {
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .preview-image:hover {
+            transform: scale(1.02);
+        }
+        
+        .preview-image-container .text-sm {
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 500;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* СТИЛИ ДЛЯ ОТДЕЛЬНЫХ ПРЕВЬЮ КАЖДОЙ КНОПКИ */
+        .submodel-item {
+            margin-bottom: 16px;
+        }
+        
+        .submodel-item .preview-image-container {
+            background: none;
+            padding: 0;
+            margin-bottom: 8px;
+        }
+        
+        /* Стили для карусели товаров удалены */
+        
+        /* CSS стили карусели удалены */
+        
+        /* Confirm Dialog Styles */
+        .confirm-dialog {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .confirm-dialog.hidden {
+            display: none;
+        }
+        
+        .confirm-dialog-content {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            max-width: 400px;
+            width: 100%;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .confirm-dialog-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        
+        .confirm-dialog-icon {
+            width: 48px;
+            height: 48px;
+            background: #FEE2E2;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 16px;
+        }
+        
+        .confirm-dialog-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1F2937;
+        }
+        
+        .confirm-dialog-text {
+            font-size: 16px;
+            color: #6B7280;
+            margin-bottom: 24px;
+            line-height: 1.5;
+        }
+        
+        .confirm-dialog-buttons {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .confirm-dialog-btn {
+            flex: 1;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .confirm-dialog-btn-cancel {
+            background: #F3F4F6;
+            color: #374151;
+        }
+        
+        .confirm-dialog-btn-cancel:hover {
+            background: #E5E7EB;
+        }
+        
+        .confirm-dialog-btn-delete {
+            background: #EF4444;
+            color: white;
+        }
+        
+        .confirm-dialog-btn-delete:hover {
+            background: #DC2626;
+        }
+
+        /* Loader стили */
+        .loader-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 99999;
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
+
+        .loader-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .house-loader {
+            width: 250px;
+            height: 250px;
+            position: relative;
+        }
+
+        .house-svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.3));
+        }
+
+        .foundation {
+            animation: slideUp 0.5s ease-out 0s forwards;
+            transform: translateY(100px);
+            opacity: 0;
+        }
+
+        .walls {
+            animation: slideUp 0.5s ease-out 0.3s forwards;
+            transform: translateY(100px);
+            opacity: 0;
+        }
+
+        .roof {
+            animation: slideUp 0.5s ease-out 0.6s forwards;
+            transform: translateY(100px);
+            opacity: 0;
+        }
+
+        .door {
+            animation: fadeIn 0.4s ease-out 0.9s forwards;
+            opacity: 0;
+        }
+
+        .window {
+            animation: fadeIn 0.4s ease-out 1.1s forwards;
+            opacity: 0;
+        }
+
+        .chimney {
+            animation: slideUp 0.3s ease-out 1.3s forwards;
+            transform: translateY(50px);
+            opacity: 0;
+        }
+
+        .smoke {
+            animation: smoke 2s ease-in-out 1.6s infinite;
+            opacity: 0;
+        }
+
+        @keyframes slideUp {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes smoke {
+            0% {
+                transform: translateY(0) translateX(0) scale(0.5);
+                opacity: 0.7;
+            }
+            50% {
+                transform: translateY(-20px) translateX(5px) scale(1);
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateY(-40px) translateX(10px) scale(2);
+                opacity: 0;
+            }
+        }
+
+        .company-name {
+            margin-top: 40px;
+            color: var(--text-primary);
+            font-size: 36px;
+            font-weight: 700;
+            text-align: center;
+            letter-spacing: 2px;
+            opacity: 0;
+            animation: fadeInText 1s ease-out 1.5s forwards;
+        }
+
+        @keyframes fadeInText {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .loading-text {
+            margin-top: 30px;
+            color: var(--text-primary) !important;
+            font-size: 24px;
+            font-weight: 600;
+            text-align: center;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        .loading-dots {
+            display: inline-block;
+            width: 40px;
+            text-align: left;
+        }
+
+        .loading-dots::after {
+            content: '';
+            animation: dots 1.5s steps(4, end) infinite;
+        }
+
+        @keyframes dots {
+            0%, 20% { content: ''; }
+            40% { content: '.'; }
+            60% { content: '..'; }
+            80%, 100% { content: '...'; }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .progress-container {
+            width: 250px;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            margin-top: 20px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #fff 0%, #f0f0f0 100%);
+            border-radius: 10px;
+            animation: progress 3s ease-in-out forwards;
+        }
+
+        @keyframes progress {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+
+        #app {
+            display: none;
+        }
+
+        #app.loaded {
+            display: block;
+        }
+    </style>
+</head>
+<body class="min-h-screen" style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 50%, #020617 100%);">
+    <!-- Loader -->
+    <div class="loader-overlay" id="loader">
+        <div class="house-loader">
+            <svg class="house-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                <!-- Тень -->
+                <ellipse cx="100" cy="195" rx="80" ry="8" fill="rgba(0,0,0,0.2)"/>
+                
+                <!-- Фундамент с текстурой кирпича -->
+                <g class="foundation">
+                    <rect x="45" y="170" width="110" height="15" fill="#5C4033"/>
+                    <rect x="47" y="172" width="14" height="4" fill="#6B4423"/>
+                    <rect x="62" y="172" width="14" height="4" fill="#6B4423"/>
+                    <rect x="77" y="172" width="14" height="4" fill="#6B4423"/>
+                    <rect x="92" y="172" width="14" height="4" fill="#6B4423"/>
+                    <rect x="107" y="172" width="14" height="4" fill="#6B4423"/>
+                    <rect x="122" y="172" width="14" height="4" fill="#6B4423"/>
+                    <rect x="137" y="172" width="14" height="4" fill="#6B4423"/>
+                </g>
+                
+                <!-- Стены с кирпичной кладкой -->
+                <g class="walls">
+                    <rect x="55" y="105" width="90" height="65" fill="#D2691E"/>
+                    <!-- Кирпичи -->
+                    <rect x="57" y="107" width="13" height="5" fill="#A0522D" stroke="#8B4513" stroke-width="0.5"/>
+                    <rect x="71" y="107" width="13" height="5" fill="#A0522D" stroke="#8B4513" stroke-width="0.5"/>
+                    <rect x="85" y="107" width="13" height="5" fill="#A0522D" stroke="#8B4513" stroke-width="0.5"/>
+                    <rect x="99" y="107" width="13" height="5" fill="#A0522D" stroke="#8B4513" stroke-width="0.5"/>
+                    <rect x="113" y="107" width="13" height="5" fill="#A0522D" stroke="#8B4513" stroke-width="0.5"/>
+                    <rect x="127" y="107" width="13" height="5" fill="#A0522D" stroke="#8B4513" stroke-width="0.5"/>
+                    
+                    <rect x="64" y="113" width="13" height="5" fill="#A0522D" stroke="#8B4513" stroke-width="0.5"/>
+                    <rect x="78" y="113" width="13" height="5" fill="#A0522D" stroke="#8B4513" stroke-width="0.5"/>
+                    <rect x="92" y="113" width="13" height="5" fill="#A0522D" stroke="#8B4513" stroke-width="0.5"/>
+                    <rect x="106" y="113" width="13" height="5" fill="#A0522D" stroke="#8B4513" stroke-width="0.5"/>
+                    <rect x="120" y="113" width="13" height="5" fill="#A0522D" stroke="#8B4513" stroke-width="0.5"/>
+                </g>
+                
+                <!-- Крыша с черепицей -->
+                <g class="roof">
+                    <polygon points="100,55 35,105 165,105" fill="#8B0000"/>
+                    <polygon points="100,55 35,105 165,105" fill="url(#roofGradient)"/>
+                    <!-- Черепица -->
+                    <path d="M45,105 Q50,102 55,105" stroke="#6B0000" stroke-width="2" fill="none"/>
+                    <path d="M55,105 Q60,102 65,105" stroke="#6B0000" stroke-width="2" fill="none"/>
+                    <path d="M65,105 Q70,102 75,105" stroke="#6B0000" stroke-width="2" fill="none"/>
+                    <path d="M75,105 Q80,102 85,105" stroke="#6B0000" stroke-width="2" fill="none"/>
+                    <path d="M85,105 Q90,102 95,105" stroke="#6B0000" stroke-width="2" fill="none"/>
+                    <path d="M95,105 Q100,102 105,105" stroke="#6B0000" stroke-width="2" fill="none"/>
+                    <path d="M105,105 Q110,102 115,105" stroke="#6B0000" stroke-width="2" fill="none"/>
+                    <path d="M115,105 Q120,102 125,105" stroke="#6B0000" stroke-width="2" fill="none"/>
+                    <path d="M125,105 Q130,102 135,105" stroke="#6B0000" stroke-width="2" fill="none"/>
+                    <path d="M135,105 Q140,102 145,105" stroke="#6B0000" stroke-width="2" fill="none"/>
+                    <path d="M145,105 Q150,102 155,105" stroke="#6B0000" stroke-width="2" fill="none"/>
+                </g>
+                
+                <!-- Дверь деревянная -->
+                <g class="door">
+                    <rect x="82" y="135" width="36" height="35" fill="#654321" rx="2"/>
+                    <rect x="84" y="137" width="32" height="31" fill="#8B4513"/>
+                    <!-- Текстура дерева -->
+                    <line x1="86" y1="137" x2="86" y2="168" stroke="#654321" stroke-width="1"/>
+                    <line x1="92" y1="137" x2="92" y2="168" stroke="#654321" stroke-width="1"/>
+                    <line x1="98" y1="137" x2="98" y2="168" stroke="#654321" stroke-width="1"/>
+                    <line x1="104" y1="137" x2="104" y2="168" stroke="#654321" stroke-width="1"/>
+                    <line x1="110" y1="137" x2="110" y2="168" stroke="#654321" stroke-width="1"/>
+                    <circle cx="112" cy="152" r="2.5" fill="#FFD700" stroke="#B8860B" stroke-width="0.5"/>
+                </g>
+                
+                <!-- Окна с рамами -->
+                <g class="window">
+                    <rect x="65" y="120" width="22" height="22" fill="#4682B4" stroke="#2F4F4F" stroke-width="2"/>
+                    <rect x="67" y="122" width="18" height="18" fill="#87CEEB"/>
+                    <line x1="76" y1="122" x2="76" y2="140" stroke="#2F4F4F" stroke-width="2"/>
+                    <line x1="67" y1="131" x2="85" y2="131" stroke="#2F4F4F" stroke-width="2"/>
+                    <!-- Блики -->
+                    <rect x="69" y="124" width="4" height="4" fill="rgba(255,255,255,0.6)"/>
+                </g>
+                
+                <g class="window">
+                    <rect x="113" y="120" width="22" height="22" fill="#4682B4" stroke="#2F4F4F" stroke-width="2"/>
+                    <rect x="115" y="122" width="18" height="18" fill="#87CEEB"/>
+                    <line x1="124" y1="122" x2="124" y2="140" stroke="#2F4F4F" stroke-width="2"/>
+                    <line x1="115" y1="131" x2="133" y2="131" stroke="#2F4F4F" stroke-width="2"/>
+                    <!-- Блики -->
+                    <rect x="117" y="124" width="4" height="4" fill="rgba(255,255,255,0.6)"/>
+                </g>
+                
+                <!-- Труба кирпичная -->
+                <g class="chimney">
+                    <rect x="125" y="65" width="18" height="35" fill="#8B4513" stroke="#654321" stroke-width="1"/>
+                    <!-- Кирпичи трубы -->
+                    <rect x="126" y="66" width="7" height="4" fill="#A0522D" stroke="#654321" stroke-width="0.5"/>
+                    <rect x="134" y="66" width="7" height="4" fill="#A0522D" stroke="#654321" stroke-width="0.5"/>
+                    <rect x="129" y="71" width="7" height="4" fill="#A0522D" stroke="#654321" stroke-width="0.5"/>
+                    <rect x="126" y="76" width="7" height="4" fill="#A0522D" stroke="#654321" stroke-width="0.5"/>
+                    <rect x="134" y="76" width="7" height="4" fill="#A0522D" stroke="#654321" stroke-width="0.5"/>
+                    <rect x="129" y="81" width="7" height="4" fill="#A0522D" stroke="#654321" stroke-width="0.5"/>
+                    <rect x="126" y="86" width="7" height="4" fill="#A0522D" stroke="#654321" stroke-width="0.5"/>
+                    <rect x="134" y="86" width="7" height="4" fill="#A0522D" stroke="#654321" stroke-width="0.5"/>
+                    <rect x="129" y="91" width="7" height="4" fill="#A0522D" stroke="#654321" stroke-width="0.5"/>
+                    <rect x="126" y="96" width="7" height="4" fill="#A0522D" stroke="#654321" stroke-width="0.5"/>
+                    <rect x="134" y="96" width="7" height="4" fill="#A0522D" stroke="#654321" stroke-width="0.5"/>
+                </g>
+                
+                <!-- Дым -->
+                <g class="smoke">
+                    <circle cx="133" cy="60" r="6" fill="#E0E0E0" opacity="0.7"/>
+                    <circle cx="138" cy="55" r="7" fill="#D3D3D3" opacity="0.6" style="animation-delay: 0.3s"/>
+                    <circle cx="131" cy="50" r="6" fill="#C0C0C0" opacity="0.5" style="animation-delay: 0.6s"/>
+                    <circle cx="136" cy="45" r="5" fill="#B0B0B0" opacity="0.4" style="animation-delay: 0.9s"/>
+                </g>
+                
+                <!-- Градиенты -->
+                <defs>
+                    <linearGradient id="roofGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" style="stop-color:#A52A2A;stop-opacity:0.3" />
+                        <stop offset="100%" style="stop-color:#8B0000;stop-opacity:0" />
+                    </linearGradient>
+                </defs>
+            </svg>
+        </div>
+        
+        <div class="company-name">Скидка Сервис</div>
+        
+        <div class="loading-text">
+            Загрузка<span class="loading-dots"></span>
+        </div>
+        
+        <div class="progress-container">
+            <div class="progress-bar"></div>
+        </div>
+    </div>
+
+    <div id="app" class="max-w-md mx-auto">
+        <!-- Desktop Bottom Bar (only visible on desktop) -->
+        <div class="desktop-bottom-bar">
+            <button class="desktop-action-btn" onclick="loadFavorites()">
+                <i data-feather="heart"></i>
+                <span>Избранное</span>
+            </button>
+            <button class="desktop-action-btn" onclick="makePhoneCall(event)">
+                <i data-feather="phone"></i>
+                <span>Телефон</span>
+            </button>
+            <button class="desktop-action-btn" onclick="open2GIS()">
+                <i data-feather="map-pin"></i>
+                <span>2GIS</span>
+            </button>
+            <button class="desktop-action-btn" onclick="loadBrigades()">
+                <i data-feather="users"></i>
+                <span>Бригады</span>
+            </button>
+            <button class="desktop-action-btn" onclick="callTaxi()">
+                <i data-feather="map"></i>
+                <span>Такси</span>
+            </button>
+            <button class="desktop-action-btn" onclick="showMyChats()">
+                <i data-feather="message-circle"></i>
+                <span>Чаты</span>
+            </button>
+            <button class="desktop-action-btn" onclick="openTelegramChannel()">
+                <i data-feather="send"></i>
+                <span>Telegram</span>
+            </button>
+            <button class="desktop-action-btn" onclick="loadSections()">
+                <i data-feather="home"></i>
+                <span>Каталог</span>
+            </button>
+        </div>
+
+        <!-- Main wrapper for desktop -->
+        <div class="desktop-main-wrapper">
+        <!-- Header -->
+        <header class="shadow-lg p-4 sticky top-0 z-20">
+            <!-- Фото и имя пользователя -->
+            <div id="userInfoHeader" class="flex items-center justify-between mb-3 pb-3 border-b border-white border-opacity-20" style="display: none;">
+                <div class="flex items-center gap-3">
+                    <img id="userPhoto" src="" alt="User" class="w-10 h-10 rounded-full border-2 border-white border-opacity-30" style="display: none;">
+                    <div id="userNameHeader" class="font-medium" style="color: var(--text-primary);">
+                        <!-- Имя пользователя будет вставлено через JS -->
+                    </div>
+                </div>
+                
+                <!-- Кнопки в правой части -->
+                <div class="flex items-center gap-2">
+                    <!-- Кнопка поиска -->
+                    <button id="searchToggleBtn" class="search-toggle-btn" onclick="toggleSearch()">
+                        <i data-feather="search" class="w-5 h-5"></i>
+                        <span class="search-label">Поиск</span>
+                    </button>
+                    
+                    <!-- Кнопка смены темы -->
+                    <button id="themeToggleBtn" class="search-toggle-btn" onclick="toggleTheme()" title="Сменить тему">
+                        <i data-feather="sun" class="w-5 h-5" id="themeIcon"></i>
+                    </button>
+                    
+                    <!-- Кнопка с фото канала для перехода в Telegram канал -->
+                    <a href="https://t.me/chronoishere" target="_blank" class="flex-shrink-0">
+                        <img id="channelPhoto" src="https://t.me/i/userpic/320/chronosphereadmin.jpg" alt="Channel" class="w-10 h-10 rounded-full border-2 border-white border-opacity-30 hover:opacity-80 transition-opacity cursor-pointer object-cover">
+                    </a>
+                </div>
+            </div>
+            
+            <div class="flex items-center justify-between">
+                <!-- Левая группа: Меню -->
+                <div class="flex items-center">
+                    <button id="toggleMenu" class="menu-button">
+                        <i data-feather="menu"></i>
+                    </button>
+                </div>
+                
+                <!-- Центральная группа: Название -->
+                <div class="header-title flex-1">
+                    <h1 class="main-title" id="pageTitle">Каталог товаров</h1>
+                    <div class="sub-title">Скидка Сервис</div>
+                </div>
+                
+                <!-- Правая группа: Чаты -->
+                <div class="flex items-center gap-2">
+                    <button id="myChatsButton" class="chat-button" onclick="showMyChats()" title="Мои чаты">
+                        <i data-feather="message-circle"></i>
+                        <span class="hidden sm:inline">Чаты</span>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Строка поиска между хедером и контентом -->
+        <div id="searchInputContainer" class="search-input-container-main hidden">
+            <i data-feather="search" class="search-icon-header"></i>
+            <input 
+                type="text" 
+                id="searchInputHeader" 
+                class="search-input-header" 
+                placeholder="Поиск товаров..."
+                autocomplete="off"
+            >
+            <button id="closeSearchBtn" class="close-search-btn-inline" onclick="closeSearchFully()">
+                <i data-feather="x"></i>
+            </button>
+            <!-- Подсказки поиска -->
+            <div id="searchSuggestions" class="search-suggestions hidden"></div>
+        </div>
+
+        <!-- Loading -->
+        <div id="loading" class="hidden p-8 text-center">
+            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto"></div>
+            <p class="mt-4 text-contrast" style="color: var(--text-primary) !important;">Загрузка...</p>
+        </div>
+
+        <!-- Empty State -->
+        <div id="emptyState" class="hidden p-8 text-center">
+            <i data-feather="package" class="w-16 h-16 mx-auto tg-theme-hint mb-4 text-contrast"></i>
+            <p class="tg-theme-hint mb-4 text-contrast" id="emptyMessage">Товары не найдены</p>
+            <button onclick="loadSections()" class="mt-4 py-2 px-4 tg-theme-button rounded-lg">
+                Вернуться в главную
+            </button>
+        </div>
+
+        <!-- Error State -->
+        <div id="errorState" class="hidden p-8 text-center">
+            <i data-feather="alert-triangle" class="w-16 h-16 mx-auto text-red-500 mb-4"></i>
+            <p class="text-red-600 mb-4 text-contrast" id="errorMessage">Произошла ошибка</p>
+            <button onclick="retryLastAction()" class="mt-4 py-2 px-4 bg-blue-500 text-white rounded-lg">
+                Попробовать снова
+            </button>
+            <button onclick="loadSections()" class="mt-2 py-2 px-4 bg-gray-500 text-white rounded-lg">
+                Вернуться в главную
+            </button>
+        </div>
+
+
+        <!-- Мобильный блок кнопок Бригады и Такси под каталогом -->
+
+        <main id="content" class="p-4 fade-in">
+            <!-- Контент загружается динамически -->
+        </main>
+
+        <!-- Мобильный блок кнопок Бригады и Такси теперь внизу -->
+        <div class="bottom-action-buttons" style="display: none; margin-top: 24px;" id="mobileBrigadeTaxi">
+            <button class="square-action-button" onclick="loadBrigades()">
+                <i data-feather="users" class="square-button-icon"></i>
+                Бригады
+            </button>
+            <button class="square-action-button" onclick="callTaxi()">
+                <i data-feather="map" class="square-button-icon"></i>
+                Такси
+            </button>
+        </div>
+
+        <!-- Gallery Modal -->
+        <div id="galleryModal" class="gallery-container hidden">
+            <div class="gallery-header">
+                <button onclick="closeGallery()" class="text-white p-2 rounded-lg hover:bg-gray-700">
+                    <i data-feather="x" class="w-6 h-6"></i>
+                </button>
+                <div class="gallery-title" id="galleryCardTitle"></div>
+                <div class="gallery-status" id="galleryStatus"></div>
+            </div>
+            <div class="gallery-content">
+                <div class="gallery-counter" id="galleryCounter"></div>
+                <button class="gallery-nav gallery-prev" onclick="prevGalleryImage()">
+                    <i data-feather="chevron-left"></i>
+                </button>
+                <img id="galleryCurrentImage" class="gallery-image" src="" alt="">
+                <button class="gallery-nav gallery-next" onclick="nextGalleryImage()">
+                    <i data-feather="chevron-right"></i>
+                </button>
+            </div>
+            <div class="gallery-footer">
+                <div class="gallery-description" id="galleryDescription"></div>
+                <div class="gallery-object-info" id="galleryObjectInfo"></div>
+            </div>
+        </div>
+
+        <!-- Info Modal -->
+        <div id="infoModal" class="info-modal hidden">
+            <div class="info-modal-header">
+                <h2 class="info-modal-title">Информация по объекту</h2>
+                <button onclick="closeInfoModal()" class="info-modal-close">
+                    <i data-feather="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            <div class="info-modal-content" id="infoModalContent">
+                <!-- Сюда вставляется описание -->
+            </div>
+        </div>
+
+        <!-- Product Detail Modal -->
+        <div id="productDetailModal" class="product-detail-modal hidden">
+            <div class="product-detail-header">
+                <h2 class="product-detail-title" id="productDetailTitle">Товар</h2>
+                <button onclick="closeProductDetail()" class="product-detail-close">
+                    <i data-feather="x" class="w-6 h-6"></i>
+                </button>
+            </div>
+            <img id="productDetailImage" class="product-detail-image" src="" alt="Фото товара">
+            <div class="product-detail-content">
+                <div id="productDetailPrice" class="product-detail-price"></div>
+                <div id="productDetailSpecialPrice" class="product-detail-price" style="background: #FCD34D; color: #000000; font-weight: 600; display: none; margin-top: 8px;"></div>
+                <div id="productDetailDescription" class="product-detail-description"></div>
+                <div class="product-detail-buttons">
+                    <button onclick="makePhoneCall(event)" class="product-detail-btn">
+                        <i data-feather="phone" class="w-5 h-5"></i>
+                        Позвонить
+                    </button>
+                    <button onclick="contactAboutCurrentProduct()" class="product-detail-btn">
+                        <i data-feather="message-circle" class="w-5 h-5"></i>
+                        НАПИСАТЬ
+                    </button>
+                    <button onclick="contactAboutCheaperPrice()" class="product-detail-btn product-detail-btn-full" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); border-color: #10b981;">
+                        <i data-feather="trending-down" class="w-5 h-5"></i>
+                        Нашел дешевле? Жми!
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- My Chats Modal -->
+        <div id="myChatsModal" class="chat-modal hidden">
+            <div class="chat-modal-header">
+                <button onclick="closeMyChatsModal(); loadBrigades();" class="chat-brigade-btn" title="Открыть бригады">
+                    <i data-feather="users" class="w-5 h-5"></i>
+                </button>
+                <h2 class="chat-modal-title" style="flex: 1;">Мои чаты</h2>
+                <button onclick="closeMyChatsModal()" class="chat-modal-close">
+                    <i data-feather="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            <div class="chat-messages" id="myChatsContent">
+                <div class="text-center p-4">
+                    <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-green-500 mx-auto"></div>
+                    <p class="mt-2 text-gray-600">Загружаю чаты...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chat Modal -->
+        <div id="infoModal" class="info-modal hidden">
+            <div class="info-modal-header">
+                <h2 class="info-modal-title">Информация по объекту</h2>
+                <button onclick="closeInfoModal()" class="info-modal-close">
+                    <i data-feather="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            <div class="info-modal-content" id="infoModalContent">
+                <!-- Сюда вставляется описание -->
+            </div>
+        </div>
+
+        <!-- Chat Modal -->
+        <div id="chatModal" class="chat-modal hidden">
+            <div class="chat-modal-header">
+                <button onclick="closeChatModal(); loadBrigades();" class="chat-brigade-btn" title="Открыть бригады">
+                    <i data-feather="users" class="w-5 h-5"></i>
+                </button>
+                <div style="flex: 1;">
+                    <div class="chat-modal-title" id="chatModalTitle" style="display: flex; align-items: center;">
+                        <span>Чат с бригадой</span>
+                    </div>
+                    <div class="text-sm opacity-90" id="chatModalSubtitle"></div>
+                </div>
+                <button onclick="closeChatModal()" class="chat-modal-close">
+                    <i data-feather="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            <div class="chat-modal-messages" id="chatModalMessages">
+                <div class="text-center py-8" style="color: #000000;">
+                    <i data-feather="message-circle" class="w-12 h-12 mx-auto mb-2" style="color: #666666;"></i>
+                    <div>Начните общение</div>
+                </div>
+            </div>
+            <div class="chat-modal-input">
+                <input type="file" id="chatFileInput" accept="image/*" style="display: none;" onchange="handleFileSelect(event)">
+                <button onclick="document.getElementById('chatFileInput').click()" class="chat-attach-btn" title="Прикрепить фото" style="background: #0088CC !important; border: none; color: white; border-radius: 50%; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; cursor: pointer; margin-right: 8px; box-shadow: 0 4px 12px rgba(0, 136, 204, 0.4);">
+                    <i data-feather="paperclip" style="color: white !important; width: 20px; height: 20px;"></i>
+                </button>
+                <input type="text" id="chatModalInput" placeholder="Введите сообщение..." class="chat-input" style="flex: 1;">
+                <button onclick="sendChatModalMessage()" class="chat-send-btn" style="background: #0088CC !important; color: white !important;">
+                    <i data-feather="send" style="color: white !important;"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Side Menu -->
+        <div id="sideMenu" class="hidden fixed inset-0 bg-black bg-opacity-30" style="z-index: 1000;">
+            <div class="absolute right-0 top-0 h-full w-80 transform translate-x-full transition-transform duration-300" id="sideMenuPanel">
+                <div class="p-6">
+                    <div class="flex justify-between items-center mb-8">
+                        <h2 class="text-lg font-semibold" id="sideMenuTitle" style="color: var(--text-primary);">Меню</h2>
+                        <button id="closeMenu" class="p-2 rounded-full transition-all duration-200" style="color: var(--text-primary);">
+                            <i data-feather="x"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="space-y-1">
+                        <!-- Избранное -->
+                        <div class="menu-item" onclick="loadFavorites(); closeSideMenu();">
+                            <i data-feather="heart"></i>
+                            <div>
+                                <div class="font-medium">Избранное</div>
+                                <div class="text-sm opacity-80">Сохраненные товары</div>
+                            </div>
+                        </div>
+
+                        <div class="menu-divider"></div>
+                        
+                        <!-- Контакты -->
+                        <div class="menu-item" onclick="makePhoneCall(event); closeSideMenu();">
+                            <i data-feather="phone"></i>
+                            <div>
+                                <div class="font-medium">Телефон</div>
+                                <div class="text-sm opacity-80">60-01-60</div>
+                            </div>
+                        </div>
+                        <div class="menu-item" onclick="open2GIS(); closeSideMenu();">
+                            <i data-feather="map-pin"></i>
+                            <div>
+                                <div class="font-medium">2GIS</div>
+                                <div class="text-sm opacity-80">Наш адрес на карте</div>
+                            </div>
+                        </div>
+                        <div class="menu-item" onclick="loadBrigades(); closeSideMenu();">
+                            <i data-feather="users"></i>
+                            <div>
+                                <div class="font-medium">Бригады</div>
+                                <div class="text-sm opacity-80">Все бригады</div>
+                            </div>
+                        </div>
+                        <div class="menu-item" onclick="callTaxi(); closeSideMenu();">
+                            <i data-feather="map"></i>
+                            <div>
+                                <div class="font-medium">Такси</div>
+                                <div class="text-sm opacity-80">Вызвать такси</div>
+                            </div>
+                        </div>
+                        <div class="menu-item" onclick="openTelegramChannel(); closeSideMenu();">
+                            <i data-feather="send"></i>
+                            <div>
+                                <div class="font-medium">Телеграмм канал</div>
+                                <div class="text-sm opacity-80">Новости и акции</div>
+                            </div>
+                        </div>
+                        <div class="menu-item" onclick="loadSections(); closeSideMenu();">
+                            <i data-feather="home"></i>
+                            <div>
+                                <div class="font-medium">МЕНЮ</div>
+                                <div class="text-sm opacity-80">Вернуться в каталог</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Карусель товаров удалена -->
+        </div>
+    </div>
+
+    <script>
+                // Показ мобильного блока кнопок Бригады/Такси только на мобильных
+                function showMobileBrigadeTaxi() {
+                    const el = document.getElementById('mobileBrigadeTaxi');
+                    if (!el) return;
+                    if (window.innerWidth < 768) {
+                        el.style.display = 'grid';
+                    } else {
+                        el.style.display = 'none';
+                    }
+                }
+                window.addEventListener('resize', showMobileBrigadeTaxi);
+                document.addEventListener('DOMContentLoaded', showMobileBrigadeTaxi);
+        </script>
+        
+        <script>
+        // Конфигурация
+        const tg = window.Telegram?.WebApp;
+        const API_BASE = 'https://dmitrii2613.pythonanywhere.com/api';
+        const BOT_USERNAME = 'SSERVICE72_bot';
+        const API_TIMEOUT = 30000;
+        let debugMode = false;
+        let featherTimeout;
+        
+        // Список ID пользователей, которым показывать специальную цену
+        const SPECIAL_PRICE_USER_IDS = [
+            1606292950,
+            1445276912,
+            1955229007,
+            5564422095,
+            8343032724
+            
+        ];
+
+        // Состояние приложения
+        let navigationStack = [];
+        let currentProducts = [];
+        let catalogData = null;
+        let lastAction = null;
+        let deferredPrompt = null;
+        let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+        
+        // Сохранение состояния перед поиском
+        let stateBeforeSearch = null;
+
+        // Состояние для галереи бригад
+        let currentGalleryData = null;
+        let currentGalleryIndex = 0;
+        let currentBrigadeData = null;
+        let currentObjectData = null;
+
+        // Контактная информация
+        const CONTACT_INFO = {
+            phones: [
+                { number: "83452600160", display: "60-01-60" }
+            ],
+            gisUrl: "https://2gis.ru/tyumen/firm/70000001048108193/65.610084%2C57.15728?m=65.610539%2C57.157207%2F19.57",
+            telegramChannel: "https://t.me/skidkaservis",
+            address: "г. Тюмень, ул. Барабинская 3а ст4",
+            coordinates: {
+                lat: 57.15728,
+                lon: 65.610084
+            }
+        };
+
+        // DOM элементы
+        const elements = {
+            content: document.getElementById('content'),
+            loading: document.getElementById('loading'),
+            emptyState: document.getElementById('emptyState'),
+            emptyMessage: document.getElementById('emptyMessage'),
+            errorState: document.getElementById('errorState'),
+            errorMessage: document.getElementById('errorMessage'),
+            sideMenu: document.getElementById('sideMenu'),
+            pageTitle: document.getElementById('pageTitle'),
+            installButton: document.getElementById('installButton'),
+            galleryModal: document.getElementById('galleryModal'),
+            galleryCardTitle: document.getElementById('galleryCardTitle'),
+            galleryStatus: document.getElementById('galleryStatus'),
+            galleryCurrentImage: document.getElementById('galleryCurrentImage'),
+            galleryDescription: document.getElementById('galleryDescription'),
+            galleryObjectInfo: document.getElementById('galleryObjectInfo'),
+            galleryCounter: document.getElementById('galleryCounter'),
+            infoModal: document.getElementById('infoModal'),
+            infoModalContent: document.getElementById('infoModalContent')
+        };
+
+        // ========== УТИЛИТЫ ==========
+
+        function displayUserName() {
+            const tg = window.Telegram?.WebApp;
+            const userInfo = tg?.initDataUnsafe?.user || {};
+            const userInfoHeader = document.getElementById('userInfoHeader');
+            const userNameHeader = document.getElementById('userNameHeader');
+            const userPhoto = document.getElementById('userPhoto');
+            const channelPhoto = document.getElementById('channelPhoto');
+            
+            if (userInfoHeader && userNameHeader && userInfo.first_name) {
+                // Формируем отображаемое имя
+                const displayName = userInfo.username 
+                    ? `@${userInfo.username}` 
+                    : `${userInfo.first_name}${userInfo.last_name ? ' ' + userInfo.last_name : ''}`;
+                
+                userNameHeader.textContent = displayName;
+                userInfoHeader.style.display = 'flex';
+                
+                // Если есть фото профиля
+                if (userInfo.photo_url && userPhoto) {
+                    userPhoto.src = userInfo.photo_url;
+                    userPhoto.style.display = 'block';
+                } else if (userPhoto) {
+                    // Если нет фото, показываем инициалы в круге
+                    userPhoto.style.display = 'none';
+                    const initials = (userInfo.first_name?.[0] || '') + (userInfo.last_name?.[0] || '');
+                    if (initials) {
+                        userNameHeader.innerHTML = `
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <div style="width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; font-weight: bold; border: 2px solid rgba(255,255,255,0.3);">
+                                    ${initials}
+                                </div>
+                                <span>${displayName}</span>
+                            </div>
+                        `;
+                    }
+                }
+                
+                // Загружаем фото канала
+                if (channelPhoto) {
+                    loadChannelPhoto();
+                }
+            }
+        }
+        
+        async function loadChannelPhoto() {
+            try {
+                const channelPhoto = document.getElementById('channelPhoto');
+                const response = await fetch('/get_channel_photo?username=chronosphereadmin');
+                const data = await response.json();
+                
+                if (data.success && data.photo_url && channelPhoto) {
+                    channelPhoto.src = data.photo_url;
+                }
+            } catch (error) {
+                console.error('Ошибка загрузки фото канала:', error);
+            }
+        }
+
+        function fixMobileColors() {
+            if (!window.Telegram?.WebApp) {
+                document.documentElement.style.setProperty('--tg-theme-bg-color', '#ffffff');
+                document.documentElement.style.setProperty('--tg-theme-text-color', '#000000');
+                document.documentElement.style.setProperty('--tg-theme-hint-color', '#666666');
+                document.documentElement.style.setProperty('--tg-theme-secondary-bg-color', '#f3f4f6');
+                document.documentElement.style.setProperty('--tg-theme-button-color', '#3B82F6');
+                document.documentElement.style.setProperty('--tg-theme-button-text-color', '#ffffff');
+            }
+        }
+
+        // Функция переключения темы
+        function toggleTheme() {
+            const body = document.body;
+            const themeIcon = document.getElementById('themeIcon');
+            const isLightTheme = body.classList.contains('light-theme');
+            
+            if (isLightTheme) {
+                // Переключаем на темную тему
+                body.classList.remove('light-theme');
+                themeIcon.setAttribute('data-feather', 'sun');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                // Переключаем на светлую тему
+                body.classList.add('light-theme');
+                themeIcon.setAttribute('data-feather', 'moon');
+                localStorage.setItem('theme', 'light');
+            }
+            
+            // Обновляем иконки Feather
+            if (typeof feather !== 'undefined') {
+                feather.replace();
+            }
+        }
+
+        // Применение сохраненной темы при загрузке
+        function applySavedTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            const themeIcon = document.getElementById('themeIcon');
+            
+            if (savedTheme === 'light') {
+                document.body.classList.add('light-theme');
+                if (themeIcon) {
+                    themeIcon.setAttribute('data-feather', 'moon');
+                }
+            } else {
+                if (themeIcon) {
+                    themeIcon.setAttribute('data-feather', 'sun');
+                }
+            }
+            
+            // Обновляем иконки после применения темы
+            setTimeout(() => {
+                if (typeof feather !== 'undefined') {
+                    feather.replace();
+                }
+            }, 100);
+        }
+
+        function escapeHtml(unsafe) {
+            if (unsafe == null) return '';
+            return String(unsafe)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+        function safeGet(obj, path, defaultValue = '') {
+            if (!obj) return defaultValue;
+            return path.split('.').reduce((acc, key) => 
+                acc && acc[key] !== undefined && acc[key] !== null ? acc[key] : defaultValue, obj);
+        }
+
+        function safeString(value, defaultValue = '') {
+            if (value == null) return defaultValue;
+            return String(value);
+        }
+
+        function safeNumber(value, defaultValue = 0) {
+            if (value == null) return defaultValue;
+            const num = Number(value);
+            return isNaN(num) ? defaultValue : num;
+        }
+
+        function scheduleFeatherReplace() {
+            clearTimeout(featherTimeout);
+            featherTimeout = setTimeout(() => {
+                try {
+                    feather.replace();
+                } catch (error) {
+                    console.log('Ошибка feather.replace:', error);
+                }
+            }, 100);
+        }
+
+        function extractNumericPrice(priceStr) {
+            if (!priceStr || typeof priceStr !== 'string') {
+                return Infinity;
+            }
+
+            try {
+                let cleanStr = priceStr.trim();
+                if (!cleanStr) return Infinity;
+
+                cleanStr = cleanStr.replace(/[^\d,.]/g, '');
+
+                if (!cleanStr) return Infinity;
+
+                cleanStr = cleanStr.replace(',', '.');
+
+                const parts = cleanStr.split('.');
+                if (parts.length > 2) {
+                    cleanStr = parts[0] + '.' + parts.slice(1).join('');
+                }
+
+                const result = parseFloat(cleanStr);
+                return isNaN(result) ? Infinity : result;
+            } catch (error) {
+                console.log(`Ошибка преобразования цены '${priceStr}':`, error);
+                return Infinity;
+            }
+        }
+
+        function formatPriceText(price) {
+            if (price === null || price === Infinity || price === 0) return "";
+            return ` от ${Math.round(price)} р.`;
+        }
+
+        function formatPriceForBadge(price) {
+            if (!price || price === 'Цена не указана') return '';
+            const numericPrice = extractNumericPrice(price);
+            if (numericPrice === Infinity) return '';
+            return `${Math.round(numericPrice)} р.`;
+        }
+
+        // ФУНКЦИИ ДЛЯ КНОПОК ТЕЛЕФОНА И 2GIS
+        function makePhoneCall(event) {
+            if (event) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            // Показываем popup с выбором номера
+            const popup = document.createElement('div');
+            popup.className = 'fixed inset-0 z-50 flex items-center justify-center p-4';
+            popup.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+            
+            const content = document.createElement('div');
+            content.className = 'rounded-lg p-6 max-w-sm w-full';
+            content.style.backgroundColor = 'var(--bg-secondary)';
+            content.style.color = 'var(--text-primary)';
+            
+            const title = document.createElement('h3');
+            title.className = 'text-lg font-semibold mb-4 text-center';
+            title.textContent = 'Выберите номер для звонка';
+            content.appendChild(title);
+            
+            CONTACT_INFO.phones.forEach(phone => {
+                const button = document.createElement('button');
+                button.className = 'w-full py-3 mb-2 rounded-lg font-medium transition';
+                button.style.backgroundColor = 'var(--tg-theme-button-color, #3390ec)';
+                button.style.color = 'var(--tg-theme-button-text-color, #ffffff)';
+                button.textContent = `📞 ${phone.display}`;
+                button.onclick = () => {
+                    window.location.href = `tel:${phone.number}`;
+                    document.body.removeChild(popup);
+                };
+                content.appendChild(button);
+            });
+            
+            const cancelButton = document.createElement('button');
+            cancelButton.className = 'w-full py-3 mt-2 rounded-lg font-medium transition';
+            cancelButton.style.backgroundColor = 'var(--bg-primary)';
+            cancelButton.style.color = 'var(--text-primary)';
+            cancelButton.style.border = '1px solid var(--border-color)';
+            cancelButton.textContent = 'Отмена';
+            cancelButton.onclick = () => document.body.removeChild(popup);
+            content.appendChild(cancelButton);
+            
+            popup.appendChild(content);
+            popup.onclick = (e) => {
+                if (e.target === popup) document.body.removeChild(popup);
+            };
+            
+            document.body.appendChild(popup);
+        }
+
+        function open2GIS() {
+            if (tg) {
+                tg.openLink(CONTACT_INFO.gisUrl);
+            } else {
+                window.open(CONTACT_INFO.gisUrl, '_blank');
+            }
+        }
+
+        function openTelegramChannel() {
+            if (tg) {
+                tg.openLink(CONTACT_INFO.telegramChannel);
+            } else {
+                window.open(CONTACT_INFO.telegramChannel, '_blank');
+            }
+        }
+
+        function openTaxiMenu() {
+            callTaxi();
+        }
+
+        function openYandexTaxi() {
+            const lat = CONTACT_INFO.coordinates.lat;
+            const lon = CONTACT_INFO.coordinates.lon;
+            const address = encodeURIComponent(CONTACT_INFO.address);
+            
+            const yandexTaxiUrl = `https://3.redirect.appmetrica.yandex.com/route?end-lat=${lat}&end-lon=${lon}&end-text=${address}&appmetrica_tracking_id=1178268795219780156`;
+            
+            if (tg) {
+                tg.openLink(yandexTaxiUrl);
+            } else {
+                window.open(yandexTaxiUrl, '_blank');
+            }
+        }
+
+        function openUber() {
+            const lat = CONTACT_INFO.coordinates.lat;
+            const lon = CONTACT_INFO.coordinates.lon;
+            const address = encodeURIComponent(CONTACT_INFO.address);
+            
+            const uberUrl = `https://m.uber.com/ul/?action=setPickup&pickup=my_location&dropoff[formatted_address]=${address}&dropoff[latitude]=${lat}&dropoff[longitude]=${lon}`;
+            
+            if (tg) {
+                tg.openLink(uberUrl);
+            } else {
+                window.open(uberUrl, '_blank');
+            }
+        }
+
+        // ФУНКЦИИ ДЛЯ ДОБАВЛЕНИЯ НА ГЛАВНЫЙ ЭКРАН
+        function installPWA() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('Пользователь принял установку');
+                        if (tg) {
+                            tg.showAlert('Приложение успешно добавлено на главный экран!');
+                        } else {
+                            alert('Приложение успешно добавлено на главный экран!');
+                        }
+                    } else {
+                        console.log('Пользователь отклонил установку');
+                    }
+                    
+                    deferredPrompt = null;
+                });
+            } else {
+                showInstallInstructions();
+            }
+        }
+
+        function showInstallInstructions() {
+            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+            const isAndroid = /Android/.test(navigator.userAgent);
+            
+            let instructions = '';
+            
+            if (isIOS) {
+                instructions = `
+                    <div class="bg-white rounded-xl p-4 shadow-lg">
+                        <h3 class="text-lg font-semibold mb-4 text-contrast">Добавить на главный экран (iOS)</h3>
+                        <div class="space-y-3 text-sm text-gray-700">
+                            <div class="flex items-start gap-3">
+                                <span class="bg-blue-100 text-blue-800 rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 mt-0.5">1</span>
+                                <span>Нажмите кнопку "Поделиться" <i data-feather="share" class="w-4 h-4 inline"></i> в нижней панели Safari</span>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <span class="bg-blue-100 text-blue-800 rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 mt-0.5">2</span>
+                                <span>Прокрутите меню и выберите "На экран «Домой»"</span>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <span class="bg-blue-100 text-blue-800 rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 mt-0.5">3</span>
+                                <span>Подтвердите добавление, нажав "Добавить" в правом верхнем углу</span>
+                            </div>
+                        </div>
+                        <button onclick="loadSections()" class="back-button mt-4">
+                            <i data-feather="arrow-left" class="w-4 h-4 mr-2"></i>
+                            Назад в каталог
+                        </button>
+                    </div>
+                `;
+            } else if (isAndroid) {
+                instructions = `
+                    <div class="bg-white rounded-xl p-4 shadow-lg">
+                        <h3 class="text-lg font-semibold mb-4 text-contrast">Добавить на главный экран (Android)</h3>
+                        <div class="space-y-3 text-sm text-gray-700">
+                            <div class="flex items-start gap-3">
+                                <span class="bg-blue-100 text-blue-800 rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 mt-0.5">1</span>
+                                <span>Нажмите на меню (три точки) в правом верхнем углу браузера</span>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <span class="bg-blue-100 text-blue-800 rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 mt-0.5">2</span>
+                                <span>Выберите "Добавить на главный экран" или "Установить приложение"</span>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <span class="bg-blue-100 text-blue-800 rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 mt-0.5">3</span>
+                                <span>Подтвердите установку в появившемся диалоговом окне</span>
+                            </div>
+                        </div>
+                        <button onclick="loadSections()" class="back-button mt-4">
+                            <i data-feather="arrow-left" class="w-4 h-4 mr-2"></i>
+                            Назад в каталог
+                        </button>
+                    </div>
+                `;
+            } else {
+                instructions = `
+                    <div class="bg-white rounded-xl p-4 shadow-lg">
+                        <h3 class="text-lg font-semibold mb-4 text-contrast">Добавить на главный экран</h3>
+                        <p class="text-gray-600 mb-4 text-contrast">Используйте функцию "Добавить на главный экран" в меню вашего браузера.</p>
+                        <div class="p-3 bg-yellow-50 rounded-lg mb-4">
+                            <p class="text-sm text-yellow-700">
+                                <i data-feather="info" class="w-4 h-4 inline mr-1"></i>
+                                В разных браузерах эта функция может находиться в разных местах меню.
+                            </p>
+                        </div>
+                        <button onclick="loadSections()" class="back-button">
+                            <i data-feather="arrow-left" class="w-4 h-4 mr-2"></i>
+                            Назад в каталог
+                        </button>
+                    </div>
+                `;
+            }
+            
+            elements.content.innerHTML = instructions;
+            scheduleFeatherReplace();
+        }
+
+        function showInstallPrompt() {
+            installPWA();
+        }
+
+        // ФУНКЦИИ ДЛЯ ИЗБРАННОГО
+        async function toggleFavorite(product, productIndex) {
+            console.log('toggleFavorite called with product:', product);
+            
+            const productId = generateProductId(product);
+            const isFavorite = favorites.some(fav => fav.id === productId);
+            
+            // Получаем user_id из Telegram WebApp
+            const userId = tg?.initDataUnsafe?.user?.id;
+            
+            if (isFavorite) {
+                favorites = favorites.filter(fav => fav.id !== productId);
+                
+                // Удаляем из базы данных на сервере
+                if (userId && product.section_hash) {
+                    try {
+                        await fetch(`${API_BASE}/favorites/remove`, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                user_id: userId,
+                                section_hash: product.section_hash,
+                                category_hash: product.category_hash,
+                                model_hash: product.model_hash,
+                                submodel_hash: product.submodel_hash,
+                                product_index: product.product_index
+                            })
+                        });
+                        console.log('✅ Товар удален из избранного на сервере');
+                    } catch (error) {
+                        console.error('❌ Ошибка удаления из избранного:', error);
+                    }
+                }
+                
+                if (tg) {
+                    tg.showAlert('Товар удален из избранного');
+                }
+            } else {
+                const navigation = getCurrentNavigation();
+                const favoriteItem = {
+                    id: productId,
+                    product: product,
+                    navigation: navigation,
+                    timestamp: Date.now()
+                };
+                console.log('Adding to favorites:', favoriteItem);
+                console.log('Product photo_url:', product.photo_url);
+                
+                favorites.push(favoriteItem);
+                
+                // Добавляем в базу данных на сервере
+                if (userId && product.section_hash) {
+                    try {
+                        await fetch(`${API_BASE}/favorites/add`, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                user_id: userId,
+                                section_hash: product.section_hash,
+                                category_hash: product.category_hash,
+                                model_hash: product.model_hash,
+                                submodel_hash: product.submodel_hash,
+                                product_index: product.product_index,
+                                current_price: product.price || ''
+                            })
+                        });
+                        console.log('✅ Товар добавлен в избранное на сервере');
+                    } catch (error) {
+                        console.error('❌ Ошибка добавления в избранное:', error);
+                    }
+                }
+                
+                if (tg) {
+                    tg.showAlert('Товар добавлен в избранное! Вы получите уведомление при изменении цены.');
+                }
+            }
+            
+            localStorage.setItem('favorites', JSON.stringify(favorites));
+            updateFavoriteButton(productId, productIndex);
+        }
+
+        function generateProductId(product) {
+            return btoa(encodeURIComponent(
+                `${product.color || ''}-${product.price || ''}-${product.photo_url || ''}`
+            )).substring(0, 20);
+        }
+
+        function updateFavoriteButton(productId, productIndex) {
+            const isFavorite = favorites.some(fav => fav.id === productId);
+            const button = document.querySelector(`[data-product-index="${productIndex}"] .favorite-button`);
+            
+            if (button) {
+                if (isFavorite) {
+                    button.classList.add('active');
+                    button.innerHTML = '<i data-feather="heart"></i>';
+                } else {
+                    button.classList.remove('active');
+                    button.innerHTML = '<i data-feather="heart"></i>';
+                }
+                scheduleFeatherReplace();
+            }
+        }
+
+        function loadFavorites() {
+            lastAction = { type: 'loadFavorites' };
+            
+            navigationStack = [];
+            updateBreadcrumbs([{ name: 'Избранное', action: 'loadFavorites' }]);
+            elements.pageTitle.textContent = 'Избранное';
+            
+            if (!favorites || favorites.length === 0) {
+                showEmptyState('В избранном пока нет товаров');
+                return;
+            }
+
+            renderFavorites();
+            updateBackButton();
+        }
+
+        function renderFavorites() {
+            let html = '<div class="product-list">';
+            
+            html += `
+                <div class="sticky-favorites-header">
+                    ${favorites.length > 0 ? `
+                        <button onclick="requestAllFavorites()" class="w-full py-3 bg-blue-500 text-white rounded-lg font-medium flex items-center justify-center shadow-md hover:bg-blue-600 transition">
+                            <i data-feather="send" class="w-5 h-5 mr-2"></i>
+                            Запросить все товары
+                        </button>
+                    ` : ''}
+                </div>
+            `;
+
+            favorites.forEach((fav, index) => {
+                const product = fav.product;
+                const navigation = fav.navigation;
+                
+                if (!product) return;
+                
+                const color = safeString(product.color, 'Не указан');
+                const price = product.price ? formatPriceForBadge(product.price) : 'Цена не указана';
+                const specialPrice = product.special_price ? formatPriceForBadge(product.special_price) : null;
+                const description = safeString(product.description);
+                const photoUrl = safeString(product.photo_url);
+                const photoDescription = safeString(product.photo_description);
+                
+                // Проверяем, нужно ли показывать специальную цену
+                const userId = tg?.initDataUnsafe?.user?.id;
+                const showSpecialPrice = userId && SPECIAL_PRICE_USER_IDS.includes(userId) && specialPrice;
+                
+                let imageUrl = extractPhotoFilenameFromUrl(photoUrl);
+                const alternativeUrls = getAlternativeImageUrls(photoUrl);
+
+                html += `
+                    <div class="product-card fade-in" data-product-index="${index}" onclick="openProductDetailFromFavorites(${index})">
+                        <div class="favorite-label">В избранном</div>
+                        <div class="favorite-button active" onclick="event.stopPropagation(); toggleFavoriteFromFavorites('${fav.id}')">
+                            <i data-feather="heart"></i>
+                        </div>
+                `;
+
+                html += renderUniversalImage(imageUrl, alternativeUrls, color, photoUrl);
+                
+                html += `
+                        <div class="p-4">
+                            <div class="flex justify-between items-start mb-3">
+                                <h3 class="font-semibold text-lg text-contrast">${escapeHtml(color)}</h3>
+                                <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 6px;">
+                                    ${price && price !== 'Цена не указана' ? `
+                                        <span class="price-badge">${escapeHtml(price)}</span>
+                                    ` : ''}
+                                    ${showSpecialPrice ? `
+                                        <span class="price-badge" style="background: #FCD34D; color: #000000; font-weight: 600;">${escapeHtml(specialPrice)}</span>
+                                    ` : ''}
+                                </div>
+                            </div>
+                            
+                            <div class="space-y-2 mb-4">
+                `;
+
+                if (navigation) {
+                    const breadcrumbs = ['СКИДКА СЕРВИС']; // Всегда начинаем с "СКИДКА СЕРВИС"
+                    
+                    if (navigation.section) {
+                        breadcrumbs.push(navigation.section.name);
+                    }
+                    
+                    if (navigation.category) {
+                        breadcrumbs.push(navigation.category.name);
+                    }
+                    
+                    if (navigation.model && navigation.model.name !== "Без модели") {
+                        breadcrumbs.push(navigation.model.name);
+                    }
+                    
+                    if (navigation.submodel && navigation.submodel.name !== "Без подмодели") {
+                        breadcrumbs.push(navigation.submodel.name);
+                    }
+
+                    if (breadcrumbs.length > 1) { // Изменяем условие, так как у нас всегда есть "СКИДКА СЕРВИС"
+                        html += `<p class="breadcrumb-text text-gray-400 text-xs text-contrast">${breadcrumbs.join(' → ')}</p>`;
+                    }
+                }
+
+                html += `</div>`;
+
+                html += `
+                    <div class="mt-3">
+                        <button onclick="makePhoneCall(event)" class="w-full py-3 phone-button rounded-lg transition font-medium flex items-center justify-center">
+                            <i data-feather="phone" class="w-4 h-4 mr-2"></i>
+                            Позвонить
+                        </button>
+                    </div>
+                `;
+
+                html += `
+                    <div class="mt-2">
+                        <button onclick="contactAboutSpecificProductFromFavorites(${index})" 
+                                class="w-full py-3 tg-theme-button rounded-lg transition font-medium flex items-center justify-center">
+                            <i data-feather="message-circle" class="w-4 h-4 mr-2"></i>
+                            НАПИСАТЬ
+                        </button>
+                    </div>
+                `;
+
+                html += `
+                    <div class="mt-2">
+                        <button onclick="contactAboutCheaperPriceFromList(${index}, true)" 
+                                class="w-full py-3 rounded-lg transition font-medium flex items-center justify-center"
+                                style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); border-color: #10b981; color: white;">
+                            <i data-feather="trending-down" class="w-4 h-4 mr-2"></i>
+                            Нашел дешевле? Жми!
+                        </button>
+                    </div>
+                `;
+
+                html += `</div></div>`;
+            });
+
+            html += `
+                <button onclick="loadSections()" class="back-button">
+                    <i data-feather="arrow-left" class="w-4 h-4 mr-2"></i>
+                    Назад в каталог
+                </button>
+            `;
+
+            html += '</div>';
+            
+            elements.content.innerHTML = html;
+            scheduleFeatherReplace();
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        async function toggleFavoriteFromFavorites(favoriteId) {
+            const favorite = favorites.find(fav => fav.id === favoriteId);
+            
+            favorites = favorites.filter(fav => fav.id !== favoriteId);
+            localStorage.setItem('favorites', JSON.stringify(favorites));
+            
+            // Удаляем из базы данных на сервере
+            const userId = tg?.initDataUnsafe?.user?.id;
+            if (userId && favorite?.product) {
+                const product = favorite.product;
+                try {
+                    await fetch(`${API_BASE}/favorites/remove`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            user_id: userId,
+                            section_hash: product.section_hash,
+                            category_hash: product.category_hash,
+                            model_hash: product.model_hash,
+                            submodel_hash: product.submodel_hash,
+                            product_index: product.product_index
+                        })
+                    });
+                    console.log('✅ Товар удален из избранного на сервере');
+                } catch (error) {
+                    console.error('❌ Ошибка удаления из избранного:', error);
+                }
+            }
+            
+            if (favorites.length === 0) {
+                showEmptyState('В избранном пока нет товаров');
+            } else {
+                renderFavorites();
+            }
+            
+            if (tg) {
+                tg.showAlert('Товар удален из избранного');
+            }
+        }
+
+        function contactAboutSpecificProductFromFavorites(favoriteIndex) {
+            const favorite = favorites[favoriteIndex];
+            const product = favorite.product;
+            const navigation = favorite.navigation;
+            
+            const productInfo = [
+                navigation.section?.name,
+                navigation.category?.name,
+                navigation.model?.name,
+                navigation.submodel?.name,
+                product?.color,
+                product?.price && product.price !== 'Цена не указана' ? product.price : ''
+            ].filter(Boolean).join(' → ');
+
+            const message = `Здравствуйте! Интересует товар из избранного: ${productInfo}. Подскажите подробности.`;
+            
+            if (tg) {
+                tg.openTelegramLink(`https://t.me/SkidkaService01?text=${encodeURIComponent(message)}`);
+            } else {
+                window.open(`https://t.me/SkidkaService01?text=${encodeURIComponent(message)}`, '_blank');
+            }
+        }
+
+        function requestAllFavorites() {
+            if (favorites.length === 0) {
+                if (tg) {
+                    tg.showAlert('В избранном нет товаров');
+                } else {
+                    alert('В избранном нет товаров');
+                }
+                return;
+            }
+
+            let message = `Здравствуйте! Интересуют следующие товары из избранного:\n\n`;
+            
+            favorites.forEach((fav, index) => {
+                const product = fav.product;
+                const navigation = fav.navigation;
+                
+                const productInfo = [
+                    navigation.section?.name,
+                    navigation.category?.name,
+                    navigation.model?.name,
+                    navigation.submodel?.name,
+                    product?.color,
+                    product?.price && product.price !== 'Цена не указана' ? product.price : ''
+                ].filter(Boolean).join(' → ');
+                
+                message += `${index + 1}. ${productInfo}\n`;
+            });
+            
+            message += `\nПодскажите подробности по этим товарам.`;
+            
+            if (tg) {
+                tg.openTelegramLink(`https://t.me/SkidkaService01?text=${encodeURIComponent(message)}`);
+            } else {
+                window.open(`https://t.me/SkidkaService01?text=${encodeURIComponent(message)}`, '_blank');
+            }
+        }
+
+        // УНИВЕРСАЛЬНАЯ ФУНКЦИЯ ДЛЯ ОТОБРАЖЕНИЯ ИЗОБРАЖЕНИЙ
+        function renderUniversalImage(imageUrl, alternativeUrls, altText, originalUrl = '') {
+            if (imageUrl || alternativeUrls.length > 0) {
+                const finalImageUrl = imageUrl || alternativeUrls[0];
+                return `
+                    <div class="universal-image-container">
+                        <img src="${escapeHtml(finalImageUrl)}" alt="${escapeHtml(altText)}" 
+                             class="universal-image"
+                             onerror="handleUniversalImageError(this, '${escapeHtml(originalUrl)}', ${JSON.stringify(alternativeUrls).replace(/"/g, '&quot;')})"
+                             onload="handleUniversalImageLoad(this)"
+                             loading="lazy"
+                             crossorigin="anonymous"
+                             data-tried-alternative="0">
+                        <div class="universal-image-placeholder hidden">
+                            <div class="text-center text-gray-400">
+                                <i data-feather="image" class="w-12 h-12 mx-auto mb-2"></i>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else {
+                return `
+                    <div class="universal-image-container">
+                        <div class="universal-image-placeholder">
+                            <div class="text-center text-gray-400">
+                                <i data-feather="package" class="w-12 h-12 mx-auto mb-2"></i>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        // ИСПРАВЛЕННАЯ ФУНКЦИЯ ДЛЯ ИЗВЛЕЧЕНИЯ ФОТО
+        function extractPhotoFilenameFromUrl(url) {
+            try {
+                if (!url || typeof url !== 'string') return null;
+
+                url = url.trim();
+
+                // Если это уже прямая ссылка на изображение
+                if (url.toLowerCase().match(/\.(jpg|jpeg|png|gif|webp|bmp)(\?.*)?$/i)) {
+                    return url.startsWith('http') ? url : null;
+                }
+
+                // Обработка Google Drive ссылок
+                if (url.includes('drive.google.com')) {
+                    let fileId = null;
+
+                    // Разные форматы Google Drive ссылок
+                    if (url.includes('/file/d/')) {
+                        const match = url.match(/\/file\/d\/([^\/]+)/);
+                        if (match && match[1]) {
+                            fileId = match[1];
+                        }
+                    } 
+                    else if (url.includes('uc?export=view&id=')) {
+                        fileId = url.split('uc?export=view&id=')[1];
+                    }
+                    else if (url.includes('id=')) {
+                        fileId = url.split('id=')[1].split('&')[0];
+                    }
+                    else if (url.includes('/open?id=')) {
+                        fileId = url.split('/open?id=')[1];
+                    }
+
+                    if (fileId) {
+                        return `https://drive.google.com/uc?export=view&id=${fileId}`;
+                    }
+                }
+
+                // Если это обычная HTTP ссылка
+                if (url.startsWith('http://') || url.startsWith('https://')) {
+                    return url;
+                }
+
+                return null;
+            } catch (error) {
+                console.log('Ошибка извлечения фото из URL:', error);
+                return null;
+            }
+        }
+
+        function getAlternativeImageUrls(originalUrl) {
+            const urls = [];
+            
+            if (!originalUrl || typeof originalUrl !== 'string') return urls;
+            
+            try {
+                let fileId = null;
+                
+                // Извлекаем fileId из разных форматов Google Drive ссылок
+                const match1 = originalUrl.match(/\/file\/d\/([^\/]+)/);
+                if (match1 && match1[1]) {
+                    fileId = match1[1];
+                }
+                
+                if (!fileId) {
+                    const match2 = originalUrl.match(/[?&]id=([^&]+)/);
+                    if (match2 && match2[1]) {
+                        fileId = match2[1];
+                    }
+                }
+                
+                if (!fileId) {
+                    const match3 = originalUrl.match(/\/open\?id=([^&]+)/);
+                    if (match3 && match3[1]) {
+                        fileId = match3[1];
+                    }
+                }
+                
+                if (fileId) {
+                    // Генерируем альтернативные форматы ссылок
+                    urls.push(`https://drive.google.com/uc?export=view&id=${fileId}`);
+                    urls.push(`https://drive.google.com/thumbnail?id=${fileId}&sz=w1000`);
+                    urls.push(`https://docs.google.com/uc?id=${fileId}`);
+                    urls.push(`https://lh3.googleusercontent.com/d/${fileId}=w1000`);
+                }
+                
+            } catch (error) {
+                console.log('Ошибка генерации альтернативных URL:', error);
+            }
+            
+            return urls;
+        }
+
+        function handleUniversalImageError(imgElement, originalUrl = '', alternativeUrls = []) {
+            const triedAlternative = parseInt(imgElement.dataset.triedAlternative || '0');
+            
+            if (alternativeUrls.length > triedAlternative) {
+                // Пробуем следующую альтернативную ссылку
+                imgElement.dataset.triedAlternative = (triedAlternative + 1).toString();
+                imgElement.src = alternativeUrls[triedAlternative];
+                return;
+            }
+            
+            // Все альтернативы исчерпаны - показываем placeholder
+            imgElement.style.display = 'none';
+            const placeholder = imgElement.parentElement.querySelector('.universal-image-placeholder');
+            if (placeholder) {
+                placeholder.classList.remove('hidden');
+            }
+            scheduleFeatherReplace();
+        }
+
+        function handleUniversalImageLoad(imgElement) {
+            imgElement.style.display = 'block';
+            const placeholder = imgElement.parentElement.querySelector('.universal-image-placeholder');
+            if (placeholder) {
+                placeholder.classList.add('hidden');
+            }
+        }
+
+        // Функция для обработки ошибок загрузки фото в заголовке чата
+        function handleChatPhotoError(imgElement, alternativeUrls = []) {
+            const triedAlternative = parseInt(imgElement.dataset.triedAlternative || '0');
+            
+            console.log(`⚠️ Ошибка загрузки фото ${triedAlternative + 1}:`, imgElement.src);
+            
+            if (alternativeUrls.length > triedAlternative) {
+                // Пробуем следующую альтернативную ссылку
+                imgElement.dataset.triedAlternative = (triedAlternative + 1).toString();
+                imgElement.src = alternativeUrls[triedAlternative];
+                console.log(`🔄 Пробуем альтернативный URL ${triedAlternative + 1}:`, alternativeUrls[triedAlternative]);
+                return;
+            }
+            
+            // Все альтернативы исчерпаны - скрываем фото
+            console.log('❌ Все альтернативные URL исчерпаны, скрываем фото');
+            imgElement.style.display = 'none';
+        }
+
+        // ========== ФУНКЦИИ ДЛЯ БРИГАД ==========
+
+        async function loadBrigades() {
+    lastAction = { type: 'loadBrigades' };
+    navigationStack = [];
+    updateBreadcrumbs([{ name: 'Бригады', action: 'loadBrigades' }]);
+    elements.pageTitle.textContent = 'Бригады';
+    showLoading();
+    try {
+        const response = await fetch(`${API_BASE}/brigades`);
+        const data = await response.json();
+        hideLoading();
+        if (data.error) {
+            showEmptyState('Ошибка загрузки данных бригад');
+            return;
+        }
+        if (!data.brigades || data.brigades.length === 0) {
+            showEmptyState('Бригады не найдены');
+            return;
+        }
+        renderBrigadeGroups(data.brigades);
+        updateBackButton();
+    } catch (error) {
+        hideLoading();
+        showError('Ошибка загрузки бригад');
+    }
+        }
+
+        function renderBrigadeGroups(brigadeGroups) {
+            let html = '<div class="space-y-8">';
+            
+            brigadeGroups.forEach(group => {
+                if (!group.group_name || !group.brigades || group.brigades.length === 0) return;
+                
+                html += `
+                    <div class="brigade-group">
+                        <h2 class="brigade-group-title" style="color: var(--text-primary) !important;">${escapeHtml(group.group_name)}</h2>
+                        <div class="brigade-grid">
+                `;
+                
+                group.brigades.forEach(brigade => {
+                    const objectCount = brigade.objects ? brigade.objects.length : 0;
+                    const firstObject = brigade.objects && brigade.objects.length > 0 ? brigade.objects[0] : null;
+                    const firstPhoto = firstObject && firstObject.all_photos && firstObject.all_photos.length > 0 
+                        ? firstObject.all_photos[0] 
+                        : null;
+                    const imageUrl = firstPhoto ? extractPhotoFilenameFromUrl(firstPhoto.photo_url) : null;
+                    const alternativeUrls = firstPhoto ? getAlternativeImageUrls(firstPhoto.photo_url) : [];
+                    
+                    html += `
+                        <div class="brigade-card fade-in" onclick="openBrigade('${escapeHtml(group.group_name)}', ${JSON.stringify(brigade).replace(/"/g, '&quot;')})">
+                    `;
+                    
+                    html += renderUniversalImage(imageUrl, alternativeUrls, brigade.brigade_name, firstPhoto?.photo_url);
+                    
+                    html += `
+                            <div class="brigade-content">
+                                <h3 class="brigade-title">${escapeHtml(brigade.brigade_name)}</h3>
+                                <p class="brigade-description">${escapeHtml(group.group_name)}</p>
+                                <div class="object-count">${objectCount} объектов</div>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                html += `
+                        </div>
+                    </div>
+                `;
+            });
+            
+            html += `
+                <button onclick="loadSections()" class="back-button">
+                    <i data-feather="arrow-left" class="w-4 h-4 mr-2"></i>
+                    Назад в каталог
+                </button>
+            `;
+            
+            html += '</div>';
+            
+            elements.content.innerHTML = html;
+            scheduleFeatherReplace();
+        }
+
+        function openBrigade(groupName, brigade) {
+            currentBrigadeData = { groupName, brigade };
+            
+            navigationStack.push({ 
+                type: 'brigade', 
+                id: brigade.brigade_name, 
+                name: brigade.brigade_name 
+            });
+            
+            updateBreadcrumbsFromStack();
+            elements.pageTitle.textContent = brigade.brigade_name;
+            
+            renderBrigadeObjects(groupName, brigade);
+        }
+
+        function renderBrigadeObjects(groupName, brigade) {
+            let html = `
+                <div class="space-y-6">
+                    <div class="bg-white rounded-xl p-6 shadow-sm">
+                        <h2 class="text-2xl font-bold mb-2" style="color: #000000 !important;">${escapeHtml(brigade.brigade_name)}</h2>
+                        <p style="color: #000000 !important;">${escapeHtml(groupName)}</p>
+                    </div>
+            `;
+        
+            if (!brigade.objects || brigade.objects.length === 0) {
+                html += `
+                    <div class="bg-white rounded-xl p-8 text-center shadow-sm">
+                        <i data-feather="inbox" class="w-16 h-16 mx-auto text-gray-400 mb-4"></i>
+                        <p class="text-gray-500 text-contrast">Объекты не найдены</p>
+                    </div>
+                `;
+            } else {
+                html += `<div class="space-y-4">`;
+                
+                brigade.objects.forEach((object, index) => {
+                    const firstPhoto = object.all_photos && object.all_photos.length > 0 ? object.all_photos[0] : null;
+                    const imageUrl = firstPhoto ? extractPhotoFilenameFromUrl(firstPhoto.photo_url) : null;
+                    const alternativeUrls = firstPhoto ? getAlternativeImageUrls(firstPhoto.photo_url) : [];
+                    
+                    // Экранируем описание для использования в атрибуте data
+                    const safeDescription = escapeHtml(object.object_description || '');
+                    
+                    html += `
+                        <div class="object-card fade-in" onclick="openObjectGalleryPage('${escapeHtml(groupName)}', ${JSON.stringify(brigade).replace(/"/g, '&quot;')}, ${index})">
+                    `;
+                    
+                    html += renderUniversalImage(imageUrl, alternativeUrls, object.object_name, firstPhoto?.photo_url);
+                    
+                    html += `
+                            <div class="p-4">
+                                <h3 class="object-title">${escapeHtml(object.object_name)}</h3>
+                                <div class="flex justify-between items-center mt-3">
+                                    <div class="gallery-status ${getStatusClass(object.status)}">${getStatusText(object.status)}</div>
+                                    <div class="text-sm" style="color: var(--text-primary);">${object.all_photos ? object.all_photos.length : 0} фото</div>
+                                </div>
+                                ${object.object_description && object.object_description.trim() !== '' ? `
+                                    <button class="info-button mt-3" 
+                                            onclick="event.stopPropagation(); openInfoModalFromButton(this)" 
+                                            data-description="${safeDescription}">
+                                        <i data-feather="info" class="w-4 h-4"></i>
+                                        Информация по объекту
+                                    </button>
+                                ` : ''}
+                                
+                                <button 
+                                    onclick="event.stopPropagation(); startChatWithBrigadeFromButton(this)" 
+                                    class="chat-object-btn"
+                                    data-brigade-row="${brigade.brigade_row}"
+                                    data-telegram-id="${escapeHtml(brigade.telegram_id || '')}"
+                                    data-brigade-name="${escapeHtml(brigade.brigade_name)}"
+                                    data-object-name="${escapeHtml(object.object_name)}"
+                                    data-object-photo="${imageUrl || ''}"
+                                    data-brigade-json="${encodeURIComponent(JSON.stringify(brigade))}"
+                                    data-group-name="${escapeHtml(groupName)}"
+                                    data-object-index="${index}">
+                                    <i data-feather="message-circle" class="w-4 h-4 mr-2"></i>
+                                    Написать бригаде
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                html += `</div>`;
+            }
+        
+            html += `
+                        <div class="space-y-3">
+                            <button onclick="makePhoneCall(event)" class="w-full py-4 bg-green-500 text-white rounded-lg font-medium flex items-center justify-center text-lg">
+                                <i data-feather="phone" class="w-5 h-5 mr-3"></i>
+                                Позвонить
+                            </button>
+                            
+                            <button onclick="loadBrigades()" class="back-to-brigades">
+                                <i data-feather="arrow-left" class="w-4 h-4 mr-2"></i>
+                                Назад к бригадам
+                            </button>
+                        </div>
+                    </div>
+            `;
+            
+            elements.content.innerHTML = html;
+            scheduleFeatherReplace();
+        }
+
+        function openObjectGalleryPage(groupName, brigade, objectIndex, fromChat = false) {
+            const object = brigade.objects[objectIndex];
+            if (!object) return;
+            
+            currentObjectData = { groupName, brigade, object, objectIndex };
+            
+            navigationStack.push({ 
+                type: 'object', 
+                id: object.object_name, 
+                name: object.object_name,
+                fromChat: fromChat
+            });
+            
+            updateBreadcrumbsFromStack();
+            elements.pageTitle.textContent = object.object_name;
+            
+            renderObjectGalleryPage(groupName, brigade, object, fromChat);
+        }
+
+        function renderObjectGalleryPage(groupName, brigade, object, fromChat = false) {
+            let html = `
+                <div class="space-y-6">
+            `;
+            
+            // Если открыли из чата, добавляем кнопку возврата
+            if (fromChat && currentChatSession) {
+                html += `
+                    <button onclick="goBack()" class="back-to-chat-btn">
+                        <i data-feather="message-circle" class="w-4 h-4 mr-2"></i>
+                        Вернуться в чат
+                    </button>
+                `;
+            }
+            
+            html += `
+                    <div class="bg-white rounded-xl p-6 shadow-sm mb-4">
+                        <h2 class="text-2xl font-bold mb-2" style="color: #000000 !important;">${escapeHtml(object.object_name)}</h2>
+                        <div class="gallery-status ${getStatusClass(object.status)} mt-2">${getStatusText(object.status)}</div>
+            `;
+        
+            // Экранируем описание для использования в атрибуте data
+            const safeDescription = escapeHtml(object.object_description || '');
+            
+            if (object.object_description && object.object_description.trim() !== '') {
+                html += `
+                            <button class="info-button mt-3" 
+                                    onclick="openInfoModalFromButton(this)" 
+                                    data-description="${safeDescription}">
+                                <i data-feather="info" class="w-4 h-4"></i>
+                                Информация по объекту
+                            </button>
+                `;
+            }
+        
+            html += `
+                    </div>
+                    <div class="object-gallery-container">
+            `;
+        
+            if (!object.all_photos || object.all_photos.length === 0) {
+                html += `
+                            <div class="object-gallery-images">
+                                <div class="bg-gray-50 rounded-lg p-8 text-center">
+                                    <i data-feather="image" class="w-16 h-16 mx-auto text-gray-400 mb-4"></i>
+                                    <p class="text-gray-500">Фотографии не найдены</p>
+                                </div>
+                            </div>
+                `;
+            } else {
+                html += `
+                            <div class="object-gallery-images">
+                                <div class="mb-4">
+                                    <h3 class="text-lg font-semibold text-contrast mb-2">Фотографии объекта (${object.all_photos.length})</h3>
+                                </div>
+                                <div class="object-gallery-grid">
+                `;
+                
+                object.all_photos.forEach((photo, photoIndex) => {
+                    const imageUrl = extractPhotoFilenameFromUrl(photo.photo_url);
+                    const alternativeUrls = getAlternativeImageUrls(photo.photo_url);
+                    
+                    html += `
+                                    <div class="object-gallery-image-item fade-in" onclick="openFullScreenGallery(${photoIndex})">
+                    `;
+                    
+                    if (imageUrl || alternativeUrls.length > 0) {
+                        const finalImageUrl = imageUrl || alternativeUrls[0];
+                        html += `
+                                        <img src="${escapeHtml(finalImageUrl)}" alt="${escapeHtml(photo.description || object.object_name)}" 
+                                             class="object-gallery-image"
+                                             onerror="handleGalleryImageError(this, '${escapeHtml(photo.photo_url)}', ${JSON.stringify(alternativeUrls).replace(/"/g, '&quot;')})"
+                                             onload="handleGalleryImageLoad(this)"
+                                             loading="lazy"
+                                             data-tried-alternative="0">
+                                        <div class="object-gallery-image-placeholder hidden">
+                                            <div class="text-center text-gray-400">
+                                                <i data-feather="image" class="w-8 h-8 mx-auto mb-1"></i>
+                                                <div class="text-xs">Не удалось загрузить</div>
+                                            </div>
+                                        </div>
+                        `;
+                    } else {
+                        html += `
+                                        <div class="object-gallery-image-placeholder">
+                                            <div class="text-center text-gray-400">
+                                                <i data-feather="image" class="w-8 h-8 mx-auto mb-1"></i>
+                                                <div class="text-xs">Фото не доступно</div>
+                                            </div>
+                                        </div>
+                        `;
+                    }
+                    
+                    html += `</div>`;
+                });
+                
+                html += `</div></div>`;
+            }
+        
+            html += `
+                    </div>
+                        
+                    <div class="space-y-3">
+                        <button onclick="makePhoneCall(event)" class="w-full py-4 bg-green-500 text-white rounded-lg font-medium flex items-center justify-center text-lg">
+                            <i data-feather="phone" class="w-5 h-5 mr-3"></i>
+                            Позвонить
+                        </button>
+                        
+                        <button onclick="openBrigade('${escapeHtml(groupName)}', ${JSON.stringify(brigade).replace(/"/g, '&quot;')})" class="back-to-brigades">
+                            <i data-feather="arrow-left" class="w-4 h-4 mr-2"></i>
+                            Назад к объектам
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            elements.content.innerHTML = html;
+            scheduleFeatherReplace();
+        }
+
+        function openInfoModalFromButton(buttonElement) {
+            const description = buttonElement.getAttribute('data-description');
+            if (description) {
+                openInfoModal(description);
+            }
+            
+            // Останавливаем распространение события
+            if (window.event) {
+                window.event.stopPropagation();
+                window.event.preventDefault();
+            }
+        }
+        // ИСПРАВЛЕННЫЕ ФУНКЦИИ ДЛЯ МОДАЛЬНОГО ОКНА ИНФОРМАЦИИ
+        function openInfoModal(description) {
+            console.log('Opening info modal with description:', description);
+            
+            if (!description || description.trim() === '') {
+                elements.infoModalContent.innerHTML = '<p style="color: white; text-align: center; padding: 20px;">Описание отсутствует</p>';
+            } else {
+                // Используем textContent для безопасности и создаем структуру
+                elements.infoModalContent.innerHTML = '';
+                
+                // Создаем контейнер для контента
+                const contentDiv = document.createElement('div');
+                contentDiv.style.color = 'white';
+                contentDiv.style.fontSize = '16px';
+                contentDiv.style.lineHeight = '1.5';
+                contentDiv.style.whiteSpace = 'pre-line';
+                contentDiv.style.padding = '20px';
+                contentDiv.style.overflowY = 'auto';
+                contentDiv.style.maxHeight = '70vh';
+                contentDiv.style.wordWrap = 'break-word';
+                contentDiv.style.overflowWrap = 'break-word';
+                
+                // Безопасно устанавливаем текст
+                contentDiv.textContent = description;
+                
+                elements.infoModalContent.appendChild(contentDiv);
+            }
+            
+            elements.infoModal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            
+            // Останавливаем распространение события
+            if (window.event) {
+                window.event.stopPropagation();
+            }
+        }
+
+        function closeInfoModal() {
+            elements.infoModal.classList.add('hidden');
+            document.body.style.overflow = '';
+            
+            // Очищаем содержимое при закрытии
+            elements.infoModalContent.innerHTML = '';
+            
+            // Останавливаем распространение события
+            if (window.event) {
+                window.event.stopPropagation();
+            }
+        }
+
+        // Модальное окно товара
+        let currentProductDetail = null;
+
+        function openProductDetail(productIndex) {
+            const product = currentProducts[productIndex];
+            if (!product) return;
+
+            currentProductDetail = product;
+            
+            const modal = document.getElementById('productDetailModal');
+            const title = document.getElementById('productDetailTitle');
+            const image = document.getElementById('productDetailImage');
+            const price = document.getElementById('productDetailPrice');
+            const specialPrice = document.getElementById('productDetailSpecialPrice');
+            const description = document.getElementById('productDetailDescription');
+
+            // Заголовок
+            title.textContent = product.color || 'Товар';
+
+            // Изображение
+            let imageUrl = extractPhotoFilenameFromUrl(product.photo_url);
+            const alternativeUrls = getAlternativeImageUrls(product.photo_url);
+            const finalImageUrl = imageUrl || (alternativeUrls.length > 0 ? alternativeUrls[0] : null);
+            
+            if (finalImageUrl) {
+                image.src = finalImageUrl;
+                image.style.display = 'block';
+                image.onerror = function() {
+                    if (alternativeUrls.length > 0) {
+                        const nextUrl = alternativeUrls.shift();
+                        if (nextUrl) this.src = nextUrl;
+                    }
+                };
+            } else {
+                image.style.display = 'none';
+            }
+
+            // Цена
+            if (product.price && product.price !== 'Цена не указана') {
+                price.textContent = formatPriceForBadge(product.price);
+                price.style.display = 'inline-block';
+            } else {
+                price.style.display = 'none';
+            }
+
+            // Специальная цена (только для определенных пользователей)
+            const userId = tg?.initDataUnsafe?.user?.id;
+            if (userId && SPECIAL_PRICE_USER_IDS.includes(userId) && product.special_price) {
+                specialPrice.textContent = formatPriceForBadge(product.special_price);
+                specialPrice.style.display = 'inline-block';
+            } else {
+                specialPrice.style.display = 'none';
+            }
+
+            // Описание из столбца I (description)
+            if (product.description) {
+                description.textContent = product.description;
+                description.style.display = 'block';
+            } else {
+                description.style.display = 'none';
+            }
+
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            
+            setTimeout(() => {
+                feather.replace();
+            }, 100);
+        }
+
+        function openProductDetailFromFavorites(favIndex) {
+            const fav = currentFavorites[favIndex];
+            if (!fav || !fav.product) return;
+            
+            currentProductDetail = fav.product;
+            
+            const modal = document.getElementById('productDetailModal');
+            const title = document.getElementById('productDetailTitle');
+            const image = document.getElementById('productDetailImage');
+            const price = document.getElementById('productDetailPrice');
+            const specialPrice = document.getElementById('productDetailSpecialPrice');
+            const description = document.getElementById('productDetailDescription');
+
+            const product = fav.product;
+
+            title.textContent = product.color || 'Товар';
+
+            let imageUrl = extractPhotoFilenameFromUrl(product.photo_url);
+            const alternativeUrls = getAlternativeImageUrls(product.photo_url);
+            const finalImageUrl = imageUrl || (alternativeUrls.length > 0 ? alternativeUrls[0] : null);
+            
+            if (finalImageUrl) {
+                image.src = finalImageUrl;
+                image.style.display = 'block';
+                image.onerror = function() {
+                    if (alternativeUrls.length > 0) {
+                        const nextUrl = alternativeUrls.shift();
+                        if (nextUrl) this.src = nextUrl;
+                    }
+                };
+            } else {
+                image.style.display = 'none';
+            }
+
+            if (product.price && product.price !== 'Цена не указана') {
+                price.textContent = formatPriceForBadge(product.price);
+                price.style.display = 'inline-block';
+            } else {
+                price.style.display = 'none';
+            }
+
+            // Специальная цена (только для определенных пользователей)
+            const userId = tg?.initDataUnsafe?.user?.id;
+            if (userId && SPECIAL_PRICE_USER_IDS.includes(userId) && product.special_price) {
+                specialPrice.textContent = formatPriceForBadge(product.special_price);
+                specialPrice.style.display = 'inline-block';
+            } else {
+                specialPrice.style.display = 'none';
+            }
+
+            if (product.description) {
+                description.textContent = product.description;
+                description.style.display = 'block';
+            } else {
+                description.style.display = 'none';
+            }
+
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            
+            setTimeout(() => {
+                feather.replace();
+            }, 100);
+        }
+
+        function closeProductDetail() {
+            const modal = document.getElementById('productDetailModal');
+            modal.classList.add('hidden');
+            document.body.style.overflow = '';
+            currentProductDetail = null;
+        }
+
+        function contactAboutCurrentProduct() {
+            if (!currentProductDetail) return;
+            
+            const navigation = getCurrentNavigation();
+            
+            const productInfo = [
+                navigation.section?.name,
+                navigation.category?.name,
+                navigation.model?.name,
+                navigation.submodel?.name,
+                currentProductDetail.color,
+                currentProductDetail.price && currentProductDetail.price !== 'Цена не указана' ? currentProductDetail.price : ''
+            ].filter(Boolean).join(' → ');
+
+            const message = `Здравствуйте! Интересует товар: ${productInfo}. Подскажите подробности.`;
+            
+            if (tg) {
+                tg.openTelegramLink(`https://t.me/SkidkaService01?text=${encodeURIComponent(message)}`);
+            } else {
+                window.open(`https://t.me/SkidkaService01?text=${encodeURIComponent(message)}`, '_blank');
+            }
+        }
+        
+        async function contactAboutCheaperPrice() {
+            if (!currentProductDetail) return;
+            
+            const navigation = getCurrentNavigation();
+            
+            const productInfo = [
+                navigation.section?.name,
+                navigation.category?.name,
+                navigation.model?.name,
+                navigation.submodel?.name,
+                currentProductDetail.color,
+                currentProductDetail.price && currentProductDetail.price !== 'Цена не указана' ? currentProductDetail.price : ''
+            ].filter(Boolean).join(' → ');
+
+            const message = `Здравствуйте!\n${productInfo} НАШЕЛ ДЕШЕВЛЕ\nхочу обсудить с вами стоимость`;
+            
+            // Получаем URL фото товара
+            const photoUrl = currentProductDetail.photo_url || '';
+            
+            try {
+                // Отправляем запрос через API
+                const response = await fetch(`${API_BASE}/send_product_inquiry`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        user_id: tg?.initDataUnsafe?.user?.id || 'unknown',
+                        product_info: productInfo,
+                        photo_url: photoUrl,
+                        message: message
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    // Показываем уведомление об успешной отправке
+                    if (tg) {
+                        tg.showAlert('✅ Ваш запрос отправлен! Администратор свяжется с вами в ближайшее время.');
+                    } else {
+                        alert('✅ Ваш запрос отправлен! Администратор свяжется с вами в ближайшее время.');
+                    }
+                } else {
+                    throw new Error('Ошибка отправки');
+                }
+            } catch (error) {
+                console.error('Ошибка отправки запроса:', error);
+                // В случае ошибки открываем обычный чат
+                if (tg) {
+                    tg.openTelegramLink(`https://t.me/SkidkaService01?text=${encodeURIComponent(message)}`);
+                } else {
+                    window.open(`https://t.me/SkidkaService01?text=${encodeURIComponent(message)}`, '_blank');
+                }
+            }
+        }
+        
+        async function contactAboutCheaperPriceFromList(index, isFavorites) {
+            const product = isFavorites ? favoriteProducts[index] : currentProducts[index];
+            if (!product) return;
+            
+            const navigation = getCurrentNavigation();
+            
+            const productInfo = [
+                navigation.section?.name,
+                navigation.category?.name,
+                navigation.model?.name,
+                navigation.submodel?.name,
+                product.color,
+                product.price && product.price !== 'Цена не указана' ? product.price : ''
+            ].filter(Boolean).join(' → ');
+
+            const message = `Здравствуйте!\n${productInfo} НАШЕЛ ДЕШЕВЛЕ\nхочу обсудить с вами стоимость`;
+            
+            // Получаем URL фото товара
+            const photoUrl = product.photo_url || '';
+            
+            try {
+                // Отправляем запрос через API
+                const response = await fetch(`${API_BASE}/send_product_inquiry`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        user_id: tg?.initDataUnsafe?.user?.id || 'unknown',
+                        product_info: productInfo,
+                        photo_url: photoUrl,
+                        message: message
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    // Показываем уведомление об успешной отправке
+                    if (tg) {
+                        tg.showAlert('✅ Ваш запрос отправлен! Администратор свяжется с вами в ближайшее время.');
+                    } else {
+                        alert('✅ Ваш запрос отправлен! Администратор свяжется с вами в ближайшее время.');
+                    }
+                } else {
+                    throw new Error('Ошибка отправки');
+                }
+            } catch (error) {
+                console.error('Ошибка отправки запроса:', error);
+                // В случае ошибки открываем обычный чат
+                if (tg) {
+                    tg.openTelegramLink(`https://t.me/SkidkaService01?text=${encodeURIComponent(message)}`);
+                } else {
+                    window.open(`https://t.me/SkidkaService01?text=${encodeURIComponent(message)}`, '_blank');
+                }
+            }
+        }
+        
+        function openFullScreenGallery(photoIndex) {
+            if (!currentObjectData || !currentObjectData.object.all_photos) return;
+            
+            currentGalleryData = currentObjectData.object.all_photos;
+            currentGalleryIndex = photoIndex;
+            
+            updateFullScreenGallery();
+            elements.galleryModal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function updateFullScreenGallery() {
+            if (!currentGalleryData || currentGalleryData.length === 0) return;
+            
+            const currentPhoto = currentGalleryData[currentGalleryIndex];
+            const imageUrl = extractPhotoFilenameFromUrl(currentPhoto.photo_url);
+            const alternativeUrls = getAlternativeImageUrls(currentPhoto.photo_url);
+            const finalImageUrl = imageUrl || (alternativeUrls.length > 0 ? alternativeUrls[0] : '');
+            
+            elements.galleryCardTitle.textContent = currentObjectData.object.object_name;
+            elements.galleryStatus.textContent = getStatusText(currentObjectData.object.status);
+            elements.galleryStatus.className = `gallery-status ${getStatusClass(currentObjectData.object.status)}`;
+            elements.galleryCurrentImage.src = finalImageUrl;
+            elements.galleryCurrentImage.alt = currentPhoto.description || '';
+            elements.galleryDescription.textContent = currentPhoto.description || '';
+            elements.galleryObjectInfo.textContent = `${currentObjectData.brigade.brigade_name} • ${currentObjectData.groupName}`;
+            elements.galleryCounter.textContent = `${currentGalleryIndex + 1} / ${currentGalleryData.length}`;
+            
+            // Сбрасываем обработчики ошибок
+            elements.galleryCurrentImage.onerror = function() {
+                handleGalleryImageError(this, currentPhoto.photo_url, alternativeUrls);
+            };
+            
+            elements.galleryCurrentImage.dataset.triedAlternative = '0';
+        }
+
+        // Функции для обработки изображений в галерее
+        function handleGalleryImageError(imgElement, originalUrl = '', alternativeUrls = []) {
+            const triedAlternative = parseInt(imgElement.dataset.triedAlternative || '0');
+            
+            if (alternativeUrls.length > triedAlternative) {
+                // Пробуем следующую альтернативную ссылку
+                imgElement.dataset.triedAlternative = (triedAlternative + 1).toString();
+                imgElement.src = alternativeUrls[triedAlternative];
+                return;
+            }
+            
+            // Все альтернативы исчерпаны - показываем placeholder
+            if (imgElement.classList.contains('object-gallery-image')) {
+                imgElement.style.display = 'none';
+                const placeholder = imgElement.parentElement.querySelector('.object-gallery-image-placeholder');
+                if (placeholder) {
+                    placeholder.classList.remove('hidden');
+                }
+            } else if (imgElement === elements.galleryCurrentImage) {
+                imgElement.style.display = 'none';
+                // Для полноэкранной галереи создаем placeholder
+                const placeholder = document.createElement('div');
+                placeholder.className = 'text-white text-center';
+                placeholder.innerHTML = `
+                    <i data-feather="image" class="w-16 h-16 mx-auto mb-2"></i>
+                    <div>Не удалось загрузить фото</div>
+                `;
+                imgElement.parentElement.appendChild(placeholder);
+                scheduleFeatherReplace();
+            }
+        }
+
+        function handleGalleryImageLoad(imgElement) {
+            imgElement.style.display = 'block';
+            if (imgElement.classList.contains('object-gallery-image')) {
+                const placeholder = imgElement.parentElement.querySelector('.object-gallery-image-placeholder');
+                if (placeholder) {
+                    placeholder.classList.add('hidden');
+                }
+            } else if (imgElement === elements.galleryCurrentImage) {
+                const placeholder = imgElement.parentElement.querySelector('.text-white');
+                if (placeholder) {
+                    placeholder.remove();
+                }
+            }
+        }
+
+        function getStatusText(status) {
+            switch (String(status)) {
+                case '0': return 'Продано';
+                case '1': return 'В продаже';
+                case '3': return 'Строится';
+                default: return 'Неизвестно';
+            }
+        }
+
+        function getStatusClass(status) {
+            switch (String(status)) {
+                case '0': return 'status-sold';
+                case '1': return 'status-sale';
+                case '3': return 'status-building';
+                default: return 'status-sale';
+            }
+        }
+
+        // Функции галереи
+        function closeGallery() {
+            elements.galleryModal.classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        function prevGalleryImage() {
+            if (!currentGalleryData) return;
+            
+            currentGalleryIndex = (currentGalleryIndex - 1 + currentGalleryData.length) % currentGalleryData.length;
+            updateFullScreenGallery();
+        }
+
+        function nextGalleryImage() {
+            if (!currentGalleryData) return;
+            
+            currentGalleryIndex = (currentGalleryIndex + 1) % currentGalleryData.length;
+            updateFullScreenGallery();
+        }
+
+        // Обработчики свайпов для галереи
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        elements.galleryCurrentImage.addEventListener('touchstart', e => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        elements.galleryCurrentImage.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            const diff = touchStartX - touchEndX;
+            
+            if (Math.abs(diff) > swipeThreshold) {
+                if (diff > 0) {
+                    nextGalleryImage();
+                } else {
+                    prevGalleryImage();
+                }
+            }
+        }
+
+        // ========== ОСНОВНЫЕ ФУНКЦИИ ==========
+
+        function initTelegramApp() {
+            if (tg) {
+                try {
+                    tg.expand();
+                    tg.enableClosingConfirmation();
+                } catch (error) {
+                    console.log('Ошибка инициализации Telegram Web App:', error);
+                }
+            }
+            
+            // Синхронизируем избранное с сервером
+            syncFavoritesWithServer();
+            
+            // Проверяем URL параметры для автоматического открытия чата
+            checkUrlParamsForChat();
+            checkUrlParamsForCatalog();
+        }
+        
+        async function syncFavoritesWithServer() {
+            const userId = tg?.initDataUnsafe?.user?.id;
+            if (!userId) {
+                console.log('User ID не найден, пропускаем синхронизацию избранного');
+                return;
+            }
+            
+            try {
+                console.log('🔄 Синхронизация избранного с сервером...');
+                const response = await fetch(`${API_BASE}/favorites/list/${userId}`);
+                const data = await response.json();
+                
+                if (data.success && data.favorites) {
+                    console.log(`✅ Получено ${data.favorites.length} избранных товаров с сервера`);
+                    
+                    // Здесь можно добавить логику мержа локального и серверного избранного
+                    // Пока просто логируем
+                    console.log('Избранное на сервере:', data.favorites);
+                }
+            } catch (error) {
+                console.error('❌ Ошибка синхронизации избранного:', error);
+            }
+        }
+
+        function checkUrlParamsForCatalog() {
+            try {
+                const urlParams = new URLSearchParams(window.location.search);
+                const section = urlParams.get('section');
+                const category = urlParams.get('category');
+                const model = urlParams.get('model');
+                const submodel = urlParams.get('submodel');
+                const productIndex = urlParams.get('product');
+                
+                if (section) {
+                    console.log('Автоматическая навигация к товару:', {section, category, model, submodel, productIndex});
+                    
+                    // Очищаем параметры из URL сразу
+                    const newUrl = window.location.pathname;
+                    window.history.replaceState({}, document.title, newUrl);
+                    
+                    // Навигируемся к товару
+                    setTimeout(async () => {
+                        try {
+                            await navigateToProduct(section, category, model, submodel, parseInt(productIndex) || 0);
+                        } catch (error) {
+                            console.error('Ошибка навигации к товару:', error);
+                        }
+                    }, 1000); // Даем время загрузиться приложению
+                }
+            } catch (error) {
+                console.error('Ошибка обработки параметров каталога:', error);
+            }
+        }
+
+        async function navigateToProduct(sectionHash, categoryHash, modelHash, submodelHash, productIndex) {
+            try {
+                // Переключаемся на каталог
+                switchSection('catalog');
+                
+                // Загружаем секции
+                const sections = await loadSections();
+                const section = sections.find(s => s.id === sectionHash);
+                if (!section) {
+                    console.error('Секция не найдена:', sectionHash);
+                    return;
+                }
+                
+                // Открываем секцию
+                await openSection(section.id, section.name);
+                
+                if (categoryHash && categoryHash !== 'null') {
+                    // Открываем категорию
+                    const categories = await loadCategories(sectionHash);
+                    const category = categories.find(c => c.id === categoryHash);
+                    if (category) {
+                        await openCategory(sectionHash, category.id, category.name);
+                        
+                        if (modelHash && modelHash !== 'null') {
+                            // Открываем модель
+                            const models = await loadModels(sectionHash, categoryHash);
+                            const model = models.find(m => m.id === modelHash);
+                            if (model) {
+                                await openModel(sectionHash, categoryHash, model.id, model.name);
+                                
+                                if (submodelHash && submodelHash !== 'null') {
+                                    // Открываем подмодель
+                                    const submodels = await loadSubmodels(sectionHash, categoryHash, modelHash);
+                                    const submodel = submodels.find(sm => sm.id === submodelHash);
+                                    if (submodel) {
+                                        await openSubmodel(sectionHash, categoryHash, modelHash, submodel.id, submodel.name);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                // Прокручиваем к нужному товару
+                if (productIndex > 0) {
+                    setTimeout(() => {
+                        const productElements = document.querySelectorAll('.product-item');
+                        if (productElements[productIndex]) {
+                            productElements[productIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            // Подсвечиваем товар
+                            productElements[productIndex].style.border = '2px solid #007bff';
+                            setTimeout(() => {
+                                productElements[productIndex].style.border = '';
+                            }, 3000);
+                        }
+                    }, 500);
+                }
+                
+            } catch (error) {
+                console.error('Ошибка навигации к товару:', error);
+            }
+        }
+
+        function checkUrlParamsForChat() {
+            try {
+                const urlParams = new URLSearchParams(window.location.search);
+                const openChatSessionId = urlParams.get('openChat');
+                
+                if (openChatSessionId) {
+                    console.log('Автоматическое открытие чата из уведомления, session_id:', openChatSessionId);
+                    
+                    // Получаем данные чата по session_id
+                    setTimeout(async () => {
+                        try {
+                            const response = await fetch(`${API_BASE}/chat/session_info/${openChatSessionId}`);
+                            const data = await response.json();
+                            
+                            if (data.success) {
+                                console.log('Данные чата получены:', data);
+                                
+                                // Определяем, является ли текущий пользователь бригадой
+                                const tg = window.Telegram?.WebApp;
+                                const userInfo = tg?.initDataUnsafe?.user || {};
+                                const userId = userInfo.id || 'web_user_' + Date.now();
+                                
+                                // Проверяем, является ли пользователь бригадой
+                                let isBrigade = false;
+                                try {
+                                    const brigadesResponse = await fetch(`${API_BASE}/brigades_extended`);
+                                    const brigadesData = await brigadesResponse.json();
+                                    
+                                    if (brigadesData.brigades) {
+                                        // Проверяем, есть ли telegram_id текущего пользователя среди бригад
+                                        for (const brigade of brigadesData.brigades) {
+                                            if (brigade.telegram_id && String(brigade.telegram_id) === String(userId)) {
+                                                isBrigade = true;
+                                                console.log('✅ Пользователь является бригадой:', brigade.name);
+                                                break;
+                                            }
+                                        }
+                                    }
+                                } catch (error) {
+                                    console.error('Ошибка проверки статуса бригады:', error);
+                                }
+                                
+                                // Открываем чат в зависимости от того, кто открывает
+                                if (isBrigade) {
+                                    console.log('📱 Открываем чат как БРИГАДА');
+                                    openChatSessionAsBrigade(data.session_id, data.brigade_name, data.object_name || '');
+                                } else {
+                                    console.log('📱 Открываем чат как ПОКУПАТЕЛЬ');
+                                    openChatSessionAsCustomer(data.session_id, data.brigade_name, data.object_name || '');
+                                }
+                            } else {
+                                console.error('Чат не найден:', data.error);
+                            }
+                        } catch (error) {
+                            console.error('Ошибка получения данных чата:', error);
+                        }
+                        
+                        // Очищаем параметры из URL
+                        const newUrl = window.location.pathname;
+                        window.history.replaceState({}, document.title, newUrl);
+                    }, 1000); // Даем время загрузиться приложению
+                }
+            } catch (error) {
+                console.error('Ошибка обработки параметров чата:', error);
+            }
+        }
+
+        // ========== API ФУНКЦИИ ==========
+
+        async function apiFetch(endpoint) {
+            // Добавляем timestamp чтобы избежать кеша
+            const separator = endpoint.includes('?') ? '&' : '?';
+            const url = `${API_BASE}${endpoint}${separator}_t=${Date.now()}`;
+            
+            showLoading();
+            
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => {
+                controller.abort();
+            }, API_TIMEOUT);
+            
+            try {
+                const response = await fetch(url, { 
+                    signal: controller.signal,
+                    cache: 'no-cache'
+                });
+                
+                clearTimeout(timeoutId);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const data = await response.json();
+                
+                if (!data) {
+                    throw new Error('Пустой ответ от сервера');
+                }
+                
+                hideLoading();
+                return data;
+                
+            } catch (error) {
+                clearTimeout(timeoutId);
+                let errorMessage = error.message;
+                
+                if (error.name === 'AbortError') {
+                    errorMessage = `Таймаут запроса (${API_TIMEOUT/1000} секунд). Сервер не отвечает.`;
+                } else if (error.name === 'TypeError' && error.message.includes('fetch')) {
+                    errorMessage = 'Ошибка сети. Проверьте подключение к интернету.';
+                }
+                
+                hideLoading();
+                console.error('API Error:', errorMessage, 'URL:', url);
+                showError(`Ошибка загрузки: ${errorMessage}`);
+                return { error: errorMessage };
+            }
+        }
+
+        // ========== КАРУСЕЛЬ ТОВАРОВ ==========
+        
+        // Все функции карусели удалены
+
+        // ========== ИНТЕЛЛЕКТУАЛЬНАЯ НАВИГАЦИЯ ==========
+
+        async function loadSections() {
+            lastAction = { type: 'loadSections' };
+            
+            try {
+                navigationStack = [];
+                updateBreadcrumbs([{ name: 'МЕНЮ', action: 'loadSections' }]);
+                elements.pageTitle.textContent = 'Каталог товаров';
+                
+                const data = await apiFetch('/sections');
+                
+                if (data?.error) {
+                    showEmptyState('Ошибка загрузки разделов');
+                    return;
+                }
+                
+                if (!data || !Array.isArray(data.sections) || data.sections.length === 0) {
+                    showEmptyState('Разделы не найдены');
+                    return;
+                }
+
+                renderSections(data.sections);
+                updateBackButton();
+            } catch (error) {
+                showError('Не удалось загрузить разделы');
+            }
+        }
+
+        async function loadCategories(sectionId, sectionName) {
+            if (!sectionId || !sectionName) {
+                console.error('loadCategories: missing parameters', { sectionId, sectionName });
+                showError('Ошибка: отсутствуют параметры раздела');
+                return;
+            }
+            
+            lastAction = { type: 'loadCategories', sectionId, sectionName };
+            
+            try {
+                navigationStack = navigationStack.filter(item => item.type !== 'categories' && item.type !== 'models' && item.type !== 'submodels');
+                navigationStack.push({ 
+                    type: 'sections', 
+                    id: sectionId, 
+                    name: sectionName,
+                    sectionId: sectionId,
+                    sectionName: sectionName
+                });
+                
+                updateBreadcrumbsFromStack();
+                elements.pageTitle.textContent = sectionName;
+                
+                const data = await apiFetch(`/categories/${sectionId}`);
+                
+                if (data?.error) {
+                    await loadProductsDirect(sectionId, null, null, null, sectionName);
+                    return;
+                }
+                
+                if (!data || !Array.isArray(data.categories) || data.categories.length === 0) {
+                    await loadProductsDirect(sectionId, null, null, null, sectionName);
+                    return;
+                }
+
+                if (data.categories.length === 1) {
+                    const category = data.categories[0];
+                    const modelsData = await apiFetch(`/models/${sectionId}/${category.id}`);
+                    
+                    if (modelsData?.models && modelsData.models.length === 1 && 
+                        modelsData.models[0].name === "Без модели") {
+                        await loadProductsDirect(sectionId, category.id, null, null, category.name);
+                        return;
+                    }
+                }
+
+                renderCategories(data.categories, sectionId, sectionName);
+                updateBackButton();
+            } catch (error) {
+                await loadProductsDirect(sectionId, null, null, null, sectionName);
+            }
+        }
+
+        async function loadModels(sectionId, sectionName, categoryId, categoryName) {
+            if (!sectionId || !categoryId) {
+                console.error('loadModels: missing parameters', { sectionId, categoryId });
+                showError('Ошибка: отсутствуют параметры категории');
+                return;
+            }
+            
+            lastAction = { type: 'loadModels', sectionId, sectionName, categoryId, categoryName };
+            
+            try {
+                navigationStack = navigationStack.filter(item => item.type !== 'models' && item.type !== 'submodels');
+                navigationStack.push({ 
+                    type: 'categories', 
+                    id: categoryId, 
+                    name: categoryName,
+                    sectionId: sectionId,
+                    sectionName: sectionName,
+                    categoryId: categoryId,
+                    categoryName: categoryName
+                });
+                
+                updateBreadcrumbsFromStack();
+                elements.pageTitle.textContent = categoryName;
+                
+                const data = await apiFetch(`/models/${sectionId}/${categoryId}`);
+                
+                if (data?.error) {
+                    await loadProductsDirect(sectionId, categoryId, null, null, categoryName);
+                    return;
+                }
+                
+                if (!data || !Array.isArray(data.models) || data.models.length === 0) {
+                    await loadProductsDirect(sectionId, categoryId, null, null, categoryName);
+                    return;
+                }
+
+                if (data.models.length === 1 && data.models[0].name === "Без модели") {
+                    await loadProductsDirect(sectionId, categoryId, null, null, categoryName);
+                    return;
+                }
+
+                const filteredModels = data.models.filter(model => model.name !== "Без модели");
+                
+                if (filteredModels.length === 0) {
+                    await loadProductsDirect(sectionId, categoryId, null, null, categoryName);
+                    return;
+                }
+
+                renderModels(filteredModels, sectionId, sectionName, categoryId, categoryName);
+                updateBackButton();
+            } catch (error) {
+                await loadProductsDirect(sectionId, categoryId, null, null, categoryName);
+            }
+        }
+
+        async function loadSubmodels(sectionId, sectionName, categoryId, categoryName, modelId, modelName) {
+            lastAction = { type: 'loadSubmodels', sectionId, sectionName, categoryId, categoryName, modelId, modelName };
+            
+            try {
+                navigationStack = navigationStack.filter(item => item.type !== 'submodels');
+                navigationStack.push({ 
+                    type: 'models', 
+                    id: modelId, 
+                    name: modelName,
+                    sectionId: sectionId,
+                    sectionName: sectionName,
+                    categoryId: categoryId,
+                    categoryName: categoryName,
+                    modelId: modelId,
+                    modelName: modelName
+                });
+                
+                updateBreadcrumbsFromStack();
+                elements.pageTitle.textContent = modelName;
+                
+                const data = await apiFetch(`/submodels/${sectionId}/${categoryId}/${modelId}`);
+                
+                if (data?.error) {
+                    await loadProductsDirect(sectionId, categoryId, modelId, null, modelName);
+                    return;
+                }
+                
+                if (!data || !Array.isArray(data.submodels) || data.submodels.length === 0) {
+                    await loadProductsDirect(sectionId, categoryId, modelId, null, modelName);
+                    return;
+                }
+
+                if (data.submodels.length === 1 && data.submodels[0].name === "Без подмодели") {
+                    await loadProductsDirect(sectionId, categoryId, modelId, null, modelName);
+                    return;
+                }
+
+                const filteredSubmodels = data.submodels.filter(submodel => submodel.name !== "Без подмодели");
+                
+                if (filteredSubmodels.length === 0) {
+                    await loadProductsDirect(sectionId, categoryId, modelId, null, modelName);
+                    return;
+                }
+
+                renderSubmodels(filteredSubmodels, sectionId, sectionName, categoryId, categoryName, modelId, modelName);
+                updateBackButton();
+            } catch (error) {
+                await loadProductsDirect(sectionId, categoryId, modelId, null, modelName);
+            }
+        }
+
+        async function loadProducts(sectionId, sectionName, categoryId, categoryName, modelId, modelName, submodelId, submodelName) {
+            lastAction = { type: 'loadProducts', sectionId, sectionName, categoryId, categoryName, modelId, modelName, submodelId, submodelName };
+            
+            try {
+                navigationStack.push({ 
+                    type: 'submodels', 
+                    id: submodelId, 
+                    name: submodelName,
+                    sectionId: sectionId,
+                    sectionName: sectionName,
+                    categoryId: categoryId,
+                    categoryName: categoryName,
+                    modelId: modelId,
+                    modelName: modelName,
+                    submodelId: submodelId,
+                    submodelName: submodelName
+                });
+                updateBreadcrumbsFromStack();
+                elements.pageTitle.textContent = submodelName;
+                
+                await loadProductsDirect(sectionId, categoryId, modelId, submodelId, submodelName);
+            } catch (error) {
+                showError('Не удалось загрузить товары');
+            }
+        }
+
+        async function loadProductsDirect(sectionId, categoryId, modelId, submodelId, currentName) {
+            const safeSectionId = sectionId || 'null';
+            const safeCategoryId = categoryId || 'null';
+            const safeModelId = modelId || 'null';
+            const safeSubmodelId = submodelId || 'null';
+            
+            const endpoint = `/products/${safeSectionId}/${safeCategoryId}/${safeModelId}/${safeSubmodelId}`;
+            elements.pageTitle.textContent = currentName;
+            
+            const data = await apiFetch(endpoint);
+            
+            if (data?.error) {
+                showEmptyState(`Ошибка загрузки товаров для: ${currentName}`);
+                return;
+            }
+            
+            if (!data || !Array.isArray(data.products) || data.products.length === 0) {
+                showEmptyState(`Товары не найдены для: ${currentName}`);
+                return;
+            }
+
+            // Добавляем хэши к каждому товару для синхронизации избранного
+            currentProducts = data.products.filter(product => product != null).map((product, index) => ({
+                ...product,
+                section_hash: safeSectionId,
+                category_hash: safeCategoryId,
+                model_hash: safeModelId,
+                submodel_hash: safeSubmodelId,
+                product_index: index
+            }));
+            
+            if (currentProducts.length === 0) {
+                showEmptyState(`Товары не найдены для: ${currentName}`);
+                return;
+            }
+
+            renderAllProducts();
+            updateBackButton();
+        }
+
+        // ========== РЕНДЕРИНГ ИНТЕРФЕЙСА ==========
+
+        function renderSections(sections) {
+            let html = '<div class="space-y-3">';
+            
+            sections.forEach(section => {
+                if (!section) return;
+                
+                const safeId = escapeHtml(section.id);
+                const safeName = escapeHtml(section.name);
+                const minPrice = safeNumber(section.min_price);
+                const priceText = formatPriceText(minPrice);
+                
+                html += `
+                    <div class="category-card fade-in" onclick="loadCategories('${safeId}', '${safeName.replace(/'/g, "\\'")}')">
+                        <div class="p-4">
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center">
+                                    <h3 class="font-semibold text-lg tg-theme-text text-contrast">${safeName}</h3>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    ${priceText ? `<span class="price-badge">${priceText.replace(' от ', '').replace(' р.', '')}</span>` : ''}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            html += `
+                <div class="category-card fade-in" onclick="loadFavorites()">
+                    <div class="p-4">
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center">
+                                <i data-feather="heart" class="w-5 h-5 mr-3 text-red-500"></i>
+                                <h3 class="font-semibold text-lg tg-theme-text text-contrast">Избранное</h3>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span class="text-sm text-gray-500">${favorites.length} товаров</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+
+            
+            html += '</div>';
+            
+            if (!html) {
+                showEmptyState('Нет доступных разделов');
+                return;
+            }
+            
+            if (navigationStack.length > 0) {
+                html += `
+                    <button onclick="goBack()" class="back-button">
+                        <i data-feather="arrow-left" class="w-4 h-4 mr-2"></i>
+                        Назад
+                    </button>
+                `;
+            }
+            
+            elements.content.innerHTML = html;
+            scheduleFeatherReplace();
+        }
+
+        function renderCategories(categories, sectionId, sectionName, allLeadToProducts = false) {
+            let html = '<div class="categories-grid">';
+            
+            // ДОБАВЛЯЕМ ПРЕВЬЮ если ВСЕ категории ведут к товарам
+            if (allLeadToProducts) {
+                html += `<div id="preview-container" class="mb-4"></div>`;
+            }
+            
+            categories.forEach(category => {
+                if (!category) return;
+                
+                const safeId = escapeHtml(category.id);
+                const safeName = escapeHtml(category.name);
+                const minPrice = safeNumber(category.min_price);
+                const priceText = formatPriceText(minPrice);
+                
+                html += `
+                    <div class="category-card fade-in" onclick="loadModels('${escapeHtml(sectionId)}', '${escapeHtml(sectionName).replace(/'/g, "\\'")}', '${safeId}', '${safeName.replace(/'/g, "\\'")}')">
+                        <div class="p-4">
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center">
+                                    <h3 class="font-semibold text-lg tg-theme-text text-contrast">${safeName}</h3>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    ${priceText ? `<span class="price-badge">${priceText.replace(' от ', '').replace(' р.', '')}</span>` : ''}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            html += '</div>';
+            
+            if (!html) {
+                showEmptyState('Нет доступных категорий');
+                return;
+            }
+            
+            html += `
+                <button onclick="goBack()" class="back-button">
+                    <i data-feather="arrow-left" class="w-4 h-4 mr-2"></i>
+                    Назад
+                </button>
+            `;
+            
+            elements.content.innerHTML = html;
+            
+            // Загружаем превью фото асинхронно, если все категории ведут к товарам
+            if (allLeadToProducts) {
+                setTimeout(async () => {
+                    const previewContainer = document.getElementById('preview-container');
+                    if (previewContainer && categories.length > 0) {
+                        const firstCategory = categories[0];
+                        const previewUrl = await getPreviewImageFromProducts(sectionId, firstCategory.id, null, null);
+                        
+                        if (previewUrl) {
+                            previewContainer.innerHTML = `
+                                <div class="preview-image-container mb-4 text-center">
+                                    <div class="inline-block">
+                                        <img src="${escapeHtml(previewUrl)}" 
+                                             alt="Превью товаров" 
+                                             class="preview-image rounded-lg shadow-lg max-w-xs mx-auto"
+                                             style="max-height: 200px; width: auto;"
+                                             onerror="this.parentElement.parentElement.remove()"
+                                             loading="lazy">
+                                        <div class="text-sm text-gray-600 mt-2">Пример товаров в разделе</div>
+                                    </div>
+                                </div>
+                            `;
+                        }
+                    }
+                }, 100);
+            }
+            
+            scheduleFeatherReplace();
+        }
+
+        function renderModels(models, sectionId, sectionName, categoryId, categoryName, allLeadToProducts = false) {
+            let html = '<div class="categories-grid">';
+            
+            // ДОБАВЛЯЕМ ПРЕВЬЮ если ВСЕ модели ведут к товарам
+            if (allLeadToProducts) {
+                html += `<div id="preview-container" class="mb-4"></div>`;
+            }
+            
+            models.forEach(model => {
+                if (!model) return;
+                
+                const safeId = escapeHtml(model.id);
+                const safeName = escapeHtml(model.name);
+                const minPrice = safeNumber(model.min_price);
+                const priceText = formatPriceText(minPrice);
+                
+                html += `
+                    <div class="category-card fade-in" onclick="loadSubmodels('${escapeHtml(sectionId)}', '${escapeHtml(sectionName).replace(/'/g, "\\'")}', '${escapeHtml(categoryId)}', '${escapeHtml(categoryName).replace(/'/g, "\\'")}', '${safeId}', '${safeName.replace(/'/g, "\\'")}')">
+                        <div class="p-4">
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center">
+                                    <h3 class="font-semibold text-lg tg-theme-text text-contrast">${safeName}</h3>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    ${priceText ? `<span class="price-badge">${priceText.replace(' от ', '').replace(' р.', '')}</span>` : ''}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            html += '</div>';
+            
+            if (!html) {
+                showEmptyState('Нет доступных моделей');
+                return;
+            }
+            
+            html += `
+                <button onclick="goBack()" class="back-button">
+                    <i data-feather="arrow-left" class="w-4 h-4 mr-2"></i>
+                    Назад
+                </button>
+            `;
+            
+            elements.content.innerHTML = html;
+            
+            // Загружаем превью фото асинхронно, если все модели ведут к товарам
+            if (allLeadToProducts) {
+                setTimeout(async () => {
+                    const previewContainer = document.getElementById('preview-container');
+                    if (previewContainer && models.length > 0) {
+                        const firstModel = models[0];
+                        const previewUrl = await getPreviewImageFromProducts(sectionId, categoryId, firstModel.id, null);
+                        
+                        if (previewUrl) {
+                            previewContainer.innerHTML = `
+                                <div class="preview-image-container mb-4 text-center">
+                                    <div class="inline-block">
+                                        <img src="${escapeHtml(previewUrl)}" 
+                                             alt="Превью товаров" 
+                                             class="preview-image rounded-lg shadow-lg max-w-xs mx-auto"
+                                             style="max-height: 200px; width: auto;"
+                                             onerror="this.parentElement.parentElement.remove()"
+                                             loading="lazy">
+                                        <div class="text-sm text-gray-600 mt-2">Пример товаров в разделе</div>
+                                    </div>
+                                </div>
+                            `;
+                        }
+                    }
+                }, 100);
+            }
+            
+            scheduleFeatherReplace();
+        }
+
+        // ФУНКЦИЯ ДЛЯ ПОЛУЧЕНИЯ ПЕРВОГО ФОТО ИЗ ТОВАРОВ
+        async function getPreviewImageFromProducts(sectionId, categoryId, modelId, submodelId) {
+            try {
+                const safeSectionId = sectionId || 'null';
+                const safeCategoryId = categoryId || 'null';
+                const safeModelId = modelId || 'null';
+                const safeSubmodelId = submodelId || 'null';
+                
+                console.log('Getting preview image for:', { safeSectionId, safeCategoryId, safeModelId, safeSubmodelId });
+                
+                const endpoint = `${API_BASE}/products/${safeSectionId}/${safeCategoryId}/${safeModelId}/${safeSubmodelId}`;
+                console.log('Preview API endpoint:', endpoint);
+                
+                const response = await fetch(endpoint);
+                if (!response.ok) {
+                    console.log('Preview API error:', response.status, response.statusText);
+                    return null;
+                }
+                
+                const data = await response.json();
+                console.log('Preview API response:', data);
+                
+                if (data?.products && data.products.length > 0) {
+                    // Ищем первый товар с фото
+                    for (let product of data.products) {
+                        console.log('Checking product for photo:', product);
+                        if (product.photo_url && product.photo_url.trim() !== '') {
+                            console.log('Found preview image:', product.photo_url);
+                            return product.photo_url;
+                        }
+                    }
+                }
+                
+                console.log('No preview image found');
+                return null;
+            } catch (error) {
+                console.error('Не удалось получить превью фото:', error);
+                return null;
+            }
+        }
+
+        function renderSubmodels(submodels, sectionId, sectionName, categoryId, categoryName, modelId, modelName) {
+            let html = '<div class="categories-grid">';
+            
+            submodels.forEach(submodel => {
+                if (!submodel) return;
+                
+                const safeId = escapeHtml(submodel.id);
+                const safeName = escapeHtml(submodel.name);
+                const minPrice = safeNumber(submodel.min_price);
+                const priceText = formatPriceText(minPrice);
+                
+                html += `
+                    <div class="submodel-item">
+                        <!-- Превью фото для каждой подмодели -->
+                        <div class="preview-image-container mb-2 text-center">
+                            <div class="inline-block" style="width: 100%;">
+                                <div class="preview-placeholder-${safeId}" 
+                                     style="width: 100%; height: 150px; background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%); 
+                                            border-radius: 8px; display: flex; align-items: center; justify-content: center; 
+                                            color: white; font-size: 14px; font-weight: bold;">
+                                    🖼️ Загрузка...
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Кнопка подмодели -->
+                        <div class="category-card fade-in" onclick="loadProducts('${escapeHtml(sectionId)}', '${escapeHtml(sectionName).replace(/'/g, "\\'")}', '${escapeHtml(categoryId)}', '${escapeHtml(categoryName).replace(/'/g, "\\'")}', '${escapeHtml(modelId)}', '${escapeHtml(modelName).replace(/'/g, "\\'")}', '${safeId}', '${safeName.replace(/'/g, "\\'")}')">
+                            <div class="p-4">
+                                <div class="flex justify-between items-center">
+                                    <div class="flex items-center">
+                                        <h3 class="font-semibold text-lg tg-theme-text text-contrast">${safeName}</h3>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        ${priceText ? `<span class="price-badge">${priceText.replace(' от ', '').replace(' р.', '')}</span>` : ''}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            html += '</div>';
+            
+            if (!html) {
+                showEmptyState('Нет доступных подмоделей');
+                return;
+            }
+            
+            html += `
+                <button onclick="goBack()" class="back-button">
+                    <i data-feather="arrow-left" class="w-4 h-4 mr-2"></i>
+                    Назад
+                </button>
+            `;
+            
+            elements.content.innerHTML = html;
+            
+            // Загружаем превью для КАЖДОЙ подмодели отдельно
+            setTimeout(async () => {
+                for (let submodel of submodels) {
+                    if (!submodel) continue;
+                    
+                    try {
+                        const safeId = escapeHtml(submodel.id);
+                        const placeholder = document.querySelector(`.preview-placeholder-${safeId}`);
+                        
+                        if (placeholder) {
+                            console.log(`Loading preview for submodel: ${submodel.name}`);
+                            
+                            // Получаем превью для конкретной подмодели
+                            const previewUrl = await getPreviewImageFromProducts(sectionId, categoryId, modelId, submodel.id);
+                            console.log(`Preview URL for ${submodel.name}:`, previewUrl);
+                            
+                            if (previewUrl && previewUrl.trim() !== '') {
+                                // Конвертируем Google Drive ссылки в прямые ссылки
+                                let fullImageUrl = previewUrl;
+                                
+                                if (previewUrl.includes('drive.google.com/uc?export=view&id=')) {
+                                    // Извлекаем ID из Google Drive ссылки
+                                    const match = previewUrl.match(/id=([a-zA-Z0-9_-]+)/);
+                                    if (match && match[1]) {
+                                        fullImageUrl = `https://drive.google.com/thumbnail?id=${match[1]}&sz=w400-h300`;
+                                    }
+                                } else if (!previewUrl.startsWith('http')) {
+                                    fullImageUrl = `https://dmitrii2613.pythonanywhere.com/static/images/${previewUrl}`;
+                                }
+                                
+                                console.log(`Converted image URL for ${submodel.name}:`, fullImageUrl);
+                                
+                                placeholder.innerHTML = `
+                                    <img src="${escapeHtml(fullImageUrl)}" 
+                                         alt="Превью ${escapeHtml(submodel.name)}" 
+                                         style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;"
+                                         onload="console.log('✅ Preview loaded for ${escapeHtml(submodel.name)}')"
+                                         onerror="console.log('❌ Preview failed for ${escapeHtml(submodel.name)}'); this.parentElement.innerHTML = '<div style=\\'display: flex; align-items: center; justify-content: center; height: 100%;\\'>\ud83d\udce6</div>';">
+                                `;
+                            } else {
+                                console.log(`No preview URL for ${submodel.name}, showing placeholder`);
+                                placeholder.innerHTML = `
+                                    <div style="display: flex; align-items: center; justify-content: center; height: 100%; color: white;">
+                                        <div style="font-size: 32px;">📦</div>
+                                    </div>
+                                `;
+                            }
+                        }
+                    } catch (error) {
+                        console.error(`Error loading preview for ${submodel.name}:`, error);
+                        // При ошибке API показываем иконку
+                        const safeId = escapeHtml(submodel.id);
+                        const placeholder = document.querySelector(`.preview-placeholder-${safeId}`);
+                        if (placeholder) {
+                            placeholder.innerHTML = `
+                                <div style="display: flex; align-items: center; justify-content: center; height: 100%; color: white;">
+                                    <div style="font-size: 32px;">🛍️</div>
+                                </div>
+                            `;
+                        }
+                    }
+                }
+            }, 300);
+            
+            scheduleFeatherReplace();
+        }
+
+        function renderProductBreadcrumbs(navigation) {
+            if (!navigation.section && !navigation.category && !navigation.model && !navigation.submodel) {
+                return '';
+            }
+
+            const breadcrumbs = [];
+            
+            if (navigation.section) {
+                breadcrumbs.push({
+                    name: navigation.section.name,
+                    action: `loadCategories('${navigation.section.id}', '${navigation.section.name.replace(/'/g, "\\'")}')`
+                });
+            }
+            
+            if (navigation.category) {
+                breadcrumbs.push({
+                    name: navigation.category.name,
+                    action: `loadModels('${navigation.section.id}', '${navigation.section.name.replace(/'/g, "\\'")}', '${navigation.category.id}', '${navigation.category.name.replace(/'/g, "\\'")}')`
+                });
+            }
+            
+            if (navigation.model && navigation.model.name !== "Без модели") {
+                breadcrumbs.push({
+                    name: navigation.model.name,
+                    action: `loadSubmodels('${navigation.section.id}', '${navigation.section.name.replace(/'/g, "\\'")}', '${navigation.category.id}', '${navigation.category.name.replace(/'/g, "\\'")}', '${navigation.model.id}', '${navigation.model.name.replace(/'/g, "\\'")}')`
+                });
+            }
+            
+            if (navigation.submodel && navigation.submodel.name !== "Без подмодели") {
+                breadcrumbs.push({
+                    name: navigation.submodel.name,
+                    action: `loadProducts('${navigation.section.id}', '${navigation.section.name.replace(/'/g, "\\'")}', '${navigation.category.id}', '${navigation.category.name.replace(/'/g, "\\'")}', '${navigation.model.id}', '${navigation.model.name.replace(/'/g, "\\'")}', '${navigation.submodel.id}', '${navigation.submodel.name.replace(/'/g, "\\'")}')`
+                });
+            }
+
+            if (breadcrumbs.length === 0) {
+                return '';
+            }
+
+            let html = '<div class="breadcrumb-container mb-4 p-3 bg-gray-50 rounded-lg">';
+            html += '<div class="flex items-center flex-wrap text-sm text-gray-600">';
+            
+            breadcrumbs.forEach((crumb, index) => {
+                if (index > 0) {
+                    html += '<span class="breadcrumb-separator">→</span>';
+                }
+                html += `<span class="breadcrumb-item" onclick="${crumb.action}">${escapeHtml(crumb.name)}</span>`;
+            });
+
+            html += '</div></div>';
+            return html;
+        }
+
+        function renderAllProducts() {
+            if (!currentProducts || currentProducts.length === 0) {
+                showEmptyState('Товары не найдены');
+                return;
+            }
+
+            const navigation = getCurrentNavigation();
+            let html = '<div class="product-list">';
+            
+            html += renderProductBreadcrumbs(navigation);
+
+            currentProducts.forEach((product, index) => {
+                if (!product) return;
+                
+                const productId = generateProductId(product);
+                const isFavorite = favorites.some(fav => fav.id === productId);
+                const color = safeString(product.color, 'Не указан');
+                const price = product.price ? formatPriceForBadge(product.price) : 'Цена не указана';
+                const specialPrice = product.special_price ? formatPriceForBadge(product.special_price) : null;
+                const description = safeString(product.description);
+                const photoUrl = safeString(product.photo_url);
+                const photoDescription = safeString(product.photo_description);
+                
+                // Проверяем, нужно ли показывать специальную цену
+                const userId = tg?.initDataUnsafe?.user?.id;
+                const showSpecialPrice = userId && SPECIAL_PRICE_USER_IDS.includes(userId) && product.special_price && specialPrice;
+                
+                let imageUrl = extractPhotoFilenameFromUrl(photoUrl);
+                const alternativeUrls = getAlternativeImageUrls(photoUrl);
+
+                html += `
+                    <div class="product-card fade-in" data-product-index="${index}" onclick="openProductDetail(${index})">
+                        <div class="favorite-button ${isFavorite ? 'active' : ''}" onclick="event.stopPropagation(); toggleFavorite(${JSON.stringify(product).replace(/"/g, '&quot;')}, ${index})">
+                            <i data-feather="heart"></i>
+                        </div>
+                `;
+
+                html += renderUniversalImage(imageUrl, alternativeUrls, color, photoUrl);
+                
+                html += `
+                        <div class="p-4">
+                            <div class="flex justify-between items-start mb-3">
+                                <h3 class="font-semibold text-lg text-contrast">${escapeHtml(color)}</h3>
+                                <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 6px;">
+                                    ${price && price !== 'Цена не указана' ? `
+                                        <span class="price-badge">${escapeHtml(price)}</span>
+                                    ` : ''}
+                                    ${showSpecialPrice ? `
+                                        <span class="price-badge" style="background: #FCD34D; color: #000000; font-weight: 600;">${escapeHtml(specialPrice)}</span>
+                                    ` : ''}
+                                </div>
+                            </div>
+                            
+                            <div class="space-y-2 mb-4">
+                `;
+
+                html += `</div>`;
+
+                html += `
+                    <div class="mt-3">
+                        <button onclick="makePhoneCall(event)" class="w-full py-3 phone-button rounded-lg transition font-medium flex items-center justify-center">
+                            <i data-feather="phone" class="w-4 h-4 mr-2"></i>
+                            Позвонить
+                        </button>
+                    </div>
+                `;
+
+                html += `
+                    <div class="mt-2">
+                        <button onclick="contactAboutSpecificProduct(${index})" 
+                                class="w-full py-3 tg-theme-button rounded-lg transition font-medium flex items-center justify-center">
+                            <i data-feather="message-circle" class="w-4 h-4 mr-2"></i>
+                            НАПИСАТЬ
+                        </button>
+                    </div>
+                `;
+
+                html += `
+                    <div class="mt-2">
+                        <button onclick="contactAboutCheaperPriceFromList(${index}, false)" 
+                                class="w-full py-3 rounded-lg transition font-medium flex items-center justify-center"
+                                style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); border-color: #10b981; color: white;">
+                            <i data-feather="trending-down" class="w-4 h-4 mr-2"></i>
+                            Нашел дешевле? Жми!
+                        </button>
+                    </div>
+                `;
+
+                html += `</div></div>`;
+            });
+
+            html += `
+                <button onclick="goBack()" class="back-button">
+                    <i data-feather="arrow-left" class="w-4 h-4 mr-2"></i>
+                    Назад
+                </button>
+            `;
+
+            html += '</div>';
+            
+            elements.content.innerHTML = html;
+            scheduleFeatherReplace();
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function contactAboutSpecificProduct(productIndex) {
+            const product = currentProducts[productIndex];
+            const navigation = getCurrentNavigation();
+            
+            const productInfo = [
+                navigation.section?.name,
+                navigation.category?.name,
+                navigation.model?.name,
+                navigation.submodel?.name,
+                product?.color,
+                product?.price && product.price !== 'Цена не указана' ? product.price : ''
+            ].filter(Boolean).join(' → ');
+
+            const message = `Здравствуйте! Интересует товар: ${productInfo}. Подскажите подробности.`;
+            
+            if (tg) {
+                tg.openTelegramLink(`https://t.me/SkidkaService01?text=${encodeURIComponent(message)}`);
+            } else {
+                window.open(`https://t.me/SkidkaService01?text=${encodeURIComponent(message)}`, '_blank');
+            }
+        }
+
+        // ========== УПРАВЛЕНИЕ НАВИГАЦИЕЙ ==========
+
+        function getCurrentNavigation() {
+            const navigation = {
+                section: null,
+                category: null,
+                model: null,
+                submodel: null
+            };
+
+            navigationStack.forEach(item => {
+                switch (item.type) {
+                    case 'sections':
+                        navigation.section = { id: item.id, name: item.name };
+                        break;
+                    case 'categories':
+                        navigation.category = { id: item.id, name: item.name };
+                        break;
+                    case 'models':
+                        navigation.model = { id: item.id, name: item.name };
+                        break;
+                    case 'submodels':
+                        navigation.submodel = { id: item.id, name: item.name };
+                        break;
+                    case 'brigade':
+                        navigation.brigade = { id: item.id, name: item.name };
+                        break;
+                    case 'object':
+                        navigation.object = { id: item.id, name: item.name };
+                        break;
+                }
+            });
+
+            return navigation;
+        }
+
+        function updateBreadcrumbsFromStack() {
+            // Заглушка - breadcrumbs в хедере удалены, остались только в карточках товаров
+            return;
+        }
+
+        function updateBreadcrumbs(items) {
+            // Заглушка - breadcrumbs в хедере удалены, остались только в карточках товаров
+            return;
+        }
+
+        function updateBackButton() {
+            if (!tg) return;
+            
+            try {
+                if (navigationStack.length > 0) {
+                    if (tg.BackButton) {
+                        tg.BackButton.show();
+                        tg.BackButton.onClick(goBack);
+                    }
+                } else {
+                    if (tg.BackButton) {
+                        tg.BackButton.hide();
+                    }
+                }
+            } catch (error) {
+                console.log('Ошибка обновления кнопки назад:', error);
+            }
+        }
+
+        function goBack() {
+            if (navigationStack.length > 0) {
+                const currentItem = navigationStack.pop();
+                
+                // Если открыли объект из чата, возвращаемся в чат
+                if (currentItem.fromChat && currentChatSession && currentChatBrigade) {
+                    console.log('⬅️ Возврат в чат из объекта');
+                    openChatModal(currentChatBrigade, currentChatObject);
+                    return;
+                }
+                
+                if (navigationStack.length === 0) {
+                    loadSections();
+                } else {
+                    const previousItem = navigationStack[navigationStack.length - 1];
+                    // Загружаем предыдущий уровень напрямую по сохранённым параметрам
+                    loadPreviousLevel(previousItem);
+                }
+            } else if (tg) {
+                tg.close();
+            }
+        }
+
+        function loadPreviousLevel(item) {
+            switch (item.type) {
+                case 'sections':
+                    loadSections();
+                    break;
+                case 'categories':
+                    loadCategories(item.sectionId, item.sectionName);
+                    break;
+                case 'models':
+                    loadModels(item.sectionId, item.sectionName, item.categoryId, item.categoryName);
+                    break;
+                case 'submodels':
+                    loadSubmodels(item.sectionId, item.sectionName, item.categoryId, item.categoryName, item.modelId, item.modelName);
+                    break;
+                case 'brigade':
+                    loadBrigades();
+                    break;
+                case 'object':
+                    if (currentBrigadeData) {
+                        openBrigade(currentBrigadeData.groupName, currentBrigadeData.brigade);
+                    } else {
+                        loadBrigades();
+                    }
+                    break;
+                default:
+                    loadSections();
+            }
+        }
+
+        function handleBackNavigation(type) {
+            switch (type) {
+                case 'sections':
+                    loadSections();
+                    break;
+                case 'categories':
+                    const section = navigationStack.find(item => item.type === 'sections');
+                    if (section) {
+                        loadCategories(section.id, section.name);
+                    } else {
+                        loadSections();
+                    }
+                    break;
+                case 'models':
+                    const sectionForModel = navigationStack.find(item => item.type === 'sections');
+                    const category = navigationStack.find(item => item.type === 'categories');
+                    if (sectionForModel && category) {
+                        loadModels(sectionForModel.id, sectionForModel.name, category.id, category.name);
+                    } else {
+                        loadSections();
+                    }
+                    break;
+                case 'submodels':
+                    const sectionForSubmodel = navigationStack.find(item => item.type === 'sections');
+                    const categoryForSubmodel = navigationStack.find(item => item.type === 'categories');
+                    const model = navigationStack.find(item => item.type === 'models');
+                    if (sectionForSubmodel && categoryForSubmodel && model) {
+                        loadSubmodels(sectionForSubmodel.id, sectionForSubmodel.name, categoryForSubmodel.id, categoryForSubmodel.name, model.id, model.name);
+                    } else {
+                        loadSections();
+                    }
+                    break;
+                case 'brigade':
+                    loadBrigades();
+                    break;
+                case 'object':
+                    const brigadeItem = navigationStack.find(item => item.type === 'brigade');
+                    if (brigadeItem && currentBrigadeData) {
+                        openBrigade(currentBrigadeData.groupName, currentBrigadeData.brigade);
+                    } else {
+                        loadBrigades();
+                    }
+                    break;
+                default:
+                    loadSections();
+            }
+        }
+
+        // ========== ФУНКЦИИ ДЛЯ КВАДРАТНЫХ КНОПОК ==========
+        
+        function openBrigades() {
+            console.log('🏗️ Открываем бригады');
+            loadBrigades();
+        }
+        
+        function callTaxi() {
+            console.log('🚕 Вызываем такси');
+            
+            // Создаем модальное окно с выбором сервиса
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+            modal.innerHTML = `
+                <div class="p-6 rounded-lg shadow-lg max-w-sm w-full mx-4" style="background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.25);">
+                    <h3 class="text-lg font-semibold mb-4 text-center" style="color: #ffffff !important;">Выберите сервис такси</h3>
+                    <div class="space-y-3">
+                        <button onclick="openYandexTaxi()" class="w-full p-3 rounded-lg font-medium" style="background-color: #FFCC00; color: #000000 !important; font-weight: 700; text-shadow: none; box-shadow: 0 4px 12px rgba(255, 204, 0, 0.4);">
+                            🚕 Яндекс Такси
+                        </button>
+                        <button onclick="openUberTaxi()" class="w-full p-3 rounded-lg font-medium" style="background-color: #000000; color: #ffffff !important;">
+                            🚗 Uber
+                        </button>
+                        <button onclick="closeModal(this.closest('.fixed'))" class="w-full p-3 rounded-lg font-medium" style="background: rgba(255, 255, 255, 0.15); color: #ffffff !important; border: 1px solid rgba(255,255,255,0.3);">
+                            Отмена
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            
+            // Закрытие по клику на фон
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    document.body.removeChild(modal);
+                }
+            });
+        }
+        
+        function openYandexTaxi() {
+            console.log('🟡 Открываем Яндекс Такси');
+            
+            // Используем существующую функцию с правильными координатами
+            const lat = CONTACT_INFO.coordinates.lat;
+            const lon = CONTACT_INFO.coordinates.lon;
+            const address = encodeURIComponent(CONTACT_INFO.address);
+            
+            const yandexTaxiUrl = `https://3.redirect.appmetrica.yandex.com/route?end-lat=${lat}&end-lon=${lon}&end-text=${address}&appmetrica_tracking_id=1178268795219780156`;
+            
+            if (tg) {
+                tg.openLink(yandexTaxiUrl);
+            } else {
+                window.open(yandexTaxiUrl, '_blank');
+            }
+            
+            // Закрываем модал
+            const modal = document.querySelector('.fixed.inset-0');
+            if (modal) {
+                document.body.removeChild(modal);
+            }
+        }
+        
+        function openUberTaxi() {
+            // Используем существующую функцию
+            openUber();
+            
+            // Закрываем модал
+            const modal = document.querySelector('.fixed.inset-0');
+            if (modal) {
+                document.body.removeChild(modal);
+            }
+        }
+        
+        function closeModal(modalElement) {
+            if (modalElement) {
+                document.body.removeChild(modalElement);
+            }
+        }
+
+        // ========== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ==========
+
+        function showLoading() {
+            elements.loading.classList.remove('hidden');
+            elements.content.classList.add('hidden');
+            elements.emptyState.classList.add('hidden');
+            elements.errorState.classList.add('hidden');
+        }
+
+        function hideLoading() {
+            elements.loading.classList.add('hidden');
+            elements.content.classList.remove('hidden');
+            elements.emptyState.classList.add('hidden');
+            elements.errorState.classList.add('hidden');
+        }
+
+        function showEmptyState(message = 'Товары не найдены') {
+            elements.content.classList.add('hidden');
+            elements.loading.classList.add('hidden');
+            elements.emptyState.classList.remove('hidden');
+            elements.errorState.classList.add('hidden');
+            elements.emptyMessage.textContent = message;
+            updateBackButton();
+        }
+
+        function showError(message = 'Произошла ошибка') {
+            elements.content.classList.add('hidden');
+            elements.loading.classList.add('hidden');
+            elements.emptyState.classList.add('hidden');
+            elements.errorState.classList.remove('hidden');
+            elements.errorMessage.textContent = message;
+            updateBackButton();
+        }
+
+        function openSideMenu() {
+            elements.sideMenu.classList.remove('hidden');
+            setTimeout(() => {
+                const menuPanel = elements.sideMenu.querySelector('div');
+                if (menuPanel) {
+                    menuPanel.classList.remove('translate-x-full');
+                }
+            }, 10);
+        }
+
+        function closeSideMenu() {
+            const menuPanel = elements.sideMenu.querySelector('div');
+            if (menuPanel) {
+                menuPanel.classList.add('translate-x-full');
+            }
+            setTimeout(() => {
+                elements.sideMenu.classList.add('hidden');
+            }, 300);
+        }
+
+        function retryLastAction() {
+            if (!lastAction) {
+                loadSections();
+                return;
+            }
+
+            switch (lastAction.type) {
+                case 'loadSections':
+                    loadSections();
+                    break;
+                case 'loadCategories':
+                    loadCategories(lastAction.sectionId, lastAction.sectionName);
+                    break;
+                case 'loadModels':
+                    loadModels(lastAction.sectionId, lastAction.sectionName, lastAction.categoryId, lastAction.categoryName);
+                    break;
+                case 'loadSubmodels':
+                    loadSubmodels(lastAction.sectionId, lastAction.sectionName, lastAction.categoryId, lastAction.categoryName, lastAction.modelId, lastAction.modelName);
+                    break;
+                case 'loadProducts':
+                    loadProducts(lastAction.sectionId, lastAction.sectionName, lastAction.categoryId, lastAction.categoryName, lastAction.modelId, lastAction.modelName, lastAction.submodelId, lastAction.submodelName);
+                    break;
+                case 'loadBrigades':
+                    loadBrigades();
+                    break;
+                default:
+                    loadSections();
+            }
+        }
+
+        // ========== ИНИЦИАЛИЗАЦИЯ ==========
+
+        // Система неактивности
+        let idleTimer = null;
+        let isIdle = false;
+        const IDLE_TIMEOUT = 10000; // 10 секунд - оптимально для мобильных приложений
+        
+        // Отслеживание встряски телефона
+        let lastShakeTime = Date.now();
+        let shakeThreshold = 15; // Порог чувствительности
+        
+        // Массив фраз под фото (идут по порядку)
+        const photoQuotes = [
+            'Бетон сам себя не зальёт (C)Джейсон',
+            'Губа не дура, рука как арматура (С)Джейсон',
+            // Добавляй новые фразы здесь:
+            // 'Твоя новая фраза здесь (С)Джейсон',
+        ];
+        let currentQuoteIndex = 0;
+        
+        function getNextQuote() {
+            const quote = photoQuotes[currentQuoteIndex];
+            currentQuoteIndex = (currentQuoteIndex + 1) % photoQuotes.length; // Зацикливаем
+            return quote;
+        }
+        
+        function showPhoto() {
+            let photoOverlay = document.getElementById('photoOverlay');
+            
+            if (!photoOverlay) {
+                photoOverlay = document.createElement('div');
+                photoOverlay.id = 'photoOverlay';
+                photoOverlay.className = 'photo-overlay';
+                
+                // Пробуем разные способы загрузки из Google Drive
+                const googleDriveId = '1Z1q8qZ-lrvkDunvuPlQ-U6z9ByFY3agQ';
+                const urls = [
+                    `https://drive.google.com/uc?export=download&id=${googleDriveId}`,
+                    `https://drive.google.com/thumbnail?id=${googleDriveId}&sz=w1000`,
+                    `https://lh3.googleusercontent.com/d/${googleDriveId}=w1000`
+                ];
+                
+                let currentUrlIndex = 0;
+                
+                photoOverlay.innerHTML = `
+                    <img class="photo-image" 
+                         src="${urls[0]}" 
+                         alt="Photo"
+                         id="photoImg">
+                    <div class="photo-message">${getNextQuote()}</div>
+                `;
+                document.body.appendChild(photoOverlay);
+                
+                // Обработчик ошибки загрузки - пробуем следующий URL
+                const img = photoOverlay.querySelector('#photoImg');
+                img.onerror = function() {
+                    currentUrlIndex++;
+                    if (currentUrlIndex < urls.length) {
+                        console.log(`Пробуем загрузить фото через URL ${currentUrlIndex + 1}`);
+                        this.src = urls[currentUrlIndex];
+                    } else {
+                        console.error('Не удалось загрузить фото ни одним способом');
+                        this.style.display = 'none';
+                        photoOverlay.querySelector('.photo-message').textContent = '📸 Фото не загрузилось. Ты куда там делся?';
+                    }
+                };
+            }
+            
+            setTimeout(() => {
+                photoOverlay.classList.add('show');
+            }, 100);
+        }
+        
+        function hidePhoto() {
+            const photoOverlay = document.getElementById('photoOverlay');
+            if (photoOverlay) {
+                photoOverlay.classList.remove('show');
+            }
+        }
+        
+        function scatterElements() {
+            if (isIdle) return;
+            isIdle = true;
+            
+            const scatterableElements = document.querySelectorAll('.category-card, .product-card, button:not(.no-glass), .glass-btn');
+            
+            scatterableElements.forEach((element) => {
+                // Генерируем случайное смещение
+                const angle = Math.random() * Math.PI * 2;
+                const distance = 50 + Math.random() * 150;
+                const scatterX = Math.cos(angle) * distance;
+                const scatterY = Math.sin(angle) * distance;
+                const scatterRotate = -30 + Math.random() * 60;
+                
+                element.style.setProperty('--scatter-x', `${scatterX}px`);
+                element.style.setProperty('--scatter-y', `${scatterY}px`);
+                element.style.setProperty('--scatter-rotate', `${scatterRotate}deg`);
+                
+                element.classList.remove('idle-return');
+                element.classList.add('idle-scatter');
+            });
+            
+            // Показываем фото
+            showPhoto();
+            
+            console.log('💥 Элементы разлетелись - потряси телефон!');
+        }
+        
+        function returnElements() {
+            if (!isIdle) return;
+            isIdle = false;
+            
+            // Прячем фото
+            hidePhoto();
+            
+            const scatterableElements = document.querySelectorAll('.idle-scatter');
+            
+            scatterableElements.forEach((element) => {
+                element.classList.remove('idle-scatter');
+                element.classList.add('idle-return');
+                
+                // Удаляем класс после завершения анимации
+                setTimeout(() => {
+                    element.classList.remove('idle-return');
+                }, 800);
+            });
+            
+            console.log('✨ Элементы вернулись на место!');
+        }
+        
+        function resetIdleTimer() {
+            if (isIdle) {
+                returnElements();
+            }
+            
+            clearTimeout(idleTimer);
+            idleTimer = setTimeout(scatterElements, IDLE_TIMEOUT);
+        }
+        
+        // Отслеживание активности пользователя
+        function initIdleDetection() {
+            // События активности
+            ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart', 'click'].forEach(event => {
+                document.addEventListener(event, resetIdleTimer, true);
+            });
+            
+            // Запускаем таймер
+            resetIdleTimer();
+        }
+        
+        // Отслеживание встряски
+        function initShakeDetection() {
+            if (!window.DeviceMotionEvent) {
+                console.warn('⚠️ DeviceMotionEvent не поддерживается');
+                return;
+            }
+            
+            window.addEventListener('devicemotion', (event) => {
+                const acceleration = event.accelerationIncludingGravity;
+                
+                if (!acceleration || !acceleration.x || !acceleration.y || !acceleration.z) {
+                    return;
+                }
+                
+                const current = Date.now();
+                if (current - lastShakeTime < 500) return; // Дебаунс 500мс
+                
+                // Вычисляем общее ускорение
+                const totalAcceleration = Math.abs(acceleration.x) + Math.abs(acceleration.y) + Math.abs(acceleration.z);
+                
+                if (totalAcceleration > shakeThreshold && isIdle) {
+                    lastShakeTime = current;
+                    returnElements();
+                    console.log('💥 Встряска обнаружена! Acceleration:', totalAcceleration.toFixed(2));
+                }
+            }, true);
+        }
+
+        // ========== ПОИСК ==========
+
+        let searchTimeout = null;
+        let isSearching = false;
+
+        async function showSearchSuggestions(query) {
+            const container = document.getElementById('searchSuggestions');
+            
+            if (query.length < 2) {
+                container.classList.add('hidden');
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_BASE}/search/suggestions?q=${encodeURIComponent(query)}`);
+                const data = await response.json();
+                
+                if (data.suggestions && data.suggestions.length > 0) {
+                    container.innerHTML = data.suggestions.slice(0, 5).map(item => `
+                        <div class="search-suggestion-item" onclick="selectSuggestion('${escapeHtml(item).replace(/'/g, "\\'")}')">
+                            <i data-feather="search" class="search-suggestion-icon"></i>
+                            <span>${escapeHtml(item)}</span>
+                        </div>
+                    `).join('');
+                    container.classList.remove('hidden');
+                    scheduleFeatherReplace();
+                } else {
+                    container.classList.add('hidden');
+                }
+            } catch (error) {
+                console.error('Ошибка загрузки подсказок:', error);
+                container.classList.add('hidden');
+            }
+        }
+        
+        function selectSuggestion(suggestion) {
+            const searchInput = document.getElementById('searchInputHeader');
+            searchInput.value = suggestion;
+            document.getElementById('searchSuggestions').classList.add('hidden');
+            clearTimeout(searchTimeout);
+            performSearch(suggestion);
+        }
+
+        function toggleSearch() {
+            const container = document.getElementById('searchInputContainer');
+            const searchInput = document.getElementById('searchInputHeader');
+            
+            // Если строка поиска скрыта, показываем её
+            if (container.classList.contains('hidden')) {
+                container.classList.remove('hidden');
+                if (typeof feather !== 'undefined') {
+                    feather.replace();
+                }
+                setTimeout(() => {
+                    searchInput.focus();
+                }, 100);
+            } else {
+                // Если строка поиска уже видна, прокручиваем к ней и фокусируемся
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                setTimeout(() => {
+                    searchInput.focus();
+                }, 300); // Даём время на прокрутку
+            }
+        }
+
+        function closeSearchFully() {
+            const container = document.getElementById('searchInputContainer');
+            const searchInput = document.getElementById('searchInputHeader');
+            const suggestions = document.getElementById('searchSuggestions');
+            
+            // Очищаем поле
+            searchInput.value = '';
+            
+            // Скрываем строку поиска и подсказки
+            container.classList.add('hidden');
+            suggestions.classList.add('hidden');
+            
+            // Всегда очищаем результаты поиска и возвращаемся к последней странице
+            isSearching = false;
+            stateBeforeSearch = null;
+            retryLastAction();
+        }
+
+        function initSearch() {
+            // Используем делегирование событий на документе
+            document.addEventListener('input', (e) => {
+                if (e.target && e.target.id === 'searchInputHeader') {
+                    const query = e.target.value.trim();
+
+                    // Дебаунс для поиска
+                    clearTimeout(searchTimeout);
+                    
+                    if (query.length >= 2) {
+                        // Показываем подсказки
+                        showSearchSuggestions(query);
+                        
+                        searchTimeout = setTimeout(() => {
+                            performSearch(query);
+                        }, 500);
+                    } else if (query.length === 0) {
+                        // Скрываем подсказки
+                        document.getElementById('searchSuggestions').classList.add('hidden');
+                        // Если поле очищено, восстанавливаем состояние
+                        if (isSearching) {
+                            isSearching = false;
+                            
+                            // Восстанавливаем сохраненное состояние
+                            if (stateBeforeSearch) {
+                                lastAction = stateBeforeSearch.lastAction;
+                                navigationStack = stateBeforeSearch.navigationStack;
+                                currentProducts = stateBeforeSearch.currentProducts;
+                                elements.pageTitle.textContent = stateBeforeSearch.pageTitle;
+                                elements.content.innerHTML = stateBeforeSearch.contentHTML;
+                                scheduleFeatherReplace();
+                                stateBeforeSearch = null;
+                            } else {
+                                loadSections();
+                            }
+                        }
+                    }
+                }
+            });
+
+            document.addEventListener('keypress', (e) => {
+                if (e.target && e.target.id === 'searchInputHeader' && e.key === 'Enter') {
+                    const query = e.target.value.trim();
+                    if (query.length >= 2) {
+                        clearTimeout(searchTimeout);
+                        performSearch(query);
+                    }
+                }
+            });
+        }
+
+        async function performSearch(query) {
+            try {
+                // Сохраняем текущее состояние перед поиском (только если еще не в режиме поиска)
+                if (!isSearching) {
+                    stateBeforeSearch = {
+                        lastAction: lastAction,
+                        navigationStack: [...navigationStack],
+                        currentProducts: [...currentProducts],
+                        pageTitle: elements.pageTitle.textContent,
+                        contentHTML: elements.content.innerHTML
+                    };
+                }
+                
+                isSearching = true;
+                showLoading();
+                
+                const response = await fetch(`${API_BASE}/search?q=${encodeURIComponent(query)}`, {
+                    timeout: API_TIMEOUT
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                hideLoading();
+                
+                // Сохраняем результаты как текущие товары
+                currentProducts = data.products || [];
+                // Обновляем заголовок
+                elements.pageTitle.textContent = `Результаты поиска: "${query}"`;
+                
+                // Отображаем результаты
+                renderSearchResults(query, currentProducts);
+                
+            } catch (error) {
+                console.error('Ошибка поиска:', error);
+                hideLoading();
+                showErrorState(`Ошибка при поиске: ${error.message}`);
+            }
+        }
+
+        function renderSearchResults(query, products) {
+            let html = `
+                <p class="mb-3 text-sm" style="color: var(--text-primary);">
+                    Найдено товаров: <strong>${products.length}</strong>
+                </p>
+                <div class="product-list">
+            `;
+            
+            products.forEach((product, index) => {
+                const productId = generateProductId(product);
+                const isFavorite = favorites.some(fav => fav.id === productId);
+                const color = safeString(product.color, 'Не указан');
+                const price = product.price ? formatPriceForBadge(product.price) : 'Цена не указана';
+                const specialPrice = product.special_price ? formatPriceForBadge(product.special_price) : null;
+                const photoUrl = safeString(product.photo_url);
+                
+                const userId = tg?.initDataUnsafe?.user?.id;
+                const showSpecialPrice = userId && SPECIAL_PRICE_USER_IDS.includes(userId) && product.special_price && specialPrice;
+                
+                let imageUrl = extractPhotoFilenameFromUrl(photoUrl);
+                const alternativeUrls = getAlternativeImageUrls(photoUrl);
+
+                html += `
+                    <div class="product-card fade-in" data-product-index="${index}" onclick="openProductDetail(${index})">
+                        <div class="favorite-button ${isFavorite ? 'active' : ''}" onclick="event.stopPropagation(); toggleFavorite(${JSON.stringify(product).replace(/"/g, '&quot;')}, ${index})">
+                            <i data-feather="heart"></i>
+                        </div>
+                `;
+
+                html += renderUniversalImage(imageUrl, alternativeUrls, color, photoUrl);
+                
+                html += `
+                        <div class="p-4">
+                            <div class="flex justify-between items-start mb-3">
+                                <h3 class="font-semibold text-lg text-contrast">${escapeHtml(color)}</h3>
+                                <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 6px;">
+                                    ${price && price !== 'Цена не указана' ? `
+                                        <span class="price-badge">${escapeHtml(price)}</span>
+                                    ` : ''}
+                                    ${showSpecialPrice ? `
+                                        <span class="price-badge" style="background: #FCD34D; color: #000000; font-weight: 600;">${escapeHtml(specialPrice)}</span>
+                                    ` : ''}
+                                </div>
+                            </div>
+                            
+                            <div class="text-xs text-gray-400 mb-3">
+                                <span>${escapeHtml(product.section || '')} → ${escapeHtml(product.category || '')}</span>
+                            </div>
+
+                            <div class="mt-3">
+                                <button onclick="makePhoneCall(event)" class="w-full py-3 phone-button rounded-lg transition font-medium flex items-center justify-center">
+                                    <i data-feather="phone" class="w-4 h-4 mr-2"></i>
+                                    Позвонить
+                                </button>
+                            </div>
+
+                            <div class="mt-2">
+                                <button onclick="contactAboutSpecificProduct(${index})" 
+                                        class="w-full py-3 tg-theme-button rounded-lg transition font-medium flex items-center justify-center">
+                                    <i data-feather="message-circle" class="w-4 h-4 mr-2"></i>
+                                    НАПИСАТЬ
+                                </button>
+                            </div>
+
+                            <div class="mt-2">
+                                <button onclick="contactAboutCheaperPriceFromList(${index}, false)" 
+                                        class="w-full py-3 rounded-lg transition font-medium flex items-center justify-center"
+                                        style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); border-color: #10b981; color: white;">
+                                    <i data-feather="trending-down" class="w-4 h-4 mr-2"></i>
+                                    Нашел дешевле? Жми!
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            html += '</div>';
+            
+            elements.content.innerHTML = html;
+            currentProducts = products;
+            scheduleFeatherReplace();
+        }
+
+        function closeSearchResults() {
+            closeSearchFully();
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            try {
+                initTelegramApp();
+                fixMobileColors();
+                applySavedTheme(); // Применяем сохраненную тему
+                scheduleFeatherReplace();
+                
+                // Дополнительный вызов feather для десктоп кнопок
+                setTimeout(() => {
+                    if (typeof feather !== 'undefined') {
+                        feather.replace();
+                    }
+                }, 200);
+                
+                // Инициализируем систему неактивности
+                initIdleDetection();
+                initShakeDetection();
+                
+                // Отображаем имя пользователя
+                displayUserName();
+                
+                // Инициализируем поиск
+                initSearch();
+                
+                const toggleMenuBtn = document.getElementById('toggleMenu');
+                const closeMenuBtn = document.getElementById('closeMenu');
+                const installButton = document.getElementById('installButton');
+                
+                if (toggleMenuBtn) {
+                    toggleMenuBtn.addEventListener('click', openSideMenu);
+                }
+                
+                if (closeMenuBtn) {
+                    closeMenuBtn.addEventListener('click', closeSideMenu);
+                }
+
+                if (installButton) {
+                    installButton.addEventListener('click', installPWA);
+                }
+                
+                elements.sideMenu.addEventListener('click', (e) => {
+                    if (e.target === elements.sideMenu) {
+                        closeSideMenu();
+                    }
+                });
+
+                window.addEventListener('beforeinstallprompt', (e) => {
+                    e.preventDefault();
+                    deferredPrompt = e;
+                    if (installButton) {
+                        installButton.style.display = 'flex';
+                    }
+                });
+
+                window.addEventListener('appinstalled', (e) => {
+                    deferredPrompt = null;
+                    if (installButton) {
+                        installButton.style.display = 'none';
+                    }
+                });
+                
+                setTimeout(() => {
+                    loadSections();
+                }, 100);
+                
+            } catch (error) {
+                console.error('Ошибка инициализации:', error);
+                showError('Ошибка загрузки приложения');
+            }
+        });
+
+        // Функция для начала чата с бригадой
+        let currentChatSession = null;
+        let currentChatBrigade = null;
+        let currentChatObject = null;
+        let currentChatTelegramId = null;
+        let currentChatObjectPhoto = null;  // Фото объекта для заголовка чата
+        let currentChatBrigadeRow = null;    // Номер строки бригады для навигации
+        let currentChatBrigadeData = null;   // Полные данные бригады
+        let currentChatGroupName = null;     // Название группы
+        let currentChatObjectIndex = null;   // Индекс объекта
+        let chatMessages = [];
+
+        // Получить или создать session_id для чата
+        function getChatSessionKey(brigadeName, objectName) {
+            const tg = window.Telegram?.WebApp;
+            const userId = tg?.initDataUnsafe?.user?.id || 'web_user';
+            return `chat_session_${userId}_${brigadeName}_${objectName || 'general'}`;
+        }
+        
+        // Новая функция для чтения данных из data-атрибутов кнопки
+        function startChatWithBrigadeFromButton(button) {
+            const brigadeRow = parseInt(button.dataset.brigadeRow);
+            const telegramId = button.dataset.telegramId;
+            const brigadeName = button.dataset.brigadeName;
+            const objectName = button.dataset.objectName;
+            const objectPhoto = button.dataset.objectPhoto;
+            const brigadeJson = button.dataset.brigadeJson;
+            const groupName = button.dataset.groupName;
+            const objectIndex = parseInt(button.dataset.objectIndex);
+            
+            let brigadeData = null;
+            try {
+                brigadeData = JSON.parse(decodeURIComponent(brigadeJson));
+            } catch (e) {
+                console.error('Ошибка парсинга данных бригады:', e);
+            }
+            
+            startChatWithBrigade(brigadeRow, telegramId, brigadeName, objectName, objectPhoto, brigadeData, groupName, objectIndex);
+        }
+        
+        async function startChatWithBrigade(brigadeRow, telegramId, brigadeName, objectName = null, objectPhoto = null, brigadeData = null, groupName = null, objectIndex = null) {
+            try {
+                // Сохраняем telegramId и brigadeName для отображения интерфейса
+                currentChatTelegramId = telegramId;
+                currentChatBrigadeName = brigadeName;
+                
+                // Получаем информацию о пользователе из Telegram
+                const tg = window.Telegram?.WebApp;
+                const userInfo = tg?.initDataUnsafe?.user || {};
+                const userId = userInfo.id || 'web_user_' + Date.now();
+                const userName = userInfo.first_name || 'Пользователь';
+
+                console.log('Начинаем чат с бригадой:', { brigadeRow, telegramId, brigadeName, objectName, objectPhoto, userId, userName });
+
+                // Сохраняем информацию об объекте
+                currentChatObjectPhoto = objectPhoto;
+                currentChatBrigadeRow = brigadeRow;
+                currentChatBrigadeData = brigadeData;
+                currentChatGroupName = groupName;
+                currentChatObjectIndex = objectIndex;
+
+                // Сохраняем brigadeRow для возможного восстановления сессии
+                localStorage.setItem('lastUsedBrigadeRow', brigadeRow);
+
+                // Проверяем, есть ли уже сохраненная сессия
+                const sessionKey = getChatSessionKey(brigadeRow, objectName);
+                const savedSession = localStorage.getItem(sessionKey);
+
+                if (savedSession) {
+                    console.log('Найдена существующая сессия:', savedSession);
+                    currentChatSession = savedSession;
+                    currentChatBrigade = brigadeName;
+                    currentChatObject = objectName;
+                    currentChatTelegramId = telegramId;  // Сохраняем Telegram ID
+                    
+                    // Также обновляем сохраненный telegram_id
+                    localStorage.setItem('lastUsedTelegramId', telegramId);
+                    
+                    openChatModal(brigadeName, objectName);
+                    return;
+                }
+
+                // Создаем новую сессию через API
+                const response = await fetch(`${API_BASE}/chat/start`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        user_id: userId,
+                        user_name: userName,
+                        brigade_row: brigadeRow,
+                        telegram_id: telegramId,
+                        brigade_name: brigadeName,
+                        object_name: objectName
+                    })
+                });
+
+                const data = await response.json();
+                console.log('Ответ сервера:', data);
+
+                if (data.success) {
+                    // Сохраняем данные чата
+                    currentChatSession = data.session_id;
+                    currentChatBrigade = brigadeName;
+                    currentChatObject = objectName;
+                    currentChatTelegramId = telegramId;  // Сохраняем Telegram ID
+
+                    // Сохраняем session_id в localStorage
+                    localStorage.setItem(sessionKey, data.session_id);
+                    // Также сохраняем telegram_id для возможного восстановления
+                    localStorage.setItem('lastUsedTelegramId', telegramId);
+                    console.log('Session ID сохранен в localStorage');
+
+                    // Открываем модальное окно чата и загружаем историю
+                    openChatModal(brigadeName, objectName);
+                } else {
+                    // Специальная обработка ошибок
+                    if (data.error === 'own_object') {
+                        const tg = window.Telegram?.WebApp;
+                        const errorMessage = 'Это ваш объект, вы не можете начать чат сами с собой';
+                        if (tg?.showAlert) {
+                            tg.showAlert(errorMessage);
+                        } else {
+                            alert(errorMessage);
+                        }
+                    } else {
+                        throw new Error(data.error || 'Не удалось создать чат');
+                    }
+                }
+            } catch (error) {
+                console.error('Ошибка при создании чата:', error);
+                const tg = window.Telegram?.WebApp;
+                const errorMessage = 'Не удалось связаться с бригадой. Попробуйте позже или позвоните по телефону.';
+                if (tg?.showAlert) {
+                    tg.showAlert(errorMessage);
+                } else {
+                    alert(errorMessage);
+                }
+            }
+        }
+
+        async function openChatModal(displayName, objectName) {
+            const modal = document.getElementById('chatModal');
+            const title = document.getElementById('chatModalTitle');
+            const subtitle = document.getElementById('chatModalSubtitle');
+
+            console.log('🔍 openChatModal вызван с данными:', { 
+                displayName, 
+                objectName, 
+                currentChatObjectPhoto,
+                currentChatBrigadeData,
+                currentChatGroupName,
+                currentChatObjectIndex
+            });
+
+            // Создаем кликабельный заголовок с фото
+            let titleHTML = '';
+            if (currentChatObjectPhoto) {
+                console.log('📷 Добавляем фото в заголовок:', currentChatObjectPhoto);
+                
+                // Используем те же функции что и для фото объектов
+                const imageUrl = extractPhotoFilenameFromUrl(currentChatObjectPhoto);
+                const alternativeUrls = getAlternativeImageUrls(currentChatObjectPhoto);
+                
+                console.log('🔄 Обработанные URL:', { imageUrl, alternativeUrls });
+                
+                // Используем первый альтернативный URL если основной не работает
+                const finalUrl = imageUrl || (alternativeUrls.length > 0 ? alternativeUrls[0] : null);
+                
+                if (finalUrl) {
+                    titleHTML += `<img src="${escapeHtml(finalUrl)}" 
+                                      class="chat-modal-title-photo" 
+                                      alt="Объект" 
+                                      onerror="handleChatPhotoError(this, ${JSON.stringify(alternativeUrls).replace(/"/g, '&quot;')})"
+                                      loading="lazy"
+                                      data-tried-alternative="0">`;
+                }
+            } else {
+                console.log('⚠️ Фото объекта отсутствует (currentChatObjectPhoto is null/undefined)');
+            }
+            titleHTML += `<span>${objectName || 'Общий чат'}</span>`;
+            
+            console.log('🎨 HTML заголовка чата:', titleHTML);
+            
+            // Делаем заголовок кликабельным для перехода к объекту
+            title.innerHTML = titleHTML;
+            
+            // Удаляем старые обработчики
+            const newTitle = title.cloneNode(true);
+            title.parentNode.replaceChild(newTitle, title);
+            
+            if (currentChatBrigadeData && currentChatGroupName !== null && currentChatObjectIndex !== null) {
+                console.log('✅ Заголовок чата будет кликабельным');
+                newTitle.style.cursor = 'pointer';
+                
+                // Используем addEventListener вместо onclick
+                newTitle.addEventListener('click', () => {
+                    console.log('👆 Клик по заголовку чата, открываем объект:', { groupName: currentChatGroupName, brigade: currentChatBrigadeData, objectIndex: currentChatObjectIndex });
+                    closeChatModal();
+                    openObjectGalleryPage(currentChatGroupName, currentChatBrigadeData, currentChatObjectIndex, true);
+                });
+                
+                // Добавляем визуальный фидбек при наведении
+                newTitle.addEventListener('touchstart', () => {
+                    newTitle.style.opacity = '0.7';
+                });
+                newTitle.addEventListener('touchend', () => {
+                    newTitle.style.opacity = '1';
+                });
+            } else {
+                console.log('❌ Заголовок НЕ кликабельный. Данные:', { 
+                    hasBrigadeData: !!currentChatBrigadeData, 
+                    groupName: currentChatGroupName, 
+                    objectIndex: currentChatObjectIndex 
+                });
+                newTitle.style.cursor = 'default';
+            }
+            
+            // Определяем, кто открыл чат
+            const isCurrentUserBrigade = currentChatTelegramId !== null;
+            if (isCurrentUserBrigade) {
+                // Бригада видит имя клиента
+                subtitle.textContent = `Клиент: ${displayName}`;
+            } else {
+                // Клиент видит название бригады
+                subtitle.textContent = `Бригада: ${displayName}`;
+            }
+
+            modal.classList.remove('hidden');
+            
+            // Загружаем историю сообщений с сервера
+            await loadChatHistory();
+            
+            // Запускаем автообновление
+            startChatAutoUpdate();
+            
+            // Фокус на input
+            setTimeout(() => {
+                document.getElementById('chatModalInput').focus();
+            }, 100);
+        }
+
+        async function loadChatHistory() {
+            console.log('📜 loadChatHistory ВЫЗВАНА, currentChatSession:', currentChatSession);
+            if (!currentChatSession) {
+                console.log('⚠️ currentChatSession пустая, пропускаем загрузку');
+                renderChatMessages();
+                return;
+            }
+
+            try {
+                console.log('🌐 Запрашиваем историю с сервера:', `${API_BASE}/chat/history/${currentChatSession}`);
+                const response = await fetch(`${API_BASE}/chat/history/${currentChatSession}`);
+                const data = await response.json();
+                console.log('📦 Получены данные истории:', data);
+
+                if (data.success) {
+                    chatMessages = data.messages || [];
+                    console.log('✅ Загружено сообщений:', chatMessages.length);
+                    renderChatMessages();
+                } else {
+                    console.error('Ошибка загрузки истории:', data.error);
+                    renderChatMessages();
+                }
+            } catch (error) {
+                console.error('Ошибка загрузки истории чата:', error);
+                renderChatMessages();
+            }
+        }
+
+        function closeChatModal() {
+            const modal = document.getElementById('chatModal');
+            modal.classList.add('hidden');
+            document.getElementById('chatModalInput').value = '';
+            
+            // Останавливаем автообновление
+            stopChatAutoUpdate();
+            lastMessageCount = 0;
+        }
+
+        function addChatMessage(type, senderName, text, timestamp) {
+            chatMessages.push({
+                type: type, // 'user' или 'brigade'
+                sender_name: senderName,
+                text: text,
+                timestamp: timestamp
+            });
+            renderChatMessages();
+        }
+
+        function renderChatMessages() {
+            const container = document.getElementById('chatModalMessages');
+            
+            if (chatMessages.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center text-gray-500 py-8">
+                        <i data-feather="message-circle" class="w-12 h-12 mx-auto mb-2 text-gray-400"></i>
+                        <div>Начните общение</div>
+                    </div>
+                `;
+                feather.replace();
+                return;
+            }
+
+            // Получаем информацию о текущем пользователе
+            const tg = window.Telegram?.WebApp;
+            const userInfo = tg?.initDataUnsafe?.user || {};
+            const currentUserId = userInfo.id ? String(userInfo.id) : null;
+            const currentUserName = userInfo.first_name || 'Вы';
+
+            let html = '';
+            chatMessages.forEach(msg => {
+                // Определяем время
+                let time;
+                if (msg.timestamp) {
+                    try {
+                        const date = new Date(msg.timestamp);
+                        time = date.toLocaleTimeString('ru-RU', {
+                            hour: '2-digit',
+                            minute: '2-digit'
+                        });
+                    } catch (e) {
+                        time = '';
+                    }
+                } else {
+                    time = '';
+                }
+
+                // Определяем, является ли это сообщением текущего пользователя
+                let messageClass = 'chat-message-brigade';  // По умолчанию - чужое сообщение (слева, белое)
+                
+                if (msg.type === 'system') {
+                    messageClass = 'chat-message-system';
+                } else {
+                    let isMyMessage = false;
+                    
+                    console.log('🔍 Анализ сообщения:', {
+                        msgType: msg.type,
+                        msgSender: msg.sender,
+                        currentUserId: currentUserId,
+                        currentChatTelegramId: currentChatTelegramId,
+                        isBrigade: currentChatTelegramId !== null
+                    });
+                    
+                    // Определяем по типам сообщений
+                    if (currentChatTelegramId === null) {
+                        // Покупатель открыл чат: его сообщения имеют тип 'user'
+                        isMyMessage = (msg.type === 'user');
+                        console.log('👤 Режим покупателя: msg.type=' + msg.type + ', isMyMessage=' + isMyMessage);
+                    } else if (currentUserId && currentChatTelegramId && String(currentUserId) === String(currentChatTelegramId)) {
+                        // Бригада открыла чат: её сообщения имеют тип 'brigade'
+                        isMyMessage = (msg.type === 'brigade');
+                        console.log('👷 Режим бригады: msg.type=' + msg.type + ', isMyMessage=' + isMyMessage);
+                    } else {
+                        // Fallback: покупатель
+                        isMyMessage = (msg.type === 'user');
+                        console.log('❓ Fallback режим: msg.type=' + msg.type + ', isMyMessage=' + isMyMessage);
+                    }
+
+                    messageClass = isMyMessage ? 'chat-message-user' : 'chat-message-brigade';
+                }
+                
+                console.log('Message debug:', {
+                    text: (msg.text || '').substring(0, 20),
+                    type: msg.type,
+                    currentUserId: currentUserId,
+                    currentChatTelegramId: currentChatTelegramId,
+                    isCurrentUserBrigade: currentUserId && currentChatTelegramId && String(currentUserId) === String(currentChatTelegramId),
+                    isMyMessage: messageClass === 'chat-message-user',
+                    messageClass: messageClass
+                });
+                
+                // Проверяем, есть ли фото в сообщении
+                let messageContent = '';
+                const photoMatch = (msg.text || '').match(/📷 \[Фото\]\(([^)]+)\)/);
+                
+                if (photoMatch && photoMatch[1]) {
+                    // Есть фото
+                    const photoUrl = photoMatch[1];
+                    messageContent = `
+                        <div>
+                            <div style="margin-bottom: 8px;">📷 Фото</div>
+                            <img src="${photoUrl}" 
+                                 style="max-width: 200px; max-height: 200px; border-radius: 8px; cursor: pointer;" 
+                                 onclick="window.open('${photoUrl}', '_blank')" 
+                                 onerror="this.style.display='none'; this.parentElement.innerHTML='<div>⚠️ Ошибка загрузки фото</div>';">
+                        </div>
+                    `;
+                } else {
+                    // Обычное текстовое сообщение
+                    messageContent = `<div>${escapeHtml(msg.text)}</div>`;
+                }
+                
+                html += `
+                    <div class="chat-message ${messageClass}">
+                        ${messageContent}
+                        ${time ? `<div class="chat-message-time">${time}</div>` : ''}
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+            container.scrollTop = container.scrollHeight;
+            feather.replace();
+        }
+
+        function sendChatModalMessage() {
+            const input = document.getElementById('chatModalInput');
+            const message = input.value.trim();
+
+            if (!message) {
+                return;
+            }
+
+            if (!currentChatSession) {
+                console.error('Чат не активен - currentChatSession не установлен');
+                
+                // Попытаемся восстановить сессию из localStorage
+                if (currentChatBrigade && currentChatObject) {
+                    const tg = window.Telegram?.WebApp;
+                    const userInfo = tg?.initDataUnsafe?.user || {};
+                    const userId = userInfo.id || 'web_user_' + Date.now();
+                    
+                    // Попытаемся найти в localStorage
+                    const brigadeRow = localStorage.getItem('lastUsedBrigadeRow') || 'unknown';
+                    const sessionKey = getChatSessionKey(brigadeRow, currentChatObject);
+                    const savedSession = localStorage.getItem(sessionKey);
+                    
+                    if (savedSession) {
+                        currentChatSession = savedSession;
+                        console.log('Сессия восстановлена из localStorage:', savedSession);
+                    } else {
+                        // Создаем новый ID сессии
+                        currentChatSession = `${userId}_${brigadeRow}_${currentChatObject || 'general'}_${Date.now()}`;
+                        localStorage.setItem(sessionKey, currentChatSession);
+                        console.log('Создана новая сессия:', currentChatSession);
+                    }
+                    
+                    // Если не установлен telegram_id, пытаемся его найти
+                    if (!currentChatTelegramId) {
+                        const savedTelegramId = localStorage.getItem('lastUsedTelegramId');
+                        if (savedTelegramId) {
+                            currentChatTelegramId = savedTelegramId;
+                        }
+                    }
+                } else {
+                    alert('Чат не активен. Пожалуйста, откройте чат заново из карточки объекта.');
+                    return;
+                }
+            }
+
+            // Очищаем поле ввода сразу
+            input.value = '';
+
+            // Отправляем сообщение на сервер
+            const tg = window.Telegram?.WebApp;
+            const userInfo = tg?.initDataUnsafe?.user || {};
+            const userId = userInfo.id || 'web_user_' + Date.now();
+            const userName = userInfo.first_name || 'Вы';
+
+            sendMessageToServer(userId, userName, message);
+        }
+
+        async function sendMessageToServer(userId, userName, messageText) {
+            try {
+                const response = await fetch(`${API_BASE}/chat/send_message`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        session_id: currentChatSession,
+                        user_id: userId,
+                        user_name: userName,
+                        telegram_id: currentChatTelegramId,
+                        brigade_name: currentChatBrigade,
+                        object_name: currentChatObject,
+                        message_text: messageText
+                    })
+                });
+
+                const data = await response.json();
+                console.log('Сообщение отправлено на сервер:', data);
+
+                if (data.success) {
+                    // Перезагружаем историю чата после отправки
+                    await loadChatHistory();
+                } else {
+                    console.error('Ошибка отправки сообщения:', data.error);
+                    alert('Не удалось отправить сообщение');
+                }
+            } catch (error) {
+                console.error('Ошибка отправки сообщения на сервер:', error);
+                alert('Ошибка связи с сервером');
+            }
+        }
+
+        // Обработчик Enter в поле ввода
+        document.addEventListener('DOMContentLoaded', () => {
+            const chatInput = document.getElementById('chatModalInput');
+            if (chatInput) {
+                chatInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        sendChatModalMessage();
+                    }
+                });
+            }
+        });
+
+        // ===== МОИ ЧАТЫ =====
+        async function showMyChats() {
+            const tg = window.Telegram?.WebApp;
+            const userInfo = tg?.initDataUnsafe?.user || {};
+            const userId = userInfo.id || 'web_user_' + Date.now();
+
+            document.getElementById('myChatsModal').classList.remove('hidden');
+
+            try {
+                // Сначала проверяем, является ли пользователь бригадой
+                const brigadeCheckResponse = await fetch(`${API_BASE}/debug/brigades`);
+                const brigadeData = await brigadeCheckResponse.json();
+                
+                let isBrigade = false;
+                if (brigadeData.success) {
+                    // Ищем пользователя среди бригад по telegram_id
+                    isBrigade = brigadeData.brigades.some(brigade => 
+                        brigade.type === 'brigade' && 
+                        brigade.telegram_id === String(userId)
+                    );
+                }
+
+                // Используем соответствующий endpoint
+                let response;
+                if (isBrigade) {
+                    console.log('Пользователь является бригадой, загружаем чаты бригады');
+                    response = await fetch(`${API_BASE}/chat/brigade_sessions/${userId}`);
+                } else {
+                    console.log('Пользователь является покупателем, загружаем чаты пользователя');
+                    response = await fetch(`${API_BASE}/chat/user_sessions/${userId}`);
+                }
+
+                const data = await response.json();
+                const content = document.getElementById('myChatsContent');
+
+                if (data.success && data.sessions.length > 0) {
+                    if (isBrigade) {
+                        // Для бригады показываем чаты с покупателями
+                        content.innerHTML = data.sessions.map(session => `
+                            <div class="chat-session-item">
+                                <div class="flex justify-between items-start" onclick="openChatSessionAsBrigade('${session.session_id}', '${session.brigade_name || data.brigade_names?.[0] || 'Бригада'}', '${session.object_name || ''}', '${session.user_name || 'Клиент'}')" style="flex: 1; cursor: pointer;">
+                                    <div class="flex-1">
+                                        <h3 class="font-semibold text-gray-800">Чат с ${session.user_name}</h3>
+                                        <p class="text-sm text-gray-600">${session.object_name || 'Общий чат'}</p>
+                                        <p class="text-xs text-gray-400">${session.message_count} сообщений</p>
+                                    </div>
+                                    <span class="text-xs text-gray-400">
+                                        ${new Date(session.created_at).toLocaleDateString()}
+                                    </span>
+                                </div>
+                                <button class="delete-chat-btn" onclick="deleteChatSession('${session.session_id}', event)" title="Удалить чат">
+                                    <i data-feather="trash-2" class="w-3 h-3"></i>
+                                </button>
+                            </div>
+                        `).join('');
+                    } else {
+                        // Для покупателя показываем чаты с бригадами
+                        content.innerHTML = data.sessions.map(session => `
+                            <div class="chat-session-item">
+                                <div class="flex justify-between items-start" onclick="openChatSessionAsCustomer('${session.session_id}', '${session.brigade_name}', '${session.object_name}')" style="flex: 1; cursor: pointer;">
+                                    <div class="flex-1">
+                                        <h3 class="font-semibold text-gray-800">${session.brigade_name}</h3>
+                                        <p class="text-sm text-gray-600">${session.object_name || 'Общий чат'}</p>
+                                        <p class="text-xs text-gray-400">${session.message_count} сообщений</p>
+                                    </div>
+                                    <span class="text-xs text-gray-400">
+                                        ${new Date(session.created_at).toLocaleDateString()}
+                                    </span>
+                                </div>
+                                <button class="delete-chat-btn" onclick="deleteChatSession('${session.session_id}', event)" title="Удалить чат">
+                                    <i data-feather="trash-2" class="w-3 h-3"></i>
+                                </button>
+                            </div>
+                        `).join('');
+                    }
+                } else {
+                    const emptyMessage = isBrigade ? 
+                        'Нет сообщений от клиентов' : 
+                        'Нет активных чатов';
+                    const emptyDescription = isBrigade ?
+                        'Когда клиенты напишут вам, их сообщения появятся здесь' :
+                        'Начните диалог с бригадой, написав им сообщение';
+                        
+                    content.innerHTML = `
+                        <div class="text-center p-8">
+                            <i data-feather="message-circle" class="w-12 h-12 mx-auto text-gray-400 mb-4"></i>
+                            <h3 class="text-lg font-semibold text-gray-700 mb-2">${emptyMessage}</h3>
+                            <p class="text-gray-500">${emptyDescription}</p>
+                        </div>
+                    `;
+                }
+
+                feather.replace();
+            } catch (error) {
+                console.error('Ошибка загрузки чатов:', error);
+                document.getElementById('myChatsContent').innerHTML = `
+                    <div class="text-center p-4 text-red-600">
+                        <p>Не удалось загрузить чаты</p>
+                    </div>
+                `;
+            }
+        }
+
+        function closeMyChatsModal() {
+            document.getElementById('myChatsModal').classList.add('hidden');
+        }
+
+        function openChatSessionAsBrigade(sessionId, brigadeName, objectName, userName, brigadeData = null, groupName = null, objectIndex = null) {
+            currentChatSession = sessionId;
+            currentChatBrigade = brigadeName;
+            currentChatObject = objectName;
+            
+            // Сохраняем данные для кликабельности
+            currentChatBrigadeData = brigadeData;
+            currentChatGroupName = groupName;
+            currentChatObjectIndex = objectIndex;
+            
+            console.log('🔍 openChatSessionAsBrigade с данными:', { brigadeData, groupName, objectIndex });
+            
+            const tg = window.Telegram?.WebApp;
+            const userInfo = tg?.initDataUnsafe?.user || {};
+            const userId = userInfo.id;
+            
+            // Бригада открывает чат - currentChatTelegramId = её собственный ID
+            currentChatTelegramId = String(userId);
+            
+            console.log('Opening chat session as brigade:', {
+                sessionId, brigadeName, objectName, userName,
+                currentUserId: userId,
+                currentChatTelegramId: currentChatTelegramId
+            });
+            
+            closeMyChatsModal();
+            // Для бригады показываем имя пользователя вместо названия бригады
+            openChatModal(userName || 'Клиент', objectName);
+        }
+
+        function openChatSessionAsCustomer(sessionId, brigadeName, objectName) {
+            currentChatSession = sessionId;
+            currentChatBrigade = brigadeName;
+            currentChatObject = objectName;
+            
+            // Покупатель открывает чат - currentChatTelegramId НЕ устанавливаем или ставим null
+            // Это позволит определить, что пользователь - покупатель
+            currentChatTelegramId = null;
+            
+            console.log('Opening chat session as customer:', {
+                sessionId, brigadeName, objectName,
+                currentChatTelegramId: currentChatTelegramId
+            });
+            
+            closeMyChatsModal();
+            openChatModal(brigadeName, objectName);
+        }
+
+        function openChatSession(sessionId, brigadeName, objectName) {
+            // Оставляем старую функцию для совместимости
+            currentChatSession = sessionId;
+            currentChatBrigade = brigadeName;
+            currentChatObject = objectName;
+            
+            const tg = window.Telegram?.WebApp;
+            const userInfo = tg?.initDataUnsafe?.user || {};
+            const userId = userInfo.id;
+            
+            // По умолчанию считаем бригадой (для обратной совместимости)
+            currentChatTelegramId = String(userId);
+            
+            closeMyChatsModal();
+            openChatModal(brigadeName, objectName);
+        }
+
+        let confirmDialogResolve = null;
+        let pendingDeleteSessionId = null;
+        
+        function showConfirmDialog(text) {
+            return new Promise((resolve) => {
+                confirmDialogResolve = resolve;
+                document.getElementById('confirmDialogText').textContent = text;
+                document.getElementById('confirmDialog').classList.remove('hidden');
+                feather.replace();
+            });
+        }
+        
+        function closeConfirmDialog(confirmed) {
+            document.getElementById('confirmDialog').classList.add('hidden');
+            if (confirmDialogResolve) {
+                confirmDialogResolve(confirmed);
+                confirmDialogResolve = null;
+            }
+        }
+
+        async function deleteChatSession(sessionId, event) {
+            // Предотвращаем срабатывание клика по элементу чата
+            event.stopPropagation();
+            
+            const confirmDelete = await showConfirmDialog('Вы уверены, что хотите удалить этот чат? Все сообщения будут потеряны.');
+            
+            if (!confirmDelete) {
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_BASE}/chat/delete/${sessionId}`, {
+                    method: 'DELETE'
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    // Удаляем чат из localStorage если он там есть
+                    const keys = Object.keys(localStorage);
+                    for (const key of keys) {
+                        if (key.startsWith('chat_session_') && localStorage.getItem(key) === sessionId) {
+                            localStorage.removeItem(key);
+                            console.log(`Удален session_id из localStorage: ${key}`);
+                            break;
+                        }
+                    }
+
+                    // Закрываем чат если он открыт
+                    if (currentChatSession === sessionId) {
+                        closeChatModal();
+                        currentChatSession = null;
+                        currentChatBrigade = null;
+                        currentChatObject = null;
+                        currentChatTelegramId = null;
+                    }
+
+                    // Обновляем список чатов
+                    showMyChats();
+                    
+                    // Уведомление удалено - чат просто удаляется без alert
+                } else {
+                    console.error('Ошибка удаления чата:', data.error);
+                    alert('Не удалось удалить чат');
+                }
+            } catch (error) {
+                console.error('Ошибка при удалении чата:', error);
+                alert('Ошибка при удалении чата');
+            }
+        }
+
+        // Глобальные функции
+        // Глобальные функции
+        window.selectSuggestion = selectSuggestion;
+        window.loadSections = loadSections;
+        window.loadCategories = loadCategories;
+        window.loadModels = loadModels;
+        window.loadSubmodels = loadSubmodels;
+        window.loadProducts = loadProducts;
+        window.loadFavorites = loadFavorites;
+        window.loadBrigades = loadBrigades;
+        window.openBrigade = openBrigade;
+        window.openObjectGalleryPage = openObjectGalleryPage;
+        window.openFullScreenGallery = openFullScreenGallery;
+        window.closeGallery = closeGallery;
+        window.prevGalleryImage = prevGalleryImage;
+        window.nextGalleryImage = nextGalleryImage;
+        window.openInfoModal = openInfoModal;
+        window.openInfoModalFromButton = openInfoModalFromButton; // ДОБАВЬТЕ ЭТУ СТРОКУ
+        window.closeInfoModal = closeInfoModal;
+        window.contactAboutSpecificProduct = contactAboutSpecificProduct;
+        window.contactAboutSpecificProductFromFavorites = contactAboutSpecificProductFromFavorites;
+        window.toggleFavorite = toggleFavorite;
+        window.toggleFavoriteFromFavorites = toggleFavoriteFromFavorites;
+        window.makePhoneCall = makePhoneCall;
+        window.open2GIS = open2GIS;
+        window.openTelegramChannel = openTelegramChannel;
+        window.callTaxi = callTaxi;
+        window.openTaxiMenu = openTaxiMenu;
+        window.openYandexTaxi = openYandexTaxi;
+        window.openUber = openUber;
+        window.installPWA = installPWA;
+        window.showInstallPrompt = showInstallPrompt;
+        window.showInstallInstructions = showInstallInstructions;
+        window.renderAllProducts = renderAllProducts;
+        window.goBack = goBack;
+        window.openSideMenu = openSideMenu;
+        window.closeSideMenu = closeSideMenu;
+        window.retryLastAction = retryLastAction;
+        window.handleUniversalImageError = handleUniversalImageError;
+        window.handleUniversalImageLoad = handleUniversalImageLoad;
+        window.handleChatPhotoError = handleChatPhotoError;
+        window.handleGalleryImageError = handleGalleryImageError;
+        window.handleGalleryImageLoad = handleGalleryImageLoad;
+        window.startChatWithBrigade = startChatWithBrigade;
+        window.startChatWithBrigadeFromButton = startChatWithBrigadeFromButton;
+        window.closeChatModal = closeChatModal;
+        window.sendChatModalMessage = sendChatModalMessage;
+        window.showMyChats = showMyChats;
+        window.closeMyChatsModal = closeMyChatsModal;
+        window.openChatSession = openChatSession;
+        window.openChatSessionAsBrigade = openChatSessionAsBrigade;
+        window.openChatSessionAsCustomer = openChatSessionAsCustomer;
+        window.deleteChatSession = deleteChatSession;
+        window.closeConfirmDialog = closeConfirmDialog;
+        window.handleFileSelect = handleFileSelect;
+        
+        // Функция загрузки фото в чат (объявляем ДО использования)
+        async function uploadPhotoToChat(file) {
+            console.log('🚀 uploadPhotoToChat ВЫЗВАНА с файлом:', file?.name);
+            try {
+                const formData = new FormData();
+                formData.append('photo', file);
+                formData.append('session_id', currentChatSession);
+                
+                // Добавляем user_id отправителя
+                const tg = window.Telegram?.WebApp;
+                const userInfo = tg?.initDataUnsafe?.user || {};
+                const userId = userInfo.id || 'web_user';
+                formData.append('user_id', userId);
+                
+                console.log('📤 Загружаем фото для сессии:', currentChatSession, 'От user_id:', userId);
+                console.log('🌍 Окружение:', window.Telegram?.WebApp ? 'Telegram WebApp' : 'Обычный браузер');
+                console.log('📋 FormData содержит:', Array.from(formData.keys()));
+                
+                console.log('🔗 Отправляем запрос на:', `${API_BASE}/chat/upload_photo`);
+                
+                const response = await fetch(`${API_BASE}/chat/upload_photo`, {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                console.log('📥 Ответ сервера (status):', response.status);
+                
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    console.error('❌ Ошибка HTTP:', response.status, errorText);
+                    throw new Error(`HTTP ${response.status}: ${errorText}`);
+                }
+                
+                const data = await response.json();
+                console.log('📥 Ответ сервера (data):', data);
+                
+                if (data.success && data.photo_url) {
+                    console.log('✅ Фото успешно загружено, обновляем чат');
+                    console.log('🔄 Вызываем loadChatHistory через 0.5 сек...');
+                    // Обновляем чат через 0.5 секунды
+                    setTimeout(() => {
+                        console.log('⏰ Прошло 0.5 сек, вызываем loadChatHistory()');
+                        loadChatHistory();
+                    }, 500);
+                } else {
+                    throw new Error(data.error || 'Неизвестная ошибка');
+                }
+                return data;
+            } catch (error) {
+                console.error('🚫 Ошибка в uploadPhotoToChat:', error);
+                throw error;
+            }
+        }
+        
+        // Экспортируем после объявления
+        window.uploadPhotoToChat = uploadPhotoToChat;
+        
+        // Глобальные переменные для автообновления
+        let chatUpdateInterval = null;
+        let lastMessageCount = 0;
+        
+        // Функция для обработки выбора файла
+        function handleFileSelect(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            if (!file.type.startsWith('image/')) {
+                console.warn('Выбран не изображение');
+                return;
+            }
+            
+            console.log('✅ Файл выбран:', file.name, 'Размер:', (file.size / 1024).toFixed(2), 'KB');
+            
+            // Визуальная индикация - меняем иконку скрепки на галочку
+            const attachBtn = document.querySelector('.chat-attach-btn');
+            console.log('🔍 attachBtn найдена?', !!attachBtn);
+            if (attachBtn) {
+                // Feather заменяет <i> на <svg>, поэтому ищем svg или i
+                const icon = attachBtn.querySelector('svg') || attachBtn.querySelector('i');
+                console.log('🔍 icon найдена?', !!icon);
+                if (icon) {
+                    // Для SVG меняем атрибут, для <i> тоже меняем
+                    if (icon.tagName === 'I') {
+                        icon.setAttribute('data-feather', 'check-circle');
+                        feather.replace();
+                    } else {
+                        // Для SVG создаём новый <i> и заменяем
+                        const newIcon = document.createElement('i');
+                        newIcon.setAttribute('data-feather', 'check-circle');
+                        newIcon.style.cssText = 'color: white !important; width: 20px; height: 20px;';
+                        icon.replaceWith(newIcon);
+                        feather.replace();
+                    }
+                    
+                    // Загружаем фото на сервер
+                    console.log('🎯 ВЫЗЫВАЕМ uploadPhotoToChat');
+                    uploadPhotoToChat(file)
+                        .then(() => {
+                            console.log('✅ Фото загружено на сервер');
+                        })
+                        .catch(err => {
+                            console.error('❌ Ошибка загрузки фото:', err);
+                            alert('Ошибка загрузки фото: ' + err.message);
+                        });
+                    
+                    // Возвращаем иконку через 2 секунды
+                    setTimeout(() => {
+                        // Для SVG создаём новый <i>, для <i> меняем атрибут
+                        const currentIcon = attachBtn.querySelector('svg') || attachBtn.querySelector('i');
+                        if (currentIcon) {
+                            if (currentIcon.tagName === 'I') {
+                                currentIcon.setAttribute('data-feather', 'paperclip');
+                                feather.replace();
+                            } else {
+                                const resetIcon = document.createElement('i');
+                                resetIcon.setAttribute('data-feather', 'paperclip');
+                                resetIcon.style.cssText = 'color: white !important; width: 20px; height: 20px;';
+                                currentIcon.replaceWith(resetIcon);
+                                feather.replace();
+                            }
+                        }
+                    }, 2000);
+                }
+            }
+            
+            // TODO: Здесь будет загрузка фото на сервер
+            
+            // Очищаем input для повторного выбора того же файла
+            event.target.value = '';
+        }
+        
+        // Функция автообновления сообщений чата
+        async function startChatAutoUpdate() {
+            if (chatUpdateInterval) {
+                clearInterval(chatUpdateInterval);
+            }
+            
+            chatUpdateInterval = setInterval(async () => {
+                if (currentChatSession && !document.getElementById('chatModal').classList.contains('hidden')) {
+                    try {
+                        const response = await fetch(`${API_BASE}/chat/history/${currentChatSession}`);
+                        const data = await response.json();
+                        
+                        if (data.success && data.messages) {
+                            if (data.messages.length !== lastMessageCount) {
+                                lastMessageCount = data.messages.length;
+                                await loadChatHistory();
+                            }
+                        }
+                    } catch (error) {
+                        console.error('Ошибка автообновления чата:', error);
+                    }
+                }
+            }, 3000); // Обновление каждые 3 секунды
+        }
+        
+        // Остановка автообновления
+        function stopChatAutoUpdate() {
+            if (chatUpdateInterval) {
+                clearInterval(chatUpdateInterval);
+                chatUpdateInterval = null;
+            }
+        }
+    </script>
+    
+    <!-- Confirm Dialog -->
+    <div id="confirmDialog" class="confirm-dialog hidden">
+        <div class="confirm-dialog-content">
+            <div class="confirm-dialog-header">
+                <div class="confirm-dialog-icon">
+                    <i data-feather="alert-circle" style="color: #EF4444; width: 24px; height: 24px;"></i>
+                </div>
+                <div class="confirm-dialog-title">Скидка Сервис</div>
+            </div>
+            <div class="confirm-dialog-text" id="confirmDialogText">
+                Вы уверены, что хотите удалить этот чат? Все сообщения будут потеряны.
+            </div>
+            <div class="confirm-dialog-buttons">
+                <button class="confirm-dialog-btn confirm-dialog-btn-cancel" onclick="closeConfirmDialog(false)">
+                    Отмена
+                </button>
+                <button class="confirm-dialog-btn confirm-dialog-btn-delete" onclick="closeConfirmDialog(true)">
+                    Удалить
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Скрываем loader после загрузки анимации
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loader').classList.add('hidden');
+                document.getElementById('app').classList.add('loaded');
+            }, 3000); // 3 секунды - время полной анимации
+        });
+    </script>
+</body>
+</html>
