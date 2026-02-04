@@ -232,14 +232,14 @@
         .product-list {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
+            gap: 4px;
         }
         
         /* Адаптивная сетка для планшетов */
         @media (min-width: 640px) {
             .product-list {
                 grid-template-columns: repeat(2, 1fr);
-                gap: 16px;
+                gap: 6px;
             }
         }
         
@@ -3006,7 +3006,7 @@
 
         <!-- Мобильный блок кнопок Бригады и Такси под каталогом -->
 
-        <main id="content" class="p-4 fade-in">
+        <main id="content" class="p-2 fade-in">
             <!-- Контент загружается динамически -->
         </main>
 
@@ -3898,13 +3898,11 @@
                 html += `
                     <div class="mt-3" style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
                         <button onclick="makePhoneCall(event)" class="py-3 phone-button rounded-lg transition font-medium flex items-center justify-center">
-                            <i data-feather="phone" class="w-4 h-4 mr-2"></i>
-                            Позвонить
+                            <i data-feather="phone" class="w-5 h-5"></i>
                         </button>
                         <button onclick="contactAboutSpecificProductFromFavorites(${index})" 
                                 class="py-3 tg-theme-button rounded-lg transition font-medium flex items-center justify-center">
-                            <i data-feather="message-circle" class="w-4 h-4 mr-2"></i>
-                            НАПИСАТЬ
+                            <i data-feather="message-circle" class="w-5 h-5"></i>
                         </button>
                     </div>
                 `;
@@ -5995,13 +5993,11 @@
                 html += `
                     <div class="mt-3" style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
                         <button onclick="makePhoneCall(event)" class="py-3 phone-button rounded-lg transition font-medium flex items-center justify-center">
-                            <i data-feather="phone" class="w-4 h-4 mr-2"></i>
-                            Позвонить
+                            <i data-feather="phone" class="w-5 h-5"></i>
                         </button>
                         <button onclick="contactAboutSpecificProduct(${index})" 
                                 class="py-3 tg-theme-button rounded-lg transition font-medium flex items-center justify-center">
-                            <i data-feather="message-circle" class="w-4 h-4 mr-2"></i>
-                            НАПИСАТЬ
+                            <i data-feather="message-circle" class="w-5 h-5"></i>
                         </button>
                     </div>
                 `;
@@ -6792,13 +6788,11 @@
 
                             <div class="mt-3" style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
                                 <button onclick="makePhoneCall(event)" class="py-3 phone-button rounded-lg transition font-medium flex items-center justify-center">
-                                    <i data-feather="phone" class="w-4 h-4 mr-2"></i>
-                                    Позвонить
+                                    <i data-feather="phone" class="w-5 h-5"></i>
                                 </button>
                                 <button onclick="contactAboutSpecificProduct(${index})" 
                                         class="py-3 tg-theme-button rounded-lg transition font-medium flex items-center justify-center">
-                                    <i data-feather="message-circle" class="w-4 h-4 mr-2"></i>
-                                    НАПИСАТЬ
+                                    <i data-feather="message-circle" class="w-5 h-5"></i>
                                 </button>
                             </div>
 
