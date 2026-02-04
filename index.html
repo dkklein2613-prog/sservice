@@ -231,14 +231,15 @@
         
         .product-list {
             display: grid;
-            grid-template-columns: 1fr;
-            gap: 16px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
         }
         
         /* Адаптивная сетка для планшетов */
         @media (min-width: 640px) {
             .product-list {
                 grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
             }
         }
         
