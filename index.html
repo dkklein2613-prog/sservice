@@ -2925,10 +2925,10 @@
                 
                 <!-- Кнопки в правой части -->
                 <div class="flex items-center gap-2">
-                    <!-- Кнопка поиска -->
-                    <button id="searchToggleBtn" class="search-toggle-btn" onclick="toggleSearch()">
-                        <i data-feather="search" class="w-5 h-5"></i>
-                        <span class="search-label">Поиск</span>
+                    <!-- Кнопка Такси -->
+                    <button class="search-toggle-btn" onclick="callTaxi()">
+                        <i data-feather="map" class="w-5 h-5"></i>
+                        <span class="search-label">Такси</span>
                     </button>
                     
                     <!-- Кнопка смены темы -->
@@ -3005,13 +3005,7 @@
             <!-- Контент загружается динамически -->
         </main>
 
-        <!-- Мобильный блок кнопки Такси теперь внизу -->
-        <div class="bottom-action-buttons" style="display: none; margin-top: 24px;" id="mobileBrigadeTaxi">
-            <button class="square-action-button" onclick="callTaxi()">
-                <i data-feather="map" class="square-button-icon"></i>
-                Такси
-            </button>
-        </div>
+        <!-- Мобильный блок кнопки Такси удален, кнопка перенесена в хэдер -->
 
         <!-- Gallery Modal -->
         <div id="galleryModal" class="gallery-container hidden">
@@ -6771,7 +6765,6 @@
                                         <span class="price-badge">${escapeHtml(price)}</span>
                                     ` : ''}
                                     ${showSpecialPrice ? `
-                                        <span style="color: #10b981; font-weight: 700; font-size: 18px;">+</span>
                                         <span class="price-badge" style="background: #FCD34D; color: #000000; font-weight: 600;">${escapeHtml(specialPrice)}</span>
                                     ` : ''}
                                 </div>
