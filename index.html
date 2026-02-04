@@ -2132,6 +2132,17 @@
             color: #000000 !important;
             border: 1px solid rgba(0, 0, 0, 0.2);
         }
+        
+        /* Кнопка Uber - всегда черная с белым текстом */
+        .taxi-uber-btn {
+            background-color: #000000 !important;
+            color: #ffffff !important;
+        }
+        
+        body.light-theme .taxi-uber-btn {
+            background-color: #000000 !important;
+            color: #ffffff !important;
+        }
             padding: 8px 16px;
             border-radius: 20px;
             font-size: 1.125rem;
@@ -6310,7 +6321,7 @@
                         <button onclick="openYandexTaxi()" class="w-full p-3 rounded-lg font-medium" style="background-color: #FFCC00; color: #000000 !important; font-weight: 700; text-shadow: none; box-shadow: 0 4px 12px rgba(255, 204, 0, 0.4);">
                             🚕 Яндекс Такси
                         </button>
-                        <button onclick="openUberTaxi()" class="w-full p-3 rounded-lg font-medium" style="background-color: #000000; color: #ffffff !important;">
+                        <button onclick="openUberTaxi()" class="taxi-uber-btn w-full p-3 rounded-lg font-medium">
                             🚗 Uber
                         </button>
                         <button onclick="closeModal(this.closest('.fixed'))" class="taxi-modal-cancel w-full p-3 rounded-lg font-medium">
