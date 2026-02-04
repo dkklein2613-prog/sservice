@@ -6667,6 +6667,11 @@
             if (typeof feather !== 'undefined') {
                 feather.replace();
             }
+            
+            // Возвращаемся на страницу, где был нажат поиск
+            isSearching = false;
+            stateBeforeSearch = null;
+            retryLastAction();
         }
 
         function closeSearchFully() {
