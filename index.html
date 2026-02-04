@@ -3835,18 +3835,21 @@
         }
 
         function renderFavorites() {
-            let html = '<div class="product-list">';
+            let html = '';
             
+            // Кнопка запроса всех товаров НАД сеткой
             html += `
-                <div class="sticky-favorites-header">
-                    ${favorites.length > 0 ? `
+                ${favorites.length > 0 ? `
+                    <div style="padding: 8px; margin-bottom: 8px;">
                         <button onclick="requestAllFavorites()" class="w-full py-3 bg-blue-500 text-white rounded-lg font-medium flex items-center justify-center shadow-md hover:bg-blue-600 transition">
                             <i data-feather="send" class="w-5 h-5 mr-2"></i>
                             Запросить все товары
                         </button>
-                    ` : ''}
-                </div>
+                    </div>
+                ` : ''}
             `;
+            
+            html += '<div class="product-list">';
 
             favorites.forEach((fav, index) => {
                 const product = fav.product;
@@ -3925,14 +3928,17 @@
                 html += `</div></div>`;
             });
 
-            html += `
-                <button onclick="loadSections()" class="back-button">
-                    <i data-feather="arrow-left" class="w-4 h-4 mr-2"></i>
-                    Назад в каталог
-                </button>
-            `;
-
             html += '</div>';
+            
+            // Кнопка назад ПОД сеткой по центру
+            html += `
+                <div style="display: flex; justify-content: center; padding: 16px;">
+                    <button onclick="loadSections()" class="back-button" style="width: 100%; max-width: 600px;">
+                        <i data-feather="arrow-left" class="w-4 h-4 mr-2"></i>
+                        Назад в каталог
+                    </button>
+                </div>
+            `;
             
             elements.content.innerHTML = html;
             scheduleFeatherReplace();
@@ -4283,14 +4289,16 @@
                 `;
             });
             
-            html += `
-                <button onclick="loadSections()" class="back-button">
-                    <i data-feather="arrow-left" class="w-4 h-4 mr-2"></i>
-                    Назад в каталог
-                </button>
-            `;
-            
             html += '</div>';
+            
+            html += `
+                <div style="display: flex; justify-content: center; padding: 16px;">
+                    <button onclick="loadSections()" class="back-button" style="width: 100%; max-width: 600px;">
+                        <i data-feather="arrow-left" class="w-4 h-4 mr-2"></i>
+                        Назад в каталог
+                    </button>
+                </div>
+            `;
             
             elements.content.innerHTML = html;
             scheduleFeatherReplace();
@@ -4388,8 +4396,10 @@
                                 <i data-feather="phone" class="w-5 h-5 mr-3"></i>
                                 Позвонить
                             </button>
-                            
-                            <button onclick="loadBrigades()" class="back-to-brigades">
+                        </div>
+                        
+                        <div style="display: flex; justify-content: center; padding: 16px;">
+                            <button onclick="loadBrigades()" class="back-to-brigades" style="width: 100%; max-width: 600px;">
                                 <i data-feather="arrow-left" class="w-4 h-4 mr-2"></i>
                                 Назад к бригадам
                             </button>
@@ -5598,10 +5608,12 @@
             
             if (navigationStack.length > 0) {
                 html += `
-                    <button onclick="goBack()" class="back-button">
-                        <i data-feather="arrow-left" class="w-4 h-4 mr-2"></i>
-                        Назад
-                    </button>
+                    <div style="display: flex; justify-content: center; padding: 16px;">
+                        <button onclick="goBack()" class="back-button" style="width: 100%; max-width: 600px;">
+                            <i data-feather="arrow-left" class="w-4 h-4 mr-2"></i>
+                            Назад
+                        </button>
+                    </div>
                 `;
             }
             
@@ -5649,10 +5661,12 @@
             }
             
             html += `
-                <button onclick="goBack()" class="back-button">
-                    <i data-feather="arrow-left" class="w-4 h-4 mr-2"></i>
-                    Назад
-                </button>
+                <div style="display: flex; justify-content: center; padding: 16px;">
+                    <button onclick="goBack()" class="back-button" style="width: 100%; max-width: 600px;">
+                        <i data-feather="arrow-left" class="w-4 h-4 mr-2"></i>
+                        Назад
+                    </button>
+                </div>
             `;
             
             elements.content.innerHTML = html;
@@ -5727,10 +5741,12 @@
             }
             
             html += `
-                <button onclick="goBack()" class="back-button">
-                    <i data-feather="arrow-left" class="w-4 h-4 mr-2"></i>
-                    Назад
-                </button>
+                <div style="display: flex; justify-content: center; padding: 16px;">
+                    <button onclick="goBack()" class="back-button" style="width: 100%; max-width: 600px;">
+                        <i data-feather="arrow-left" class="w-4 h-4 mr-2"></i>
+                        Назад
+                    </button>
+                </div>
             `;
             
             elements.content.innerHTML = html;
@@ -5856,10 +5872,12 @@
             }
             
             html += `
-                <button onclick="goBack()" class="back-button">
-                    <i data-feather="arrow-left" class="w-4 h-4 mr-2"></i>
-                    Назад
-                </button>
+                <div style="display: flex; justify-content: center; padding: 16px;">
+                    <button onclick="goBack()" class="back-button" style="width: 100%; max-width: 600px;">
+                        <i data-feather="arrow-left" class="w-4 h-4 mr-2"></i>
+                        Назад
+                    </button>
+                </div>
             `;
             
             elements.content.innerHTML = html;
@@ -6020,14 +6038,17 @@
                 html += `</div></div>`;
             });
 
-            html += `
-                <button onclick="goBack()" class="back-button">
-                    <i data-feather="arrow-left" class="w-4 h-4 mr-2"></i>
-                    Назад
-                </button>
-            `;
-
             html += '</div>';
+            
+            // Кнопка назад ПОД сеткой на всю ширину
+            html += `
+                <div style="display: flex; justify-content: center; padding: 16px;">
+                    <button onclick="goBack()" class="back-button" style="width: 100%; max-width: 600px;">
+                        <i data-feather="arrow-left" class="w-4 h-4 mr-2"></i>
+                        Назад
+                    </button>
+                </div>
+            `;
             
             elements.content.innerHTML = html;
             scheduleFeatherReplace();
