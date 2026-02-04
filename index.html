@@ -2926,9 +2926,8 @@
                 <!-- Кнопки в правой части -->
                 <div class="flex items-center gap-2">
                     <!-- Кнопка Такси -->
-                    <button class="search-toggle-btn" onclick="callTaxi()">
-                        <i data-feather="map" class="w-5 h-5"></i>
-                        <span class="search-label">Такси</span>
+                    <button class="search-toggle-btn" onclick="callTaxi()" style="background: #FFCC00 !important; color: #000000 !important; font-weight: 700 !important; border: none !important;">
+                        <span style="color: #000000 !important;">ТАКСИ</span>
                     </button>
                     
                     <!-- Кнопка смены темы -->
@@ -2953,6 +2952,14 @@
                 </div>
             </div>
         </header>
+
+        <!-- Закрепленная кнопка поиска под хэдером -->
+        <div style="position: sticky; top: 0; z-index: 19; background: var(--bg-primary); padding: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+            <button onclick="toggleSearch()" style="width: 100%; padding: 12px; background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 12px; display: flex; align-items: center; justify-content: center; gap: 8px; color: var(--text-primary); font-weight: 500; cursor: pointer; transition: all 0.3s ease;">
+                <i data-feather="search" class="w-5 h-5"></i>
+                <span>Поиск товаров</span>
+            </button>
+        </div>
 
         <!-- Строка поиска между хедером и контентом -->
         <div id="searchInputContainer" class="search-input-container-main hidden">
