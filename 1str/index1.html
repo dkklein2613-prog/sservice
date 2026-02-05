@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SSERVICE72 | Профессиональный поставщик строительных материалов</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #FF6B35;
+            --secondary: #1A2332;
+            --accent: #0D7377;
+            --text-dark: #1A2332;
+            --text-light: #ECF0F1;
+            --bg-light: #F8F9FA;
+            --border: #DDE2E5;
+        }
+
+        body {
+            font-family: 'Roboto', 'Arial', sans-serif;
+            color: var(--text-dark);
+            background: var(--bg-light);
+            overflow-x: hidden;
+        }
+
+        /* Blueprint background */
+        .blueprint-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, #f8f9fa 0%, #e9ecef 100%);
+            background-image: 
+                linear-gradient(rgba(26, 35, 50, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(26, 35, 50, 0.02) 1px, transparent 1px);
+            background-size: 20px 20px;
+            z-index: 0;
+        }
+
+        /* Fixed Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+            z-index: 1000;
+            transform: translateY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .nav.hidden {
+            transform: translateY(-100%);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--secondary);
+            letter-spacing: 2px;
+        }
+
+        .nav-logo span {
+            color: var(--primary);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-link {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            background: var(--primary);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-cta:hover {
+            background: #E55A25;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 53, 0.3);
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 30px 60px;
+            z-index: 1;
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-text {
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .hero-subtitle {
+            color: var(--primary);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 900;
+            color: var(--secondary);
+            line-height: 1.1;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            color: #6C757D;
+            line-height: 1.8;
+            margin-bottom: 40px;
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease 0.3s forwards;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--primary);
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: #6C757D;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Materials Section */
+        .materials-section {
+            position: relative;
+            padding: 100px 30px;
+            z-index: 1;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 80px;
+        }
+
+        .section-tag {
+            color: var(--primary);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 0.85rem;
+            margin-bottom: 15px;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--secondary);
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            margin-bottom: 20px;
+        }
+
+        .section-description {
+            font-size: 1.1rem;
+            color: #6C757D;
+            line-height: 1.7;
+        }
+
+        .materials-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 40px;
+        }
+
+        .material-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s ease;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .material-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .material-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .material-header {
+            padding: 35px 30px;
+            border-bottom: 3px solid var(--primary);
+            position: relative;
+        }
+
+        .material-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            opacity: 0.03;
+            pointer-events: none;
+        }
+
+        .roof-card .material-header::before {
+            background: 
+                repeating-linear-gradient(45deg, transparent, transparent 10px, var(--primary) 10px, var(--primary) 11px),
+                repeating-linear-gradient(-45deg, transparent, transparent 10px, var(--primary) 10px, var(--primary) 11px);
+        }
+
+        .walls-card .material-header::before {
+            background-image:
+                linear-gradient(335deg, var(--accent) 23px, transparent 23px),
+                linear-gradient(155deg, var(--accent) 23px, transparent 23px);
+            background-size: 58px 58px;
+        }
+
+        .foundation-card .material-header::before {
+            background-image:
+                repeating-linear-gradient(90deg, var(--secondary) 0px, transparent 2px, transparent 4px, var(--secondary) 6px),
+                repeating-linear-gradient(0deg, var(--secondary) 0px, transparent 2px, transparent 4px, var(--secondary) 6px);
+        }
+
+        .material-category {
+            font-size: 0.75rem;
+            color: var(--primary);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .material-title {
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .material-subtitle {
+            font-size: 0.95rem;
+            color: #6C757D;
+            font-weight: 500;
+        }
+
+        .material-body {
+            padding: 30px;
+        }
+
+        .material-list {
+            list-style: none;
+            margin-bottom: 25px;
+        }
+
+        .material-list li {
+            padding: 18px 0;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .material-list li:hover {
+            padding-left: 10px;
+            background: rgba(255, 107, 53, 0.03);
+        }
+
+        .material-list li:last-child {
+            border-bottom: none;
+        }
+
+        .material-item-name {
+            font-weight: 700;
+            color: var(--text-dark);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.95rem;
+        }
+
+        .material-item-arrow {
+            color: var(--primary);
+            font-weight: 900;
+            font-size: 1.2rem;
+        }
+
+        .material-specs {
+            font-size: 0.85rem;
+            color: #868E96;
+            display: none;
+            margin-top: 10px;
+            padding: 10px 15px;
+            background: #F8F9FA;
+            border-radius: 5px;
+        }
+
+        .material-list li:hover .material-specs {
+            display: block;
+        }
+
+        .material-footer {
+            padding: 0 30px 30px;
+        }
+
+        .btn-primary {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: var(--primary);
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+
+        .btn-primary:hover {
+            background: #E55A25;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 107, 53, 0.3);
+        }
+
+        .contact-buttons {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .btn-secondary {
+            padding: 12px;
+            background: white;
+            border: 2px solid var(--border);
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 600;
+            text-align: center;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-size: 0.85rem;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        /* Projects Section */
+        .projects-section {
+            padding: 100px 30px;
+            background: white;
+        }
+
+        .projects-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            background: var(--bg-light);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+            font-weight: 900;
+        }
+
+        .project-content {
+            padding: 25px;
+        }
+
+        .project-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 10px;
+        }
+
+        .project-description {
+            color: #6C757D;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 15px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            padding: 30px;
+            border-bottom: 2px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--secondary);
+            text-transform: uppercase;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 2rem;
+            color: #6C757D;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .modal-close:hover {
+            color: var(--primary);
+        }
+
+        .modal-body {
+            padding: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--secondary);
+            color: var(--text-light);
+            padding: 60px 30px 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 40px;
+        }
+
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 900;
+            margin-bottom: 15px;
+        }
+
+        .footer-logo span {
+            color: var(--primary);
+        }
+
+        .footer-description {
+            color: #ADB5BD;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .footer-title {
+            font-size: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: #ADB5BD;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            color: #6C757D;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-title {
+                font-size: 3rem;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .materials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .hero-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-buttons {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="blueprint-bg"></div>
+
+    <!-- Navigation -->
+    <nav class="nav" id="nav">
+        <div class="nav-container">
+            <div class="nav-logo">SSERVICE<span>72</span></div>
+            <ul class="nav-menu">
+                <li><a href="#materials" class="nav-link">Материалы</a></li>
+                <li><a href="#projects" class="nav-link">Проекты</a></li>
+                <li><a href="#about" class="nav-link">О компании</a></li>
+                <li><a href="#contact" class="nav-link">Контакты</a></li>
+            </ul>
+            <a href="#" class="nav-cta" onclick="openModal(event)">Оставить заявку</a>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <div class="hero-subtitle">Профессиональные поставки</div>
+                <h1 class="hero-title">Строительные материалы высшего качества</h1>
+                <p class="hero-description">Комплексные поставки строительных материалов для объектов любой сложности. Работаем с частными лицами и крупными подрядчиками.</p>
+            </div>
+            
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number" data-target="15">0</span>
+                    <span class="stat-label">Лет на рынке</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-target="2500">0</span>
+                    <span class="stat-label">Объектов</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-target="500">0</span>
+                    <span class="stat-label">Партнеров</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Materials -->
+    <section class="materials-section" id="materials">
+        <div class="section-header">
+            <div class="section-tag">Наша продукция</div>
+            <h2 class="section-title">Строительные материалы</h2>
+            <p class="section-description">Полный комплекс материалов для строительства от фундамента до кровли. Только сертифицированная продукция от проверенных производителей.</p>
+        </div>
+
+        <div class="materials-grid">
+            <div class="material-card roof-card">
+                <div class="material-header">
+                    <div class="material-category">Уровень 01</div>
+                    <h3 class="material-title">Кровля</h3>
+                    <p class="material-subtitle">Надежная защита вашего объекта</p>
+                </div>
+                <div class="material-body">
+                    <ul class="material-list">
+                        <li>
+                            <span class="material-item-name">Черепица</span>
+                            <span class="material-item-arrow">→</span>
+                            <div class="material-specs">Металлочерепица, гибкая черепица. Гарантия до 50 лет. <strong data-price="554">от ...</strong></div>
+                        </li>
+                        <li>
+                            <span class="material-item-name">Утеплитель</span>
+                            <span class="material-item-arrow">→</span>
+                            <div class="material-specs">Минеральная вата, PIR-плиты. Класс горючести НГ. <strong data-price="374">от ...</strong></div>
+                        </li>
+                        <li>
+                            <span class="material-item-name">ОСБ плиты</span>
+                            <span class="material-item-arrow">→</span>
+                            <div class="material-specs">OSB-3, влагостойкие. Толщина 9-22мм. <strong data-price="811">от ...</strong></div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="material-footer">
+                    <button class="btn-primary" onclick="openModal(event)">Получить расчет</button>
+                    <div class="contact-buttons">
+                        <a href="tel:600160" class="btn-secondary">Позвонить</a>
+                        <a href="https://t.me/skidkaservis" class="btn-secondary" target="_blank">Telegram</a>
+                        <a href="https://t.me/SSERVICE72_bot" class="btn-secondary" target="_blank">Каталог</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="material-card walls-card">
+                <div class="material-header">
+                    <div class="material-category">Уровень 02</div>
+                    <h3 class="material-title">Стены</h3>
+                    <p class="material-subtitle">Прочность и надежность конструкции</p>
+                </div>
+                <div class="material-body">
+                    <ul class="material-list">
+                        <li>
+                            <span class="material-item-name">Керамзитоблок</span>
+                            <span class="material-item-arrow">→</span>
+                            <div class="material-specs">Размеры 390x190x188мм. Марка М50-М100. <strong data-price="120">от ...</strong></div>
+                        </li>
+                        <li>
+                            <span class="material-item-name">Газоблок</span>
+                            <span class="material-item-arrow">→</span>
+                            <div class="material-specs">D400-D600. Автоклавный, 1 категория. <strong data-price="122">от ...</strong></div>
+                        </li>
+                        <li>
+                            <span class="material-item-name">Утеплитель</span>
+                            <span class="material-item-arrow">→</span>
+                            <div class="material-specs">Базальтовая вата, пенополистирол. Плотность 30-150кг/м³. <strong data-price="374">от ...</strong></div>
+                        </li>
+                        <li>
+                            <span class="material-item-name">Сайдинг</span>
+                            <span class="material-item-arrow">→</span>
+                            <div class="material-specs">Виниловый, металлический. Гарантия до 25 лет. <strong data-price="818">от ...</strong></div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="material-footer">
+                    <button class="btn-primary" onclick="openModal(event)">Получить расчет</button>
+                    <div class="contact-buttons">
+                        <a href="tel:600160" class="btn-secondary">Позвонить</a>
+                        <a href="https://t.me/skidkaservis" class="btn-secondary" target="_blank">Telegram</a>
+                        <a href="https://t.me/SSERVICE72_bot" class="btn-secondary" target="_blank">Каталог</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="material-card foundation-card">
+                <div class="material-header">
+                    <div class="material-category">Уровень 03</div>
+                    <h3 class="material-title">Фундамент</h3>
+                    <p class="material-subtitle">Основа надежного строительства</p>
+                </div>
+                <div class="material-body">
+                    <ul class="material-list">
+                        <li>
+                            <span class="material-item-name">Арматура</span>
+                            <span class="material-item-arrow">→</span>
+                            <div class="material-specs">A500C, диаметр 8-32мм. ГОСТ 34028-2016. <strong data-price="4">от ...</strong></div>
+                        </li>
+                        <li>
+                            <span class="material-item-name">Цокольный кирпич</span>
+                            <span class="material-item-arrow">→</span>
+                            <div class="material-specs">Клинкерный, керамический. Марка М150-М300. <strong data-price="13">от ...</strong></div>
+                        </li>
+                        <li>
+                            <span class="material-item-name">Бетон</span>
+                            <span class="material-item-arrow">→</span>
+                            <div class="material-specs">М200-М500. Доставка миксером. ГОСТ 26633-2015. <strong data-price="58">от ...</strong></div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="material-footer">
+                    <button class="btn-primary" onclick="openModal(event)">Получить расчет</button>
+                    <div class="contact-buttons">
+                        <a href="tel:600160" class="btn-secondary">Позвонить</a>
+                        <a href="https://t.me/skidkaservis" class="btn-secondary" target="_blank">Telegram</a>
+                        <a href="https://t.me/SSERVICE72_bot" class="btn-secondary" target="_blank">Каталог</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects -->
+    <section class="projects-section" id="projects">
+        <div class="section-header">
+            <div class="section-tag">Наши работы</div>
+            <h2 class="section-title">Реализованные объекты</h2>
+            <p class="section-description">Более 2500 успешно завершенных проектов за 15 лет работы.</p>
+        </div>
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-image">01</div>
+                <div class="project-content">
+                    <h3 class="project-title">Жилой комплекс</h3>
+                    <p class="project-description">Полная поставка материалов для строительства 5-этажного жилого комплекса</p>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-image" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">02</div>
+                <div class="project-content">
+                    <h3 class="project-title">Коттеджный поселок</h3>
+                    <p class="project-description">Комплексное обеспечение материалами строительства 50 коттеджей</p>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-image" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">03</div>
+                <div class="project-content">
+                    <h3 class="project-title">Торговый центр</h3>
+                    <p class="project-description">Поставка стройматериалов для реконструкции торгового центра</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal -->
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Оставить заявку</h3>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="requestForm" onsubmit="submitForm(event)">
+                    <div class="form-group">
+                        <label class="form-label">Ваше имя</label>
+                        <input type="text" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Телефон</label>
+                        <input type="tel" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Тип материала</label>
+                        <select class="form-input">
+                            <option>Кровля</option>
+                            <option>Стены</option>
+                            <option>Фундамент</option>
+                            <option>Другое</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Комментарий</label>
+                        <textarea class="form-input" rows="4"></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary">Отправить заявку</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer" id="contact">
+        <div class="footer-content">
+            <div>
+                <div class="footer-logo">SSERVICE<span>72</span></div>
+                <p class="footer-description">Профессиональный поставщик строительных материалов. Качество, надежность, индивидуальный подход.</p>
+            </div>
+            <div>
+                <h4 class="footer-title">Материалы</h4>
+                <ul class="footer-links">
+                    <li><a href="#materials">Кровля</a></li>
+                    <li><a href="#materials">Стены</a></li>
+                    <li><a href="#materials">Фундамент</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="footer-title">Компания</h4>
+                <ul class="footer-links">
+                    <li><a href="#about">О нас</a></li>
+                    <li><a href="#projects">Проекты</a></li>
+                    <li><a href="#contact">Контакты</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="footer-title">Контакты</h4>
+                <ul class="footer-links">
+                    <li><a href="tel:600160">600-160</a></li>
+                    <li><a href="https://t.me/skidkaservis" target="_blank">Telegram</a></li>
+                    <li><a href="https://t.me/SSERVICE72_bot" target="_blank">Каталог</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 SSERVICE72. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Nav hide on scroll
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            const nav = document.getElementById('nav');
+            
+            if (currentScroll > lastScroll && currentScroll > 100) {
+                nav.classList.add('hidden');
+            } else {
+                nav.classList.remove('hidden');
+            }
+            lastScroll = currentScroll;
+        });
+
+        // Counter animation
+        function animateCounter(element) {
+            const target = parseInt(element.getAttribute('data-target'));
+            const duration = 2000;
+            const step = target / (duration / 16);
+            let current = 0;
+
+            const timer = setInterval(() => {
+                current += step;
+                if (current >= target) {
+                    element.textContent = target + '+';
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(current);
+                }
+            }, 16);
+        }
+
+        // Intersection Observer for animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    
+                    // Animate counters
+                    if (entry.target.classList.contains('stat-number')) {
+                        animateCounter(entry.target);
+                    }
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.material-card, .stat-number').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Modal functions
+        function openModal(e) {
+            e.preventDefault();
+            document.getElementById('modal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('modal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function submitForm(e) {
+            e.preventDefault();
+            alert('Спасибо! Ваша заявка отправлена. Мы свяжемся с вами в ближайшее время.');
+            closeModal();
+        }
+
+        // Close modal on outside click
+        document.getElementById('modal').addEventListener('click', (e) => {
+            if (e.target.id === 'modal') {
+                closeModal();
+            }
+        });
+
+        // Price loading system
+        async function loadPrices() {
+            const priceElements = document.querySelectorAll('[data-price]');
+            
+            for (const element of priceElements) {
+                const rowNumber = element.getAttribute('data-price');
+                try {
+                    const response = await fetch(`https://sservicetmn.ru:5002/api/price_by_row/${rowNumber}`);
+                    if (response.ok) {
+                        const data = await response.json();
+                        if (data.price) {
+                            element.textContent = `от ${data.price}`;
+                        }
+                    }
+                } catch (error) {
+                    console.error(`Failed to load price for row ${rowNumber}:`, error);
+                }
+            }
+        }
+
+        // Load prices on page load
+        window.addEventListener('DOMContentLoaded', loadPrices);
+
+        // Auto-refresh prices every 5 minutes
+        setInterval(loadPrices, 5 * 60 * 1000);
+    </script>
+</body>
+</html>
